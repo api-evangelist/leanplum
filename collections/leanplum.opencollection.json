@@ -1,0 +1,179 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Leanplum API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": { "name": "Events & Tracking", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Start a session (start).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.leanplum.com/api?action=start", "body": { "type": "json", "data": "{\"appId\":\"\",\"clientKey\":\"\",\"apiVersion\":\"1.0.6\",\"userId\":\"\",\"action\":\"start\"}" } },
+          "docs": "Starts a user session and returns the variables presented to the user. Production clientKey."
+        },
+        {
+          "info": { "name": "Track an event (track).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.leanplum.com/api?action=track", "body": { "type": "json", "data": "{\"appId\":\"\",\"clientKey\":\"\",\"apiVersion\":\"1.0.6\",\"userId\":\"\",\"action\":\"track\",\"event\":\"purchase\",\"value\":9.99}" } },
+          "docs": "Tracks a user event with an optional value and custom parameters. Production clientKey."
+        },
+        {
+          "info": { "name": "Advance to a state (advance).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.leanplum.com/api?action=advance", "body": { "type": "json", "data": "{\"appId\":\"\",\"clientKey\":\"\",\"apiVersion\":\"1.0.6\",\"userId\":\"\",\"action\":\"advance\",\"state\":\"checkout\"}" } },
+          "docs": "Advances the user to a named application state. Production clientKey."
+        },
+        {
+          "info": { "name": "Pause session (pauseSession).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.leanplum.com/api?action=pauseSession", "body": { "type": "json", "data": "{\"appId\":\"\",\"clientKey\":\"\",\"apiVersion\":\"1.0.6\",\"userId\":\"\",\"action\":\"pauseSession\"}" } },
+          "docs": "Pauses the current session."
+        },
+        {
+          "info": { "name": "Resume session (resumeSession).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.leanplum.com/api?action=resumeSession", "body": { "type": "json", "data": "{\"appId\":\"\",\"clientKey\":\"\",\"apiVersion\":\"1.0.6\",\"userId\":\"\",\"action\":\"resumeSession\"}" } },
+          "docs": "Resumes a paused session."
+        },
+        {
+          "info": { "name": "Heartbeat (heartbeat).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.leanplum.com/api?action=heartbeat", "body": { "type": "json", "data": "{\"appId\":\"\",\"clientKey\":\"\",\"apiVersion\":\"1.0.6\",\"userId\":\"\",\"action\":\"heartbeat\"}" } },
+          "docs": "Keeps the current session alive."
+        },
+        {
+          "info": { "name": "Stop session (stop).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.leanplum.com/api?action=stop", "body": { "type": "json", "data": "{\"appId\":\"\",\"clientKey\":\"\",\"apiVersion\":\"1.0.6\",\"userId\":\"\",\"action\":\"stop\"}" } },
+          "docs": "Stops the current session."
+        }
+      ]
+    },
+    {
+      "info": { "name": "User & Device Attributes", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Set user attributes (setUserAttributes).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.leanplum.com/api?action=setUserAttributes", "body": { "type": "json", "data": "{\"appId\":\"\",\"clientKey\":\"\",\"apiVersion\":\"1.0.6\",\"userId\":\"\",\"action\":\"setUserAttributes\",\"userAttributes\":{\"plan\":\"pro\"}}" } },
+          "docs": "Sets attributes for the user and/or device. Production clientKey."
+        },
+        {
+          "info": { "name": "Set device attributes (setDeviceAttributes).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.leanplum.com/api?action=setDeviceAttributes", "body": { "type": "json", "data": "{\"appId\":\"\",\"clientKey\":\"\",\"apiVersion\":\"1.0.6\",\"deviceId\":\"\",\"action\":\"setDeviceAttributes\"}" } },
+          "docs": "Sets device-level attributes such as push tokens or locale. Production clientKey."
+        },
+        {
+          "info": { "name": "Set traffic source info (setTrafficSourceInfo).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.leanplum.com/api?action=setTrafficSourceInfo", "body": { "type": "json", "data": "{\"appId\":\"\",\"clientKey\":\"\",\"apiVersion\":\"1.0.6\",\"userId\":\"\",\"action\":\"setTrafficSourceInfo\",\"publisherName\":\"\"}" } },
+          "docs": "Records acquisition/attribution traffic source information for a user."
+        },
+        {
+          "info": { "name": "Delete a user (deleteUser).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.leanplum.com/api?action=deleteUser", "body": { "type": "json", "data": "{\"appId\":\"\",\"clientKey\":\"\",\"apiVersion\":\"1.0.6\",\"userId\":\"\",\"action\":\"deleteUser\"}" } },
+          "docs": "Deletes a user and their associated data. Development clientKey."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Messaging", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Send a message (sendMessage).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.leanplum.com/api?action=sendMessage", "body": { "type": "json", "data": "{\"appId\":\"\",\"clientKey\":\"\",\"apiVersion\":\"1.0.6\",\"userId\":\"\",\"action\":\"sendMessage\",\"messageId\":\"\"}" } },
+          "docs": "Sends a push notification, news-feed, in-app, or other message to a user. Production clientKey."
+        },
+        {
+          "info": { "name": "List messages (getMessages).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.leanplum.com/api?action=getMessages" },
+          "docs": "Lists message campaign definitions. Content read-only clientKey."
+        },
+        {
+          "info": { "name": "Get a message (getMessage).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.leanplum.com/api?action=getMessage", "params": [ { "name": "id", "value": "", "type": "query", "description": "Message id." } ] },
+          "docs": "Returns metadata for one message campaign by id. Content read-only clientKey."
+        }
+      ]
+    },
+    {
+      "info": { "name": "A/B Tests", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List A/B tests (getAbTests).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.leanplum.com/api?action=getAbTests" },
+          "docs": "Lists A/B test experiments. Content read-only clientKey."
+        },
+        {
+          "info": { "name": "Get an A/B test (getAbTest).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.leanplum.com/api?action=getAbTest", "params": [ { "name": "id", "value": "", "type": "query", "description": "A/B test id." } ] },
+          "docs": "Returns a single A/B test experiment by id."
+        },
+        {
+          "info": { "name": "Get a user's variant (getVariant).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.leanplum.com/api?action=getVariant", "params": [ { "name": "userId", "value": "", "type": "query", "description": "User id." } ] },
+          "docs": "Returns the variant assigned to a user."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Content & Variables", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get variables (getVars).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.leanplum.com/api?action=getVars", "params": [ { "name": "userId", "value": "", "type": "query", "description": "User id." } ] },
+          "docs": "Returns the variable values presented to a user or device."
+        },
+        {
+          "info": { "name": "Set variables (setVars).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.leanplum.com/api?action=setVars", "body": { "type": "json", "data": "{\"appId\":\"\",\"clientKey\":\"\",\"apiVersion\":\"1.0.6\",\"action\":\"setVars\",\"vars\":{}}" } },
+          "docs": "Defines the variables used in the Leanplum content management system. Development clientKey."
+        },
+        {
+          "info": { "name": "Download a file (downloadFile).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.leanplum.com/api?action=downloadFile", "params": [ { "name": "filename", "value": "", "type": "query", "description": "Name/path of the file." } ] },
+          "docs": "Downloads a file asset managed in Leanplum."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Data Export", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Export raw data (exportData).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.leanplum.com/api?action=exportData", "params": [ { "name": "startDate", "value": "", "type": "query" }, { "name": "endDate", "value": "", "type": "query" }, { "name": "exportFormat", "value": "csv", "type": "query" } ] },
+          "docs": "Exports raw session/event data to downloadable JSON or CSV. Data export clientKey."
+        },
+        {
+          "info": { "name": "Export users (exportUsers).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.leanplum.com/api?action=exportUsers" },
+          "docs": "Exports user profile data. Data export clientKey."
+        },
+        {
+          "info": { "name": "Export a user (exportUser).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.leanplum.com/api?action=exportUser", "params": [ { "name": "userId", "value": "", "type": "query", "description": "User id." } ] },
+          "docs": "Exports the profile and history for one user. Data export clientKey."
+        },
+        {
+          "info": { "name": "Export a report (exportReport).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.leanplum.com/api?action=exportReport" },
+          "docs": "Exports messaging and A/B test reports. Data export clientKey."
+        },
+        {
+          "info": { "name": "Get job status (getMultiResults).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.leanplum.com/api?action=getMultiResults", "params": [ { "name": "jobId", "value": "", "type": "query", "description": "Export/import job id." } ] },
+          "docs": "Returns the status of an asynchronous export/import job."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Postbacks & Batch", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Add a postback (addPostback).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.leanplum.com/api?action=addPostback", "body": { "type": "json", "data": "{\"appId\":\"\",\"clientKey\":\"\",\"apiVersion\":\"1.0.6\",\"action\":\"addPostback\",\"url\":\"\"}" } },
+          "docs": "Registers an HTTP postback (webhook) callback."
+        },
+        {
+          "info": { "name": "Batch actions (multi).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.leanplum.com/api?action=multi", "body": { "type": "json", "data": "{\"appId\":\"\",\"clientKey\":\"\",\"apiVersion\":\"1.0.6\",\"action\":\"multi\",\"data\":[{\"action\":\"track\",\"userId\":\"\",\"event\":\"open\"}]}" } },
+          "docs": "Batches multiple actions into one call. Limit: 50 users / 500 actions; exceeding returns 403."
+        }
+      ]
+    }
+  ]
+}

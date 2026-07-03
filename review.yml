@@ -1,0 +1,141 @@
+aid: leanplum
+name: Leanplum
+review:
+  question: Does Leanplum expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-03'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Leanplum's entire public API surface is a
+    single action-dispatched REST endpoint at https://api.leanplum.com/api, spoken
+    over request/response HTTPS with GET or POST. There is no server-push transport
+    (WebSocket or SSE) on Leanplum's own API to model. Leanplum's realtime-ish
+    behaviors are delivered out-of-band: push notifications go through APNs/FCM,
+    and event data leaves the platform via asynchronous file exports (exportData /
+    exportReport) or HTTP postbacks (addPostback) - none of which are a WebSocket
+    stream on Leanplum's API.
+operatingStatus:
+  status: active-legacy-migrating
+  summary: |
+    Leanplum is operational but in a managed-decline / migration posture. It was
+    acquired by CleverTap in 2022 and now operates as "Leanplum by CleverTap."
+    The documentation (docs.leanplum.com) and REST API remain live, and SDKs are
+    still being updated (Android SDK 7.x, iOS SDK 6.x, Unity SDK 6.x). CleverTap
+    is migrating Leanplum customers onto the CleverTap platform via a manual,
+    Customer Success-driven process and has wrapped CleverTap's own methods behind
+    the Leanplum API surface to keep existing integrations working during the
+    transition. The public leanplum.com status page (status.leanplum.com) is
+    inactive. New customers are generally directed to CleverTap; existing Leanplum
+    integrations continue to function against api.leanplum.com.
+  acquired:
+    by: CleverTap
+    year: 2022
+  apiActive: true
+findings:
+  summary: |
+    Leanplum does not publish a documented public WebSocket API. Leanplum (now
+    Leanplum by CleverTap) is a mobile marketing and customer engagement platform.
+    Its whole public API is one action-based REST endpoint,
+    https://api.leanplum.com/api, where the operation is chosen by an `action`
+    parameter (for example action=track, action=sendMessage, action=exportData).
+    Requests may be GET (arguments as query parameters) or POST (JSON or multipart
+    body) and are authenticated with an `appId` plus a permission-scoped
+    `clientKey` (production, development, data export, or content read-only) and an
+    `apiVersion`. Multiple actions can be batched with the `multi` method (max 50
+    users / 500 actions per call; over-limit calls return 403). No realtime,
+    bidirectional, or streaming WebSocket (ws:// or wss://) endpoint is documented
+    anywhere in the Leanplum API reference.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.leanplum.com/api
+      documented: true
+      note: Single action-dispatched endpoint; GET or POST. All operations run here.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: addPostback registers an HTTP postback (server-to-endpoint callback), not a WebSocket.
+    - protocol: File Export
+      scheme: https
+      documented: true
+      note: exportData / exportReport produce downloadable JSON/CSV files asynchronously; poll getMultiResults. Not a stream.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Leanplum's API reference as of the review date.
+  endpointsConfirmedRest:
+    - POST https://api.leanplum.com/api?action=start
+    - POST https://api.leanplum.com/api?action=pauseSession
+    - POST https://api.leanplum.com/api?action=resumeSession
+    - POST https://api.leanplum.com/api?action=heartbeat
+    - POST https://api.leanplum.com/api?action=stop
+    - POST https://api.leanplum.com/api?action=track
+    - POST https://api.leanplum.com/api?action=advance
+    - POST https://api.leanplum.com/api?action=setUserAttributes
+    - POST https://api.leanplum.com/api?action=setDeviceAttributes
+    - POST https://api.leanplum.com/api?action=setTrafficSourceInfo
+    - POST https://api.leanplum.com/api?action=deleteUser
+    - POST https://api.leanplum.com/api?action=sendMessage
+    - GET  https://api.leanplum.com/api?action=getMessages
+    - GET  https://api.leanplum.com/api?action=getMessage
+    - GET  https://api.leanplum.com/api?action=getAbTests
+    - GET  https://api.leanplum.com/api?action=getAbTest
+    - GET  https://api.leanplum.com/api?action=getVariant
+    - GET  https://api.leanplum.com/api?action=getVars
+    - POST https://api.leanplum.com/api?action=setVars
+    - GET  https://api.leanplum.com/api?action=downloadFile
+    - GET  https://api.leanplum.com/api?action=exportData
+    - GET  https://api.leanplum.com/api?action=exportUsers
+    - GET  https://api.leanplum.com/api?action=exportUser
+    - GET  https://api.leanplum.com/api?action=exportReport
+    - GET  https://api.leanplum.com/api?action=getMultiResults
+    - POST https://api.leanplum.com/api?action=addPostback
+    - POST https://api.leanplum.com/api?action=multi
+  endpointsModeled:
+    - note: >-
+        Method names above are confirmed from the public Leanplum API reference
+        (docs.leanplum.com/reference). The request/response body schemas in
+        openapi/leanplum-openapi.yml (e.g. TrackRequest, SendMessageRequest,
+        SetUserAttributesRequest, MultiRequest) are modeled representations and
+        should be reconciled against the live per-method reference pages and the
+        OpenAPI published behind docs.leanplum.com/llms.txt.
+sources:
+  - url: https://docs.leanplum.com/reference/making-requests
+    type: Documentation
+    note: Base URL https://api.leanplum.com/api; GET/POST; appId + clientKey + apiVersion + userId + action. All REST.
+  - url: https://docs.leanplum.com/reference/authentication
+    type: Documentation
+    note: clientKey types - production, development, data export, content read-only.
+  - url: https://docs.leanplum.com/reference/api-methods
+    type: APIReference
+    note: Method index grouped into User Behavior, User Information, Messages, A/B Tests, Files and Variables, Export data, Import Data.
+  - url: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
+    type: APIReference
+    note: track (and advance) for server-side event tracking.
+  - url: https://docs.leanplum.com/reference/post_api-action-sendmessage
+    type: APIReference
+    note: sendMessage sends push/news-feed/in-app messages; production clientKey.
+  - url: https://docs.leanplum.com/reference/get_api-action-exportdata
+    type: APIReference
+    note: exportData writes raw data to downloadable JSON/CSV; data export clientKey.
+  - url: https://docs.leanplum.com/reference/batching-requests
+    type: Documentation
+    note: multi limited to 50 users / 500 actions; 403 on exceed; each unique user lookup is a billable API call. No WebSocket.
+  - url: https://clevertap.com/blog/clevertap-welcomes-leanplum/
+    type: Reference
+    note: CleverTap acquisition of Leanplum (2022); operating as Leanplum by CleverTap; customer migration to CleverTap.
+  - url: https://status.leanplum.com/
+    type: Reference
+    note: Leanplum public status page is inactive as of the review date.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. Leanplum's own public API is a single
+    action-dispatched request/response REST endpoint, plus HTTP postbacks and
+    asynchronous file exports. No AsyncAPI document was created because there is no
+    server-push (WebSocket or SSE) transport on Leanplum's own API to model.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

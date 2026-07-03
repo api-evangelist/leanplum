@@ -1,0 +1,87 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Leanplum
+providerId: leanplum
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Mobile Marketing
+- Customer Engagement
+- Messaging
+- A/B Testing
+- Plans
+description: >-
+  Leanplum (Leanplum by CleverTap) does not publish public self-serve pricing.
+  It is sold as an enterprise mobile marketing and engagement platform through
+  a sales-led motion, with plans scoped to monthly tracked/active users,
+  message volume, channels enabled (push, in-app, email, web), and data
+  retention/export needs. Since the 2022 CleverTap acquisition, commercial terms
+  and renewals are increasingly handled through CleverTap as customers are
+  migrated onto the CleverTap platform. The REST API itself is included with a
+  platform subscription rather than priced separately, though multi/user lookups
+  are metered as billable API calls.
+notes: >-
+  Exact tier names and rates are not public and are not reconciled here. Pricing
+  is quote-based - contact Leanplum/CleverTap sales. Prospective customers should
+  confirm whether new contracts are written on Leanplum or migrated to CleverTap.
+sources:
+- https://www.leanplum.com
+- https://docs.leanplum.com/reference/making-requests
+- https://docs.leanplum.com/reference/batching-requests
+- https://clevertap.com/blog/clevertap-welcomes-leanplum/
+plans:
+- id: leanplum-platform
+  name: Leanplum Platform (Contact Sales)
+  type: enterprise
+  description: >-
+    Sales-led subscription to the Leanplum mobile marketing and engagement
+    platform - push, in-app, email, and web messaging, behavioral analytics,
+    A/B testing, and remote content configuration - with full REST API access.
+    Priced by tracked/active users, message volume, and enabled channels.
+  entries:
+  - label: Platform Subscription
+    name: platform_subscription
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Push Notifications
+  - name: In-App and Email Messaging
+  - name: Behavioral Analytics
+  - name: A/B Testing
+  - name: Remote Content Variables
+  - name: REST API Access
+  - name: Data Export
+- id: leanplum-clevertap-migration
+  name: CleverTap Migration Path
+  type: enterprise
+  description: >-
+    Existing Leanplum customers are migrated onto the CleverTap platform via a
+    Customer Success-driven, manual process. CleverTap has wrapped its own
+    methods behind the Leanplum API surface so integrations continue to work
+    during and after migration. Commercial terms are negotiated with CleverTap.
+  entries:
+  - label: Migration / CleverTap Agreement
+    name: clevertap_agreement
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Managed Migration to CleverTap
+  - name: Leanplum API Compatibility Layer
+  - name: Customer Success Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

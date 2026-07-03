@@ -1,0 +1,310 @@
+{
+  "info": {
+    "name": "Leanplum API",
+    "description": "The Leanplum (Leanplum by CleverTap) REST API. All requests go to https://api.leanplum.com/api and are dispatched by an `action` parameter that names the method. Every request carries appId, a permission-scoped clientKey (production, development, data export, or content read-only), and apiVersion; most also carry a userId and/or deviceId. Leanplum was acquired by CleverTap in 2022; the API remains active while customers migrate to CleverTap.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.leanplum.com/api", "type": "string" },
+    { "key": "appId", "value": "", "type": "string" },
+    { "key": "clientKey", "value": "", "type": "string" },
+    { "key": "apiVersion", "value": "1.0.6", "type": "string" },
+    { "key": "userId", "value": "", "type": "string" },
+    { "key": "deviceId", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Events & Tracking",
+      "item": [
+        {
+          "name": "Start a session (start)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"appId\": \"{{appId}}\",\n  \"clientKey\": \"{{clientKey}}\",\n  \"apiVersion\": \"{{apiVersion}}\",\n  \"userId\": \"{{userId}}\",\n  \"action\": \"start\"\n}" },
+            "url": { "raw": "{{baseUrl}}?action=start", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "start" }] },
+            "description": "Starts a user session and returns the variables presented to the user. Production clientKey."
+          }
+        },
+        {
+          "name": "Track an event (track)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"appId\": \"{{appId}}\",\n  \"clientKey\": \"{{clientKey}}\",\n  \"apiVersion\": \"{{apiVersion}}\",\n  \"userId\": \"{{userId}}\",\n  \"action\": \"track\",\n  \"event\": \"purchase\",\n  \"value\": 9.99,\n  \"params\": {}\n}" },
+            "url": { "raw": "{{baseUrl}}?action=track", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "track" }] },
+            "description": "Tracks a user event with an optional value and custom parameters. Production clientKey."
+          }
+        },
+        {
+          "name": "Advance to a state (advance)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"appId\": \"{{appId}}\",\n  \"clientKey\": \"{{clientKey}}\",\n  \"apiVersion\": \"{{apiVersion}}\",\n  \"userId\": \"{{userId}}\",\n  \"action\": \"advance\",\n  \"state\": \"checkout\"\n}" },
+            "url": { "raw": "{{baseUrl}}?action=advance", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "advance" }] },
+            "description": "Advances the user to a named application state. Production clientKey."
+          }
+        },
+        {
+          "name": "Pause session (pauseSession)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"appId\": \"{{appId}}\",\n  \"clientKey\": \"{{clientKey}}\",\n  \"apiVersion\": \"{{apiVersion}}\",\n  \"userId\": \"{{userId}}\",\n  \"action\": \"pauseSession\"\n}" },
+            "url": { "raw": "{{baseUrl}}?action=pauseSession", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "pauseSession" }] },
+            "description": "Pauses the current session."
+          }
+        },
+        {
+          "name": "Resume session (resumeSession)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"appId\": \"{{appId}}\",\n  \"clientKey\": \"{{clientKey}}\",\n  \"apiVersion\": \"{{apiVersion}}\",\n  \"userId\": \"{{userId}}\",\n  \"action\": \"resumeSession\"\n}" },
+            "url": { "raw": "{{baseUrl}}?action=resumeSession", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "resumeSession" }] },
+            "description": "Resumes a paused session."
+          }
+        },
+        {
+          "name": "Heartbeat (heartbeat)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"appId\": \"{{appId}}\",\n  \"clientKey\": \"{{clientKey}}\",\n  \"apiVersion\": \"{{apiVersion}}\",\n  \"userId\": \"{{userId}}\",\n  \"action\": \"heartbeat\"\n}" },
+            "url": { "raw": "{{baseUrl}}?action=heartbeat", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "heartbeat" }] },
+            "description": "Keeps the current session alive."
+          }
+        },
+        {
+          "name": "Stop session (stop)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"appId\": \"{{appId}}\",\n  \"clientKey\": \"{{clientKey}}\",\n  \"apiVersion\": \"{{apiVersion}}\",\n  \"userId\": \"{{userId}}\",\n  \"action\": \"stop\"\n}" },
+            "url": { "raw": "{{baseUrl}}?action=stop", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "stop" }] },
+            "description": "Stops the current session."
+          }
+        }
+      ]
+    },
+    {
+      "name": "User & Device Attributes",
+      "item": [
+        {
+          "name": "Set user attributes (setUserAttributes)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"appId\": \"{{appId}}\",\n  \"clientKey\": \"{{clientKey}}\",\n  \"apiVersion\": \"{{apiVersion}}\",\n  \"userId\": \"{{userId}}\",\n  \"action\": \"setUserAttributes\",\n  \"userAttributes\": { \"plan\": \"pro\" }\n}" },
+            "url": { "raw": "{{baseUrl}}?action=setUserAttributes", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "setUserAttributes" }] },
+            "description": "Sets attributes for the user and/or device. Production clientKey."
+          }
+        },
+        {
+          "name": "Set device attributes (setDeviceAttributes)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"appId\": \"{{appId}}\",\n  \"clientKey\": \"{{clientKey}}\",\n  \"apiVersion\": \"{{apiVersion}}\",\n  \"deviceId\": \"{{deviceId}}\",\n  \"action\": \"setDeviceAttributes\"\n}" },
+            "url": { "raw": "{{baseUrl}}?action=setDeviceAttributes", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "setDeviceAttributes" }] },
+            "description": "Sets device-level attributes such as push tokens or locale. Production clientKey."
+          }
+        },
+        {
+          "name": "Set traffic source info (setTrafficSourceInfo)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"appId\": \"{{appId}}\",\n  \"clientKey\": \"{{clientKey}}\",\n  \"apiVersion\": \"{{apiVersion}}\",\n  \"userId\": \"{{userId}}\",\n  \"action\": \"setTrafficSourceInfo\",\n  \"publisherName\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}?action=setTrafficSourceInfo", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "setTrafficSourceInfo" }] },
+            "description": "Records acquisition/attribution traffic source information for a user."
+          }
+        },
+        {
+          "name": "Delete a user (deleteUser)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"appId\": \"{{appId}}\",\n  \"clientKey\": \"{{clientKey}}\",\n  \"apiVersion\": \"{{apiVersion}}\",\n  \"userId\": \"{{userId}}\",\n  \"action\": \"deleteUser\"\n}" },
+            "url": { "raw": "{{baseUrl}}?action=deleteUser", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "deleteUser" }] },
+            "description": "Deletes a user and their associated data. Development clientKey."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Messaging",
+      "item": [
+        {
+          "name": "Send a message (sendMessage)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"appId\": \"{{appId}}\",\n  \"clientKey\": \"{{clientKey}}\",\n  \"apiVersion\": \"{{apiVersion}}\",\n  \"userId\": \"{{userId}}\",\n  \"action\": \"sendMessage\",\n  \"messageId\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}?action=sendMessage", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "sendMessage" }] },
+            "description": "Sends a push notification, news-feed, in-app, or other message to a user. Production clientKey."
+          }
+        },
+        {
+          "name": "List messages (getMessages)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}?action=getMessages&appId={{appId}}&clientKey={{clientKey}}&apiVersion={{apiVersion}}", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "getMessages" }, { "key": "appId", "value": "{{appId}}" }, { "key": "clientKey", "value": "{{clientKey}}" }, { "key": "apiVersion", "value": "{{apiVersion}}" }] },
+            "description": "Lists message campaign definitions. Content read-only clientKey."
+          }
+        },
+        {
+          "name": "Get a message (getMessage)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}?action=getMessage&appId={{appId}}&clientKey={{clientKey}}&apiVersion={{apiVersion}}&id=", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "getMessage" }, { "key": "appId", "value": "{{appId}}" }, { "key": "clientKey", "value": "{{clientKey}}" }, { "key": "apiVersion", "value": "{{apiVersion}}" }, { "key": "id", "value": "" }] },
+            "description": "Returns metadata for one message campaign by id. Content read-only clientKey."
+          }
+        }
+      ]
+    },
+    {
+      "name": "A/B Tests",
+      "item": [
+        {
+          "name": "List A/B tests (getAbTests)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}?action=getAbTests&appId={{appId}}&clientKey={{clientKey}}&apiVersion={{apiVersion}}", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "getAbTests" }, { "key": "appId", "value": "{{appId}}" }, { "key": "clientKey", "value": "{{clientKey}}" }, { "key": "apiVersion", "value": "{{apiVersion}}" }] },
+            "description": "Lists A/B test experiments. Content read-only clientKey."
+          }
+        },
+        {
+          "name": "Get an A/B test (getAbTest)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}?action=getAbTest&appId={{appId}}&clientKey={{clientKey}}&apiVersion={{apiVersion}}&id=", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "getAbTest" }, { "key": "appId", "value": "{{appId}}" }, { "key": "clientKey", "value": "{{clientKey}}" }, { "key": "apiVersion", "value": "{{apiVersion}}" }, { "key": "id", "value": "" }] },
+            "description": "Returns a single A/B test experiment by id."
+          }
+        },
+        {
+          "name": "Get a user's variant (getVariant)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}?action=getVariant&appId={{appId}}&clientKey={{clientKey}}&apiVersion={{apiVersion}}&userId={{userId}}", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "getVariant" }, { "key": "appId", "value": "{{appId}}" }, { "key": "clientKey", "value": "{{clientKey}}" }, { "key": "apiVersion", "value": "{{apiVersion}}" }, { "key": "userId", "value": "{{userId}}" }] },
+            "description": "Returns the variant assigned to a user."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Content & Variables",
+      "item": [
+        {
+          "name": "Get variables (getVars)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}?action=getVars&appId={{appId}}&clientKey={{clientKey}}&apiVersion={{apiVersion}}&userId={{userId}}", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "getVars" }, { "key": "appId", "value": "{{appId}}" }, { "key": "clientKey", "value": "{{clientKey}}" }, { "key": "apiVersion", "value": "{{apiVersion}}" }, { "key": "userId", "value": "{{userId}}" }] },
+            "description": "Returns the variable values presented to a user or device."
+          }
+        },
+        {
+          "name": "Set variables (setVars)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"appId\": \"{{appId}}\",\n  \"clientKey\": \"{{clientKey}}\",\n  \"apiVersion\": \"{{apiVersion}}\",\n  \"action\": \"setVars\",\n  \"vars\": {}\n}" },
+            "url": { "raw": "{{baseUrl}}?action=setVars", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "setVars" }] },
+            "description": "Defines the variables used in the Leanplum content management system. Development clientKey."
+          }
+        },
+        {
+          "name": "Download a file (downloadFile)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}?action=downloadFile&appId={{appId}}&clientKey={{clientKey}}&apiVersion={{apiVersion}}&filename=", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "downloadFile" }, { "key": "appId", "value": "{{appId}}" }, { "key": "clientKey", "value": "{{clientKey}}" }, { "key": "apiVersion", "value": "{{apiVersion}}" }, { "key": "filename", "value": "" }] },
+            "description": "Downloads a file asset managed in Leanplum."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Data Export",
+      "item": [
+        {
+          "name": "Export raw data (exportData)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}?action=exportData&appId={{appId}}&clientKey={{clientKey}}&apiVersion={{apiVersion}}&startDate=&endDate=&exportFormat=csv", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "exportData" }, { "key": "appId", "value": "{{appId}}" }, { "key": "clientKey", "value": "{{clientKey}}" }, { "key": "apiVersion", "value": "{{apiVersion}}" }, { "key": "startDate", "value": "" }, { "key": "endDate", "value": "" }, { "key": "exportFormat", "value": "csv" }] },
+            "description": "Exports raw session/event data to downloadable JSON or CSV. Data export clientKey."
+          }
+        },
+        {
+          "name": "Export users (exportUsers)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}?action=exportUsers&appId={{appId}}&clientKey={{clientKey}}&apiVersion={{apiVersion}}", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "exportUsers" }, { "key": "appId", "value": "{{appId}}" }, { "key": "clientKey", "value": "{{clientKey}}" }, { "key": "apiVersion", "value": "{{apiVersion}}" }] },
+            "description": "Exports user profile data. Data export clientKey."
+          }
+        },
+        {
+          "name": "Export a user (exportUser)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}?action=exportUser&appId={{appId}}&clientKey={{clientKey}}&apiVersion={{apiVersion}}&userId={{userId}}", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "exportUser" }, { "key": "appId", "value": "{{appId}}" }, { "key": "clientKey", "value": "{{clientKey}}" }, { "key": "apiVersion", "value": "{{apiVersion}}" }, { "key": "userId", "value": "{{userId}}" }] },
+            "description": "Exports the profile and history for one user. Data export clientKey."
+          }
+        },
+        {
+          "name": "Export a report (exportReport)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}?action=exportReport&appId={{appId}}&clientKey={{clientKey}}&apiVersion={{apiVersion}}", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "exportReport" }, { "key": "appId", "value": "{{appId}}" }, { "key": "clientKey", "value": "{{clientKey}}" }, { "key": "apiVersion", "value": "{{apiVersion}}" }] },
+            "description": "Exports messaging and A/B test reports. Data export clientKey."
+          }
+        },
+        {
+          "name": "Get job status (getMultiResults)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}?action=getMultiResults&appId={{appId}}&clientKey={{clientKey}}&apiVersion={{apiVersion}}&jobId=", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "getMultiResults" }, { "key": "appId", "value": "{{appId}}" }, { "key": "clientKey", "value": "{{clientKey}}" }, { "key": "apiVersion", "value": "{{apiVersion}}" }, { "key": "jobId", "value": "" }] },
+            "description": "Returns the status of an asynchronous export/import job."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Postbacks & Batch",
+      "item": [
+        {
+          "name": "Add a postback (addPostback)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"appId\": \"{{appId}}\",\n  \"clientKey\": \"{{clientKey}}\",\n  \"apiVersion\": \"{{apiVersion}}\",\n  \"action\": \"addPostback\",\n  \"url\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}?action=addPostback", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "addPostback" }] },
+            "description": "Registers an HTTP postback (webhook) callback."
+          }
+        },
+        {
+          "name": "Batch actions (multi)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"appId\": \"{{appId}}\",\n  \"clientKey\": \"{{clientKey}}\",\n  \"apiVersion\": \"{{apiVersion}}\",\n  \"action\": \"multi\",\n  \"data\": [\n    { \"action\": \"track\", \"userId\": \"{{userId}}\", \"event\": \"open\" }\n  ]\n}" },
+            "url": { "raw": "{{baseUrl}}?action=multi", "host": ["{{baseUrl}}"], "query": [{ "key": "action", "value": "multi" }] },
+            "description": "Batches multiple actions into one call. Limit: 50 users / 500 actions; exceeding returns 403."
+          }
+        }
+      ]
+    }
+  ]
+}

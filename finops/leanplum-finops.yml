@@ -1,0 +1,101 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Leanplum
+providerId: leanplum
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Mobile Marketing
+- Customer Engagement
+- Messaging
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Leanplum (Leanplum by CleverTap) spend. Leanplum is an
+  enterprise, sales-led SaaS platform with no public per-unit pricing; cost is a
+  negotiated annual subscription scoped to tracked/active users, message volume,
+  and enabled channels (push, in-app, email, web). The REST API is included in
+  the subscription, but usage carries a metering dimension: each unique user
+  lookup in an API request is a billable API call, so high-volume server-side
+  integrations affect cost. Following the 2022 CleverTap acquisition, invoicing
+  and renewals increasingly flow through CleverTap as accounts migrate onto the
+  CleverTap platform.
+notes: >-
+  Per-unit rates are not public and are not reconciled here; obtain a quote from
+  Leanplum/CleverTap. The main controllable API cost driver is billable unique
+  user lookups - batch efficiently with multi and avoid redundant per-user calls.
+  Confirm whether the billing entity is Leanplum or CleverTap for the account.
+sources:
+- https://www.leanplum.com
+- https://docs.leanplum.com/reference/batching-requests
+- https://clevertap.com/blog/clevertap-welcomes-leanplum/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Leanplum (CleverTap)
+serviceCategory: Marketing and Customer Engagement
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Annual
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+focusColumns:
+  ServiceName: Leanplum
+  ServiceCategory: Marketing and Customer Engagement
+  ProviderName: Leanplum
+  PublisherName: CleverTap
+  InvoiceIssuerName: CleverTap
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription-Based
+meters:
+- name: tracked_users
+  description: Monthly tracked / active users, the primary contract sizing dimension.
+  unit: users
+  aggregation: max
+  dimensions:
+  - account
+  - app
+- name: messages_sent
+  description: Push, in-app, email, and web messages delivered via sendMessage and campaigns.
+  unit: messages
+  aggregation: sum
+  dimensions:
+  - account
+  - app
+  - channel
+- name: billable_user_lookups
+  description: Unique user lookups in API requests; each unique lookup is a billable API call.
+  unit: lookups
+  aggregation: sum
+  dimensions:
+  - account
+  - app
+- name: data_export_volume
+  description: Volume of raw data exported via exportData / exportReport jobs.
+  unit: records
+  aggregation: sum
+  dimensions:
+  - account
+  - app
+principles:
+- name: Visibility
+  description: Track tracked-user counts, message volume by channel, and billable unique user lookups per app so platform cost drivers are visible.
+- name: Allocation
+  description: Map apps and campaigns to teams/products so subscription and messaging costs allocate to the owning cost center.
+- name: Optimization
+  description: Batch API work with multi (up to 50 users / 500 actions) to minimize billable unique user lookups; prune inactive users to control tracked-user sizing; scope exports to needed date ranges.
+- name: Accountability
+  description: Review the annual subscription against actual tracked users and message volume at renewal; confirm the billing entity (Leanplum vs CleverTap) and migration status.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

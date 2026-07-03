@@ -1,0 +1,189 @@
+aid: leanplum
+url: https://raw.githubusercontent.com/api-evangelist/leanplum/refs/heads/main/apis.yml
+name: Leanplum
+kind: company
+description: Leanplum is a mobile marketing and multichannel customer engagement platform
+  offering push notifications, in-app and email messaging, behavioral event tracking
+  and analytics, A/B testing, and remotely configurable content variables. Leanplum
+  was acquired by CleverTap in 2022 and now operates as "Leanplum by CleverTap"; the
+  brand and its documented REST API remain active while customers are migrated onto
+  the CleverTap platform (CleverTap has wrapped its own methods behind the Leanplum
+  API surface to smooth that transition). All API requests are made to
+  https://api.leanplum.com/api and authenticated with an appId plus an operation-specific
+  clientKey (production, development, data export, or content read-only).
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Mobile Marketing
+- Customer Engagement
+- Push Notifications
+- Messaging
+- A/B Testing
+- Analytics
+- CleverTap
+created: '2026-07-03'
+modified: '2026-07-03'
+specificationVersion: '0.19'
+apis:
+- aid: leanplum:leanplum-events-tracking-api
+  name: Leanplum Events & Tracking API
+  tags:
+  - Events
+  - Tracking
+  - Analytics
+  - Sessions
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
+  baseURL: https://api.leanplum.com/api
+  properties:
+  - url: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
+    type: Documentation
+  - url: https://docs.leanplum.com/reference/api-methods
+    type: APIReference
+  - url: openapi/leanplum-openapi.yml
+    type: OpenAPI
+  description: Server-side behavioral tracking. Start and manage user sessions (start,
+    pauseSession, resumeSession, heartbeat, stop) and record events and application
+    states with track and advance, sending event names, values, and custom parameters
+    into Leanplum analytics. Requires the production clientKey.
+- aid: leanplum:leanplum-user-attributes-api
+  name: Leanplum User & Device Attributes API
+  tags:
+  - User Attributes
+  - Devices
+  - Segmentation
+  - Audiences
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.leanplum.com/reference/post_api-action-setuserattributes
+  baseURL: https://api.leanplum.com/api
+  properties:
+  - url: https://docs.leanplum.com/reference/selecting-a-user
+    type: Documentation
+  - url: https://docs.leanplum.com/reference/post_api-action-setuserattributes
+    type: APIReference
+  - url: openapi/leanplum-openapi.yml
+    type: OpenAPI
+  description: Set and manage the user and device profile attributes that drive
+    segmentation and audience targeting - setUserAttributes, setDeviceAttributes,
+    and setTrafficSourceInfo - and remove users with deleteUser. Attribute writes use
+    the production clientKey; deleteUser requires the development clientKey.
+- aid: leanplum:leanplum-messaging-api
+  name: Leanplum Messaging API
+  tags:
+  - Messaging
+  - Push Notifications
+  - In-App
+  - Campaigns
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.leanplum.com/reference/post_api-action-sendmessage
+  baseURL: https://api.leanplum.com/api
+  properties:
+  - url: https://docs.leanplum.com/reference/post_api-action-sendmessage
+    type: APIReference
+  - url: https://docs.leanplum.com/reference/api-methods
+    type: Documentation
+  - url: openapi/leanplum-openapi.yml
+    type: OpenAPI
+  description: Trigger and inspect outbound messages. sendMessage delivers a push
+    notification, news-feed, in-app, or other message to a user (production clientKey),
+    while getMessages and getMessage retrieve message campaign definitions and metadata
+    using the content read-only clientKey.
+- aid: leanplum:leanplum-ab-tests-api
+  name: Leanplum A/B Tests API
+  tags:
+  - A/B Testing
+  - Experiments
+  - Variants
+  - Optimization
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.leanplum.com/reference/api-methods
+  baseURL: https://api.leanplum.com/api
+  properties:
+  - url: https://docs.leanplum.com/reference/api-methods
+    type: APIReference
+  - url: openapi/leanplum-openapi.yml
+    type: OpenAPI
+  description: Read A/B test experiments and their variants - getAbTests lists
+    experiments, getAbTest returns a single experiment, and getVariant returns the
+    variant assigned to a user. Uses the content read-only clientKey.
+- aid: leanplum:leanplum-content-variables-api
+  name: Leanplum Content & Variables API
+  tags:
+  - Variables
+  - Content
+  - Files
+  - Remote Config
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.leanplum.com/reference/get_api-action-getvars
+  baseURL: https://api.leanplum.com/api
+  properties:
+  - url: https://docs.leanplum.com/reference/accessing-content-via-the-api
+    type: Documentation
+  - url: https://docs.leanplum.com/reference/get_api-action-getvars
+    type: APIReference
+  - url: openapi/leanplum-openapi.yml
+    type: OpenAPI
+  description: Manage remotely configurable content. getVars returns the variables
+    and values presented to a user or device, setVars defines the variable set in the
+    Leanplum content management system (development clientKey), and downloadFile
+    retrieves a file asset managed in Leanplum.
+- aid: leanplum:leanplum-data-export-api
+  name: Leanplum Data Export API
+  tags:
+  - Data Export
+  - Reports
+  - Analytics
+  - Bulk
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.leanplum.com/reference/get_api-action-exportdata
+  baseURL: https://api.leanplum.com/api
+  properties:
+  - url: https://docs.leanplum.com/reference/export-data
+    type: Documentation
+  - url: https://docs.leanplum.com/reference/get_api-action-exportdata
+    type: APIReference
+  - url: openapi/leanplum-openapi.yml
+    type: OpenAPI
+  description: Bulk export of raw analytics and reporting data. exportData writes raw
+    session and event data to downloadable JSON or CSV files, exportUsers and exportUser
+    export user profiles, exportReport pulls messaging and A/B test reports, and
+    getMultiResults checks the status of an asynchronous export/import job. Requires
+    the data export clientKey.
+- aid: leanplum:leanplum-postbacks-api
+  name: Leanplum Postbacks & Batch API
+  tags:
+  - Postbacks
+  - Webhooks
+  - Batch
+  - Multi
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.leanplum.com/reference/batching-requests
+  baseURL: https://api.leanplum.com/api
+  properties:
+  - url: https://docs.leanplum.com/reference/batching-requests
+    type: Documentation
+  - url: https://docs.leanplum.com/reference/multi-json
+    type: APIReference
+  - url: openapi/leanplum-openapi.yml
+    type: OpenAPI
+  description: Operational plumbing for the API. addPostback registers an HTTP
+    postback (webhook) callback, and multi batches up to 50 users and/or 500 actions
+    into a single request for efficient server-side integration (batches exceeding
+    the limit return 403).
+common:
+- type: GitHubOrganization
+  url: https://github.com/Leanplum
+- type: LinkedIn
+  url: https://www.linkedin.com/company/leanplum
+- type: Website
+  url: https://www.leanplum.com
+- type: Documentation
+  url: https://docs.leanplum.com
+- type: Plans
+  url: plans/leanplum-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/leanplum-rate-limits.yml
+- type: FinOps
+  url: finops/leanplum-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

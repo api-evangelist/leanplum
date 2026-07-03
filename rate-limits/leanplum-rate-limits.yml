@@ -1,0 +1,65 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Leanplum
+providerId: leanplum
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Mobile Marketing
+- Customer Engagement
+- Messaging
+- Rate Limiting
+- Quotas
+description: >-
+  Leanplum does not publish global per-minute numeric rate limits for its REST
+  API. The one hard, documented constraint is on the multi (batching) method: a
+  single multi call is limited to 50 users and/or 500 actions, and any call that
+  exceeds this limit is ignored and returns HTTP 403. Each unique user lookup in
+  a request counts as a separate billable API call, and concurrent requests
+  touching the same users (from the SDK or API) are queued and executed after an
+  in-flight multi batch completes. Beyond the multi limit, throughput is governed
+  by account/contract terms rather than a public per-endpoint cap.
+notes: >-
+  Numeric per-account request-rate limits are not documented as of the review
+  date. Design server-side integrations around the multi batching limits (batch
+  up to 50 users / 500 actions), implement retry with backoff on 403, and confirm
+  account-specific throughput with Leanplum/CleverTap.
+sources:
+- https://docs.leanplum.com/reference/batching-requests
+- https://docs.leanplum.com/reference/multi-json
+- https://docs.leanplum.com/reference/making-requests
+responseCodes:
+  throttled: 403
+limits:
+- name: Multi Batch - Users
+  scope: request
+  metric: users
+  limit: 50
+  notes: A single multi call may reference at most 50 users; exceeding this returns 403 and the call is ignored.
+- name: Multi Batch - Actions
+  scope: request
+  metric: actions
+  limit: 500
+  notes: A single multi call may contain at most 500 actions; exceeding this returns 403 and the call is ignored.
+- name: GET Request URL Length
+  scope: request
+  metric: characters
+  limit: 2083
+  notes: GET requests are bounded by a ~2,083 character URL limit; use POST for larger payloads.
+- name: Account Throughput
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No fixed numeric per-account request-rate limit is documented; throughput is governed by contract terms.
+policies:
+- name: Billable User Lookups
+  description: Each unique user lookup in a request is counted as a billable API call, so batching users efficiently controls both throughput and cost.
+- name: Concurrent Request Queuing
+  description: While a multi batch is processing, concurrent requests for the same users (from SDK or API) are queued and executed after the batch completes.
+- name: Backoff Strategy
+  description: Clients should batch within the 50 user / 500 action limits and implement retry with exponential backoff on 403 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
