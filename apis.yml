@@ -170,6 +170,8 @@ apis:
     into a single request for efficient server-side integration (batches exceeding
     the limit return 403).
 common:
+- type: AgenticAccess
+  url: agentic-access/leanplum-agentic-access.yml
 - type: DomainSecurity
   url: security/leanplum-domain-security.yml
 - type: GitHubOrganization
