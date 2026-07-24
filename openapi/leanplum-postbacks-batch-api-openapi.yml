@@ -1,0 +1,132 @@
+openapi: 3.0.3
+info:
+  title: Leanplum A/B Tests Postbacks & Batch API
+  version: 1.0.6
+  description: 'The Leanplum (Leanplum by CleverTap) REST API. All requests are made to https://api.leanplum.com/api and are dispatched by an `action` parameter that names the method to run (for example action=track or action=sendMessage). Every request carries `appId`, a permission-scoped `clientKey`, and `apiVersion`; most requests also carry a `userId` and/or `deviceId`. Requests may be sent as GET (arguments as query parameters) or POST (arguments in a JSON or multipart body). Multiple actions can be batched with the `multi` method.
+
+
+    Operating status note: Leanplum was acquired by CleverTap in 2022 and now operates as "Leanplum by CleverTap." The documented API surface below remains active during customer migration to CleverTap; CleverTap has wrapped its own methods behind these Leanplum API methods to ease that transition. Endpoint method names are grounded in the public Leanplum API reference; request/response schemas are modeled and should be verified against the live docs.'
+  contact:
+    name: API Evangelist
+    email: kin@apievangelist.com
+  license:
+    name: Proprietary
+    url: https://www.leanplum.com
+servers:
+- url: https://api.leanplum.com
+  description: Leanplum production API
+tags:
+- name: Postbacks & Batch
+paths:
+  /api?action=addPostback:
+    post:
+      tags:
+      - Postbacks & Batch
+      operationId: addPostback
+      summary: Register a postback (webhook)
+      description: Registers an HTTP postback callback fired on configured events.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: The postback URL to call.
+              additionalProperties: true
+      responses:
+        '200':
+          description: Postback registered.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=multi:
+    post:
+      tags:
+      - Postbacks & Batch
+      operationId: multi
+      summary: Batch multiple actions
+      description: Batches multiple API actions into a single request. Limited to 50 users and/or 500 actions per call; calls exceeding the limit are ignored and return 403. Each unique user lookup is a billable API call.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultiRequest'
+      responses:
+        '200':
+          description: Batch processed; per-action results returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '403':
+          description: Batch exceeded the 50 user / 500 action limit and was ignored.
+components:
+  schemas:
+    ApiResponse:
+      type: object
+      description: Standard Leanplum response envelope with one response object per action.
+      properties:
+        response:
+          type: array
+          items:
+            type: object
+            properties:
+              success:
+                type: boolean
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+            additionalProperties: true
+    MultiRequest:
+      type: object
+      properties:
+        data:
+          type: array
+          description: Up to 500 action objects (max 50 unique users) to execute in one call.
+          items:
+            type: object
+            properties:
+              action:
+                type: string
+              userId:
+                type: string
+            additionalProperties: true
+      required:
+      - data
+  parameters:
+    clientKey:
+      name: clientKey
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure.
+    apiVersion:
+      name: apiVersion
+      in: query
+      required: true
+      schema:
+        type: string
+        default: 1.0.6
+      description: API version, for example 1.0.6.
+    appId:
+      name: appId
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Your Leanplum application id.

@@ -1,0 +1,158 @@
+openapi: 3.0.3
+info:
+  title: Leanplum A/B Tests Messaging API
+  version: 1.0.6
+  description: 'The Leanplum (Leanplum by CleverTap) REST API. All requests are made to https://api.leanplum.com/api and are dispatched by an `action` parameter that names the method to run (for example action=track or action=sendMessage). Every request carries `appId`, a permission-scoped `clientKey`, and `apiVersion`; most requests also carry a `userId` and/or `deviceId`. Requests may be sent as GET (arguments as query parameters) or POST (arguments in a JSON or multipart body). Multiple actions can be batched with the `multi` method.
+
+
+    Operating status note: Leanplum was acquired by CleverTap in 2022 and now operates as "Leanplum by CleverTap." The documented API surface below remains active during customer migration to CleverTap; CleverTap has wrapped its own methods behind these Leanplum API methods to ease that transition. Endpoint method names are grounded in the public Leanplum API reference; request/response schemas are modeled and should be verified against the live docs.'
+  contact:
+    name: API Evangelist
+    email: kin@apievangelist.com
+  license:
+    name: Proprietary
+    url: https://www.leanplum.com
+servers:
+- url: https://api.leanplum.com
+  description: Leanplum production API
+tags:
+- name: Messaging
+paths:
+  /api?action=sendMessage:
+    post:
+      tags:
+      - Messaging
+      operationId: sendMessage
+      summary: Send a message to a user
+      description: Sends a push notification, news-feed message, in-app message, or other message type to a user. Requires the production clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendMessageRequest'
+      responses:
+        '200':
+          description: Message queued/sent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /api?action=getMessages:
+    get:
+      tags:
+      - Messaging
+      operationId: getMessages
+      summary: List messages
+      description: Returns the message campaign definitions in the app. Requires the content read-only clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      responses:
+        '200':
+          description: List of messages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=getMessage:
+    get:
+      tags:
+      - Messaging
+      operationId: getMessage
+      summary: Get a single message
+      description: Returns metadata for one message campaign by id. Requires the content read-only clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Message id.
+      responses:
+        '200':
+          description: Message metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+components:
+  schemas:
+    ApiResponse:
+      type: object
+      description: Standard Leanplum response envelope with one response object per action.
+      properties:
+        response:
+          type: array
+          items:
+            type: object
+            properties:
+              success:
+                type: boolean
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+            additionalProperties: true
+    SendMessageRequest:
+      type: object
+      properties:
+        messageId:
+          type: string
+          description: Id of the message/campaign to send.
+        createDisposition:
+          type: string
+          description: Controls how the message is created/queued.
+        values:
+          type: object
+          additionalProperties: true
+          description: Template values to interpolate into the message.
+      required:
+      - messageId
+  parameters:
+    clientKey:
+      name: clientKey
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure.
+    apiVersion:
+      name: apiVersion
+      in: query
+      required: true
+      schema:
+        type: string
+        default: 1.0.6
+      description: API version, for example 1.0.6.
+    appId:
+      name: appId
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Your Leanplum application id.
+    userId:
+      name: userId
+      in: query
+      schema:
+        type: string
+      description: Identifier of the user the request applies to.
+  responses:
+    Forbidden:
+      description: Forbidden - the supplied clientKey lacks permission for this action, or a multi batch exceeded the 50 user / 500 action limit.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse'

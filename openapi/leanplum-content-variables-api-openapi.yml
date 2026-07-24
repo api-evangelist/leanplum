@@ -1,0 +1,156 @@
+openapi: 3.0.3
+info:
+  title: Leanplum A/B Tests Content & Variables API
+  version: 1.0.6
+  description: 'The Leanplum (Leanplum by CleverTap) REST API. All requests are made to https://api.leanplum.com/api and are dispatched by an `action` parameter that names the method to run (for example action=track or action=sendMessage). Every request carries `appId`, a permission-scoped `clientKey`, and `apiVersion`; most requests also carry a `userId` and/or `deviceId`. Requests may be sent as GET (arguments as query parameters) or POST (arguments in a JSON or multipart body). Multiple actions can be batched with the `multi` method.
+
+
+    Operating status note: Leanplum was acquired by CleverTap in 2022 and now operates as "Leanplum by CleverTap." The documented API surface below remains active during customer migration to CleverTap; CleverTap has wrapped its own methods behind these Leanplum API methods to ease that transition. Endpoint method names are grounded in the public Leanplum API reference; request/response schemas are modeled and should be verified against the live docs.'
+  contact:
+    name: API Evangelist
+    email: kin@apievangelist.com
+  license:
+    name: Proprietary
+    url: https://www.leanplum.com
+servers:
+- url: https://api.leanplum.com
+  description: Leanplum production API
+tags:
+- name: Content & Variables
+paths:
+  /api?action=getVars:
+    get:
+      tags:
+      - Content & Variables
+      operationId: getVars
+      summary: Get variables for a user
+      description: Returns the variable values presented to the current user or device from the Leanplum content management system.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/deviceId'
+      responses:
+        '200':
+          description: Variable values.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=setVars:
+    post:
+      tags:
+      - Content & Variables
+      operationId: setVars
+      summary: Define content variables
+      description: Sets the list of variables used in the Leanplum content management system. Requires the development clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                vars:
+                  type: object
+                  additionalProperties: true
+              additionalProperties: true
+      responses:
+        '200':
+          description: Variables set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /api?action=downloadFile:
+    get:
+      tags:
+      - Content & Variables
+      operationId: downloadFile
+      summary: Download a managed file
+      description: Downloads a file asset managed in Leanplum.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - name: filename
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Name/path of the file to download.
+      responses:
+        '200':
+          description: File contents.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+components:
+  schemas:
+    ApiResponse:
+      type: object
+      description: Standard Leanplum response envelope with one response object per action.
+      properties:
+        response:
+          type: array
+          items:
+            type: object
+            properties:
+              success:
+                type: boolean
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+            additionalProperties: true
+  parameters:
+    clientKey:
+      name: clientKey
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure.
+    apiVersion:
+      name: apiVersion
+      in: query
+      required: true
+      schema:
+        type: string
+        default: 1.0.6
+      description: API version, for example 1.0.6.
+    appId:
+      name: appId
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Your Leanplum application id.
+    userId:
+      name: userId
+      in: query
+      schema:
+        type: string
+      description: Identifier of the user the request applies to.
+    deviceId:
+      name: deviceId
+      in: query
+      schema:
+        type: string
+      description: Identifier of the device the request applies to.
+  responses:
+    Forbidden:
+      description: Forbidden - the supplied clientKey lacks permission for this action, or a multi batch exceeded the 50 user / 500 action limit.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse'

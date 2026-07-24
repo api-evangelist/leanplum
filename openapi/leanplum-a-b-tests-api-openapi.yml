@@ -1,0 +1,127 @@
+openapi: 3.0.3
+info:
+  title: Leanplum A/B Tests API
+  version: 1.0.6
+  description: 'The Leanplum (Leanplum by CleverTap) REST API. All requests are made to https://api.leanplum.com/api and are dispatched by an `action` parameter that names the method to run (for example action=track or action=sendMessage). Every request carries `appId`, a permission-scoped `clientKey`, and `apiVersion`; most requests also carry a `userId` and/or `deviceId`. Requests may be sent as GET (arguments as query parameters) or POST (arguments in a JSON or multipart body). Multiple actions can be batched with the `multi` method.
+
+
+    Operating status note: Leanplum was acquired by CleverTap in 2022 and now operates as "Leanplum by CleverTap." The documented API surface below remains active during customer migration to CleverTap; CleverTap has wrapped its own methods behind these Leanplum API methods to ease that transition. Endpoint method names are grounded in the public Leanplum API reference; request/response schemas are modeled and should be verified against the live docs.'
+  contact:
+    name: API Evangelist
+    email: kin@apievangelist.com
+  license:
+    name: Proprietary
+    url: https://www.leanplum.com
+servers:
+- url: https://api.leanplum.com
+  description: Leanplum production API
+tags:
+- name: A/B Tests
+paths:
+  /api?action=getAbTests:
+    get:
+      tags:
+      - A/B Tests
+      operationId: getAbTests
+      summary: List A/B tests
+      description: Returns the A/B test experiments in the app. Requires the content read-only clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      responses:
+        '200':
+          description: List of A/B tests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=getAbTest:
+    get:
+      tags:
+      - A/B Tests
+      operationId: getAbTest
+      summary: Get a single A/B test
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: string
+        description: A/B test id.
+      responses:
+        '200':
+          description: A/B test details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=getVariant:
+    get:
+      tags:
+      - A/B Tests
+      operationId: getVariant
+      summary: Get the variant assigned to a user
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: Variant assignment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+components:
+  schemas:
+    ApiResponse:
+      type: object
+      description: Standard Leanplum response envelope with one response object per action.
+      properties:
+        response:
+          type: array
+          items:
+            type: object
+            properties:
+              success:
+                type: boolean
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+            additionalProperties: true
+  parameters:
+    clientKey:
+      name: clientKey
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure.
+    apiVersion:
+      name: apiVersion
+      in: query
+      required: true
+      schema:
+        type: string
+        default: 1.0.6
+      description: API version, for example 1.0.6.
+    appId:
+      name: appId
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Your Leanplum application id.
+    userId:
+      name: userId
+      in: query
+      schema:
+        type: string
+      description: Identifier of the user the request applies to.
