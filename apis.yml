@@ -11,7 +11,19 @@ description: Leanplum is a mobile marketing and multichannel customer engagement
   API surface to smooth that transition). All API requests are made to
   https://api.leanplum.com/api and authenticated with an appId plus an operation-specific
   clientKey (production, development, data export, or content read-only).
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: enterprise
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/leanplum.png
 tags:
 - Mobile Marketing
 - Customer Engagement
@@ -24,151 +36,245 @@ created: '2026-07-03'
 modified: '2026-07-03'
 specificationVersion: '0.19'
 apis:
-- aid: leanplum:leanplum-events-tracking-api
-  name: Leanplum Events & Tracking API
-  tags:
-  - Events
-  - Tracking
-  - Analytics
-  - Sessions
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: leanplum:leanplum-a-b-tests-api
+  name: Leanplum A/B Tests API
+  description: The A/B Tests API from Leanplum — 3 operation(s) for a/b tests.
   humanURL: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
   baseURL: https://api.leanplum.com/api
-  properties:
-  - url: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
-    type: Documentation
-  - url: https://docs.leanplum.com/reference/api-methods
-    type: APIReference
-  - url: openapi/leanplum-openapi.yml
-    type: OpenAPI
-  description: Server-side behavioral tracking. Start and manage user sessions (start,
-    pauseSession, resumeSession, heartbeat, stop) and record events and application
-    states with track and advance, sending event names, values, and custom parameters
-    into Leanplum analytics. Requires the production clientKey.
-- aid: leanplum:leanplum-user-attributes-api
-  name: Leanplum User & Device Attributes API
   tags:
-  - User Attributes
-  - Devices
-  - Segmentation
-  - Audiences
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.leanplum.com/reference/post_api-action-setuserattributes
-  baseURL: https://api.leanplum.com/api
+  - A/B Tests
   properties:
-  - url: https://docs.leanplum.com/reference/selecting-a-user
-    type: Documentation
-  - url: https://docs.leanplum.com/reference/post_api-action-setuserattributes
-    type: APIReference
-  - url: openapi/leanplum-openapi.yml
-    type: OpenAPI
-  description: Set and manage the user and device profile attributes that drive
-    segmentation and audience targeting - setUserAttributes, setDeviceAttributes,
-    and setTrafficSourceInfo - and remove users with deleteUser. Attribute writes use
-    the production clientKey; deleteUser requires the development clientKey.
-- aid: leanplum:leanplum-messaging-api
-  name: Leanplum Messaging API
-  tags:
-  - Messaging
-  - Push Notifications
-  - In-App
-  - Campaigns
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.leanplum.com/reference/post_api-action-sendmessage
-  baseURL: https://api.leanplum.com/api
-  properties:
-  - url: https://docs.leanplum.com/reference/post_api-action-sendmessage
-    type: APIReference
-  - url: https://docs.leanplum.com/reference/api-methods
-    type: Documentation
-  - url: openapi/leanplum-openapi.yml
-    type: OpenAPI
-  description: Trigger and inspect outbound messages. sendMessage delivers a push
-    notification, news-feed, in-app, or other message to a user (production clientKey),
-    while getMessages and getMessage retrieve message campaign definitions and metadata
-    using the content read-only clientKey.
-- aid: leanplum:leanplum-ab-tests-api
-  name: Leanplum A/B Tests API
-  tags:
-  - A/B Testing
-  - Experiments
-  - Variants
-  - Optimization
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.leanplum.com/reference/api-methods
-  baseURL: https://api.leanplum.com/api
-  properties:
-  - url: https://docs.leanplum.com/reference/api-methods
-    type: APIReference
-  - url: openapi/leanplum-openapi.yml
-    type: OpenAPI
-  description: Read A/B test experiments and their variants - getAbTests lists
-    experiments, getAbTest returns a single experiment, and getVariant returns the
-    variant assigned to a user. Uses the content read-only clientKey.
+  - type: OpenAPI
+    url: openapi/leanplum-a-b-tests-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/selecting-a-user
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/post_api-action-setuserattributes
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/post_api-action-sendmessage
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/accessing-content-via-the-api
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/get_api-action-getvars
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/export-data
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/get_api-action-exportdata
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/batching-requests
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/multi-json
 - aid: leanplum:leanplum-content-variables-api
   name: Leanplum Content & Variables API
-  tags:
-  - Variables
-  - Content
-  - Files
-  - Remote Config
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.leanplum.com/reference/get_api-action-getvars
+  description: The Content & Variables API from Leanplum — 3 operation(s) for content & variables.
+  humanURL: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
   baseURL: https://api.leanplum.com/api
+  tags:
+  - Content & Variables
   properties:
-  - url: https://docs.leanplum.com/reference/accessing-content-via-the-api
-    type: Documentation
-  - url: https://docs.leanplum.com/reference/get_api-action-getvars
-    type: APIReference
-  - url: openapi/leanplum-openapi.yml
-    type: OpenAPI
-  description: Manage remotely configurable content. getVars returns the variables
-    and values presented to a user or device, setVars defines the variable set in the
-    Leanplum content management system (development clientKey), and downloadFile
-    retrieves a file asset managed in Leanplum.
+  - type: OpenAPI
+    url: openapi/leanplum-content-variables-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/selecting-a-user
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/post_api-action-setuserattributes
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/post_api-action-sendmessage
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/accessing-content-via-the-api
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/get_api-action-getvars
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/export-data
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/get_api-action-exportdata
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/batching-requests
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/multi-json
 - aid: leanplum:leanplum-data-export-api
   name: Leanplum Data Export API
+  description: The Data Export API from Leanplum — 5 operation(s) for data export.
+  humanURL: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
+  baseURL: https://api.leanplum.com/api
   tags:
   - Data Export
-  - Reports
-  - Analytics
-  - Bulk
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.leanplum.com/reference/get_api-action-exportdata
-  baseURL: https://api.leanplum.com/api
   properties:
-  - url: https://docs.leanplum.com/reference/export-data
-    type: Documentation
-  - url: https://docs.leanplum.com/reference/get_api-action-exportdata
-    type: APIReference
-  - url: openapi/leanplum-openapi.yml
-    type: OpenAPI
-  description: Bulk export of raw analytics and reporting data. exportData writes raw
-    session and event data to downloadable JSON or CSV files, exportUsers and exportUser
-    export user profiles, exportReport pulls messaging and A/B test reports, and
-    getMultiResults checks the status of an asynchronous export/import job. Requires
-    the data export clientKey.
-- aid: leanplum:leanplum-postbacks-api
-  name: Leanplum Postbacks & Batch API
+  - type: OpenAPI
+    url: openapi/leanplum-data-export-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/selecting-a-user
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/post_api-action-setuserattributes
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/post_api-action-sendmessage
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/accessing-content-via-the-api
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/get_api-action-getvars
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/export-data
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/get_api-action-exportdata
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/batching-requests
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/multi-json
+- aid: leanplum:leanplum-events-tracking-api
+  name: Leanplum Events & Tracking API
+  description: The Events & Tracking API from Leanplum — 7 operation(s) for events & tracking.
+  humanURL: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
+  baseURL: https://api.leanplum.com/api
   tags:
-  - Postbacks
-  - Webhooks
-  - Batch
-  - Multi
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.leanplum.com/reference/batching-requests
-  baseURL: https://api.leanplum.com/api
+  - Events & Tracking
   properties:
-  - url: https://docs.leanplum.com/reference/batching-requests
-    type: Documentation
-  - url: https://docs.leanplum.com/reference/multi-json
-    type: APIReference
-  - url: openapi/leanplum-openapi.yml
-    type: OpenAPI
-  description: Operational plumbing for the API. addPostback registers an HTTP
-    postback (webhook) callback, and multi batches up to 50 users and/or 500 actions
-    into a single request for efficient server-side integration (batches exceeding
-    the limit return 403).
+  - type: OpenAPI
+    url: openapi/leanplum-events-tracking-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/selecting-a-user
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/post_api-action-setuserattributes
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/post_api-action-sendmessage
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/accessing-content-via-the-api
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/get_api-action-getvars
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/export-data
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/get_api-action-exportdata
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/batching-requests
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/multi-json
+- aid: leanplum:leanplum-messaging-api
+  name: Leanplum Messaging API
+  description: The Messaging API from Leanplum — 3 operation(s) for messaging.
+  humanURL: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
+  baseURL: https://api.leanplum.com/api
+  tags:
+  - Messaging
+  properties:
+  - type: OpenAPI
+    url: openapi/leanplum-messaging-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/selecting-a-user
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/post_api-action-setuserattributes
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/post_api-action-sendmessage
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/accessing-content-via-the-api
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/get_api-action-getvars
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/export-data
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/get_api-action-exportdata
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/batching-requests
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/multi-json
+- aid: leanplum:leanplum-postbacks-batch-api
+  name: Leanplum Postbacks & Batch API
+  description: The Postbacks & Batch API from Leanplum — 2 operation(s) for postbacks & batch.
+  humanURL: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
+  baseURL: https://api.leanplum.com/api
+  tags:
+  - Postbacks & Batch
+  properties:
+  - type: OpenAPI
+    url: openapi/leanplum-postbacks-batch-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/selecting-a-user
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/post_api-action-setuserattributes
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/post_api-action-sendmessage
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/accessing-content-via-the-api
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/get_api-action-getvars
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/export-data
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/get_api-action-exportdata
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/batching-requests
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/multi-json
+- aid: leanplum:leanplum-user-device-attributes-api
+  name: Leanplum User & Device Attributes API
+  description: >-
+    The User & Device Attributes API from Leanplum — 4 operation(s) for user & device attributes.
+  humanURL: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
+  baseURL: https://api.leanplum.com/api
+  tags:
+  - User & Device Attributes
+  properties:
+  - type: OpenAPI
+    url: openapi/leanplum-user-device-attributes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/tracking-analytics-data-via-api
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/selecting-a-user
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/post_api-action-setuserattributes
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/post_api-action-sendmessage
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/accessing-content-via-the-api
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/get_api-action-getvars
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/export-data
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/get_api-action-exportdata
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/batching-requests
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/multi-json
 common:
 - type: AgenticAccess
   url: agentic-access/leanplum-agentic-access.yml
