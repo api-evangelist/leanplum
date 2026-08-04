@@ -1,0 +1,26 @@
+{
+  "provider": "leanplum",
+  "sources": [
+    "leanplum-a-b-tests-api-openapi.yml",
+    "leanplum-content-variables-api-openapi.yml",
+    "leanplum-data-export-api-openapi.yml",
+    "leanplum-events-tracking-api-openapi.yml",
+    "leanplum-messaging-api-openapi.yml",
+    "leanplum-postbacks-batch-api-openapi.yml",
+    "leanplum-user-device-attributes-api-openapi.yml"
+  ],
+  "outputs": [
+    "leanplum-a-b-tests-api-openapi.yml",
+    "leanplum-content-variables-api-openapi.yml",
+    "leanplum-data-export-api-openapi.yml",
+    "leanplum-events-tracking-api-openapi.yml",
+    "leanplum-messaging-api-openapi.yml",
+    "leanplum-postbacks-batch-api-openapi.yml",
+    "leanplum-user-device-attributes-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

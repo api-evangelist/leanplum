@@ -1,0 +1,811 @@
+openapi: 3.0.3
+info:
+  title: Leanplum API
+  version: '1.0.6'
+  description: >-
+    The Leanplum (Leanplum by CleverTap) REST API. All requests are made to
+    https://api.leanplum.com/api and are dispatched by an `action` parameter that
+    names the method to run (for example action=track or action=sendMessage).
+    Every request carries `appId`, a permission-scoped `clientKey`, and
+    `apiVersion`; most requests also carry a `userId` and/or `deviceId`. Requests
+    may be sent as GET (arguments as query parameters) or POST (arguments in a JSON
+    or multipart body). Multiple actions can be batched with the `multi` method.
+
+
+    Operating status note: Leanplum was acquired by CleverTap in 2022 and now
+    operates as "Leanplum by CleverTap." The documented API surface below remains
+    active during customer migration to CleverTap; CleverTap has wrapped its own
+    methods behind these Leanplum API methods to ease that transition. Endpoint
+    method names are grounded in the public Leanplum API reference; request/response
+    schemas are modeled and should be verified against the live docs.
+  contact:
+    name: API Evangelist
+    email: kin@apievangelist.com
+  license:
+    name: Proprietary
+    url: https://www.leanplum.com
+servers:
+- url: https://api.leanplum.com
+  description: Leanplum production API
+tags:
+- name: Events & Tracking
+- name: User & Device Attributes
+- name: Messaging
+- name: A/B Tests
+- name: Content & Variables
+- name: Data Export
+- name: Postbacks & Batch
+paths:
+  /api?action=start:
+    post:
+      tags:
+      - Events & Tracking
+      operationId: start
+      summary: Start a session
+      description: >-
+        Starts a user session. Returns the set of variables presented to the
+        user/device. Requires the production clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/deviceId'
+      responses:
+        '200':
+          description: Session started; variables returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /api?action=pauseSession:
+    post:
+      tags:
+      - Events & Tracking
+      operationId: pauseSession
+      summary: Pause the current session
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: Session paused.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=resumeSession:
+    post:
+      tags:
+      - Events & Tracking
+      operationId: resumeSession
+      summary: Resume a paused session
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: Session resumed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=heartbeat:
+    post:
+      tags:
+      - Events & Tracking
+      operationId: heartbeat
+      summary: Keep a session alive
+      description: Sends a heartbeat to keep the current session active.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: Heartbeat recorded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=stop:
+    post:
+      tags:
+      - Events & Tracking
+      operationId: stop
+      summary: Stop the current session
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: Session stopped.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=track:
+    post:
+      tags:
+      - Events & Tracking
+      operationId: track
+      summary: Track an event
+      description: >-
+        Tracks a user event (for example a purchase) with an optional monetary
+        value and custom parameters. Requires the production clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackRequest'
+      responses:
+        '200':
+          description: Event tracked.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /api?action=advance:
+    post:
+      tags:
+      - Events & Tracking
+      operationId: advance
+      summary: Advance to an application state
+      description: Advances the user to a named application state. Requires the production clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                state:
+                  type: string
+                  description: Name of the application state.
+                params:
+                  type: object
+                  additionalProperties: true
+      responses:
+        '200':
+          description: State advanced.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=setUserAttributes:
+    post:
+      tags:
+      - User & Device Attributes
+      operationId: setUserAttributes
+      summary: Set user attributes
+      description: >-
+        Sets attributes for the user given by userId and/or deviceId, used for
+        segmentation and targeting. Requires the production clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/deviceId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetUserAttributesRequest'
+      responses:
+        '200':
+          description: Attributes set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /api?action=setDeviceAttributes:
+    post:
+      tags:
+      - User & Device Attributes
+      operationId: setDeviceAttributes
+      summary: Set device attributes
+      description: Sets device-level attributes (for example push tokens, locale). Requires the production clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/deviceId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Device attributes set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=setTrafficSourceInfo:
+    post:
+      tags:
+      - User & Device Attributes
+      operationId: setTrafficSourceInfo
+      summary: Set traffic source / attribution info
+      description: Records acquisition/attribution traffic source information for a user.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                publisherName:
+                  type: string
+                publisherSubPublisher:
+                  type: string
+                publisherSubCampaign:
+                  type: string
+              additionalProperties: true
+      responses:
+        '200':
+          description: Traffic source info set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=deleteUser:
+    post:
+      tags:
+      - User & Device Attributes
+      operationId: deleteUser
+      summary: Delete a user
+      description: >-
+        Deletes a user and their associated data. Requires the development
+        clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: User deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /api?action=sendMessage:
+    post:
+      tags:
+      - Messaging
+      operationId: sendMessage
+      summary: Send a message to a user
+      description: >-
+        Sends a push notification, news-feed message, in-app message, or other
+        message type to a user. Requires the production clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendMessageRequest'
+      responses:
+        '200':
+          description: Message queued/sent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /api?action=getMessages:
+    get:
+      tags:
+      - Messaging
+      operationId: getMessages
+      summary: List messages
+      description: Returns the message campaign definitions in the app. Requires the content read-only clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      responses:
+        '200':
+          description: List of messages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=getMessage:
+    get:
+      tags:
+      - Messaging
+      operationId: getMessage
+      summary: Get a single message
+      description: Returns metadata for one message campaign by id. Requires the content read-only clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Message id.
+      responses:
+        '200':
+          description: Message metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=getAbTests:
+    get:
+      tags:
+      - A/B Tests
+      operationId: getAbTests
+      summary: List A/B tests
+      description: Returns the A/B test experiments in the app. Requires the content read-only clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      responses:
+        '200':
+          description: List of A/B tests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=getAbTest:
+    get:
+      tags:
+      - A/B Tests
+      operationId: getAbTest
+      summary: Get a single A/B test
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: string
+        description: A/B test id.
+      responses:
+        '200':
+          description: A/B test details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=getVariant:
+    get:
+      tags:
+      - A/B Tests
+      operationId: getVariant
+      summary: Get the variant assigned to a user
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: Variant assignment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=getVars:
+    get:
+      tags:
+      - Content & Variables
+      operationId: getVars
+      summary: Get variables for a user
+      description: >-
+        Returns the variable values presented to the current user or device
+        from the Leanplum content management system.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/deviceId'
+      responses:
+        '200':
+          description: Variable values.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=setVars:
+    post:
+      tags:
+      - Content & Variables
+      operationId: setVars
+      summary: Define content variables
+      description: >-
+        Sets the list of variables used in the Leanplum content management
+        system. Requires the development clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                vars:
+                  type: object
+                  additionalProperties: true
+              additionalProperties: true
+      responses:
+        '200':
+          description: Variables set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /api?action=downloadFile:
+    get:
+      tags:
+      - Content & Variables
+      operationId: downloadFile
+      summary: Download a managed file
+      description: Downloads a file asset managed in Leanplum.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - name: filename
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Name/path of the file to download.
+      responses:
+        '200':
+          description: File contents.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+  /api?action=exportData:
+    get:
+      tags:
+      - Data Export
+      operationId: exportData
+      summary: Export raw data
+      description: >-
+        Exports raw session and event data to downloadable JSON or CSV files
+        over a date range. Runs asynchronously; poll getMultiResults for status.
+        Requires the data export clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - name: startDate
+        in: query
+        schema:
+          type: string
+        description: Start date (YYYYMMDD).
+      - name: endDate
+        in: query
+        schema:
+          type: string
+        description: End date (YYYYMMDD).
+      - name: exportFormat
+        in: query
+        schema:
+          type: string
+          enum:
+          - json
+          - csv
+      responses:
+        '200':
+          description: Export job accepted; job id returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /api?action=exportUsers:
+    get:
+      tags:
+      - Data Export
+      operationId: exportUsers
+      summary: Export user profiles
+      description: Exports user profile data. Requires the data export clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      responses:
+        '200':
+          description: Export job accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=exportUser:
+    get:
+      tags:
+      - Data Export
+      operationId: exportUser
+      summary: Export a single user
+      description: Exports the profile and history for one user. Requires the data export clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: User export.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=exportReport:
+    get:
+      tags:
+      - Data Export
+      operationId: exportReport
+      summary: Export a report
+      description: Exports messaging and A/B test reports. Requires the data export clientKey.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      responses:
+        '200':
+          description: Report export.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=getMultiResults:
+    get:
+      tags:
+      - Data Export
+      operationId: getMultiResults
+      summary: Get status of an async job
+      description: Returns the status of an asynchronous multi import or data export job.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      - name: jobId
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The job id returned by an export/import call.
+      responses:
+        '200':
+          description: Job status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=addPostback:
+    post:
+      tags:
+      - Postbacks & Batch
+      operationId: addPostback
+      summary: Register a postback (webhook)
+      description: Registers an HTTP postback callback fired on configured events.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: The postback URL to call.
+              additionalProperties: true
+      responses:
+        '200':
+          description: Postback registered.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api?action=multi:
+    post:
+      tags:
+      - Postbacks & Batch
+      operationId: multi
+      summary: Batch multiple actions
+      description: >-
+        Batches multiple API actions into a single request. Limited to 50 users
+        and/or 500 actions per call; calls exceeding the limit are ignored and
+        return 403. Each unique user lookup is a billable API call.
+      parameters:
+      - $ref: '#/components/parameters/appId'
+      - $ref: '#/components/parameters/clientKey'
+      - $ref: '#/components/parameters/apiVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultiRequest'
+      responses:
+        '200':
+          description: Batch processed; per-action results returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '403':
+          description: Batch exceeded the 50 user / 500 action limit and was ignored.
+components:
+  parameters:
+    appId:
+      name: appId
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Your Leanplum application id.
+    clientKey:
+      name: clientKey
+      in: query
+      required: true
+      schema:
+        type: string
+      description: >-
+        The permission-scoped API key for the operation - production,
+        development, data export, or content read-only. Send in the request body
+        for POST requests to keep it secure.
+    apiVersion:
+      name: apiVersion
+      in: query
+      required: true
+      schema:
+        type: string
+        default: '1.0.6'
+      description: API version, for example 1.0.6.
+    userId:
+      name: userId
+      in: query
+      schema:
+        type: string
+      description: Identifier of the user the request applies to.
+    deviceId:
+      name: deviceId
+      in: query
+      schema:
+        type: string
+      description: Identifier of the device the request applies to.
+  responses:
+    Forbidden:
+      description: >-
+        Forbidden - the supplied clientKey lacks permission for this action, or a
+        multi batch exceeded the 50 user / 500 action limit.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse'
+  schemas:
+    ApiResponse:
+      type: object
+      description: Standard Leanplum response envelope with one response object per action.
+      properties:
+        response:
+          type: array
+          items:
+            type: object
+            properties:
+              success:
+                type: boolean
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+            additionalProperties: true
+    TrackRequest:
+      type: object
+      properties:
+        event:
+          type: string
+          description: Name of the event to track.
+        value:
+          type: number
+          description: Optional monetary or numeric value for the event.
+        info:
+          type: string
+        params:
+          type: object
+          additionalProperties: true
+          description: Custom event parameters.
+      required:
+      - event
+    SetUserAttributesRequest:
+      type: object
+      properties:
+        userAttributes:
+          type: object
+          additionalProperties: true
+          description: Map of attribute names to values.
+        newUserId:
+          type: string
+          description: Optional new user id to reassign this user to.
+    SendMessageRequest:
+      type: object
+      properties:
+        messageId:
+          type: string
+          description: Id of the message/campaign to send.
+        createDisposition:
+          type: string
+          description: Controls how the message is created/queued.
+        values:
+          type: object
+          additionalProperties: true
+          description: Template values to interpolate into the message.
+      required:
+      - messageId
+    MultiRequest:
+      type: object
+      properties:
+        data:
+          type: array
+          description: Up to 500 action objects (max 50 unique users) to execute in one call.
+          items:
+            type: object
+            properties:
+              action:
+                type: string
+              userId:
+                type: string
+            additionalProperties: true
+      required:
+      - data
