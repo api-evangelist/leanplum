@@ -33,9 +33,54 @@ tags:
 - Analytics
 - CleverTap
 created: '2026-07-03'
-modified: '2026-07-03'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
+- aid: leanplum:leanplum-api
+  name: Leanplum API
+  description: >-
+    The complete Leanplum REST API as Leanplum itself publishes it — one OpenAPI
+    3.0.0 document (x-api-id "leanplum-api") covering all 42 methods across eight
+    tags: User Behavior, User Information, Messages, A/B Tests, Files and Variables,
+    Export Data, Import Data and Campaigns. Every call goes to the single endpoint
+    https://api.leanplum.com/api and names its method in an `action` parameter,
+    authenticated with an appId plus a permission-scoped clientKey.
+  humanURL: https://docs.leanplum.com/reference/api-methods
+  baseURL: https://api.leanplum.com/api
+  tags:
+  - User Behavior
+  - User Information
+  - Messages
+  - A/B Tests
+  - Files and Variables
+  - Export Data
+  - Import Data
+  - Campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/leanplum-api-openapi.json
+  - type: Overlay
+    url: overlays/leanplum-api-overlay.yaml
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/overview
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: GettingStarted
+    url: https://docs.leanplum.com/reference/api-introduction
+  - type: Authentication
+    url: authentication/leanplum-authentication.yml
+  - type: ErrorCatalog
+    url: errors/leanplum-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/leanplum-rate-limits.yml
+  - type: Conventions
+    url: conventions/leanplum-conventions.yml
+  - type: DataModel
+    url: data-model/leanplum-data-model.yml
+  - type: Webhooks
+    url: asyncapi/leanplum-postbacks-webhooks.yml
+  - type: Postman
+    url: https://www.getpostman.com/collections/378a83c1424d632661d0
 - aid: leanplum:leanplum-a-b-tests-api
   name: Leanplum A/B Tests API
   description: The A/B Tests API from Leanplum — 3 operation(s) for a/b tests.
@@ -276,6 +321,8 @@ apis:
   - type: APIReference
     url: https://docs.leanplum.com/reference/multi-json
 common:
+- type: Authentication
+  url: authentication/leanplum-authentication.yml
 - type: AgenticAccess
   url: agentic-access/leanplum-agentic-access.yml
 - type: DomainSecurity
@@ -294,6 +341,61 @@ common:
   url: rate-limits/leanplum-rate-limits.yml
 - type: FinOps
   url: finops/leanplum-finops.yml
+- type: Packages
+  url: packages/leanplum-packages.yml
+- type: SDKs
+  url: packages/leanplum-packages.yml
+- type: LLMsTxt
+  url: llms/leanplum-llms.txt
+- type: Conformance
+  url: conformance/leanplum-conformance.yml
+- type: Compliance
+  url: security/leanplum-trust-center.yml
+- type: TrustCenter
+  url: security/leanplum-trust-center.yml
+- type: ErrorCatalog
+  url: errors/leanplum-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/leanplum-lifecycle.yml
+- type: Conventions
+  url: conventions/leanplum-conventions.yml
+- type: ChangeLog
+  url: changelog/leanplum-changelog.yml
+- type: Sandbox
+  url: sandbox/leanplum-sandbox.yml
+- type: DataModel
+  url: data-model/leanplum-data-model.yml
+- type: Webhooks
+  url: asyncapi/leanplum-postbacks-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Overlay
+  url: overlays/leanplum-api-overlay.yaml
+- type: Postman
+  url: https://www.getpostman.com/collections/378a83c1424d632661d0
+- type: DeveloperPortal
+  url: https://docs.leanplum.com/reference/overview
+- type: APIReference
+  url: https://docs.leanplum.com/reference/api-methods
+- type: GettingStarted
+  url: https://docs.leanplum.com/reference/api-introduction
+- type: Support
+  url: https://docs.leanplum.com/docs/leanplum-help-center
+- type: Blog
+  url: https://clevertap.com/blog/
+- type: Pricing
+  url: https://clevertap.com/pricing/
+- type: Login
+  url: https://www.leanplum.com/dashboard/login
+- type: TermsOfService
+  url: https://clevertap.com/terms-service/
+- type: PrivacyPolicy
+  url: https://clevertap.com/privacy-policy/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 21
+  pass: local-v1
