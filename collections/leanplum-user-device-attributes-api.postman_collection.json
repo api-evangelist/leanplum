@@ -1,0 +1,685 @@
+{
+  "item": [
+    {
+      "id": "23c684a4-b13a-42f7-ac70-1dff1c15a3bf",
+      "name": "User & Device Attributes",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d000708b-5021-432c-a585-4b3c3deaebfe",
+          "name": "Set user attributes",
+          "request": {
+            "name": "Set user attributes",
+            "description": {
+              "content": "Sets attributes for the user given by userId and/or deviceId, used for segmentation and targeting. Requires the production clientKey.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "setUserAttributes"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "<string>",
+                  "description": "(Required) Your Leanplum application id."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "<string>",
+                  "description": "(Required) The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) API version, for example 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "Identifier of the user the request applies to."
+                },
+                {
+                  "disabled": false,
+                  "key": "deviceId",
+                  "value": "<string>",
+                  "description": "Identifier of the device the request applies to."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userAttributes\": {\n    \"key_0\": true,\n    \"key_1\": true\n  },\n  \"newUserId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1957e563-f910-42c0-b873-b7154a8d48df",
+              "name": "Attributes set.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deviceId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userAttributes\": {\n    \"key_0\": 2548.581169175113,\n    \"key_1\": \"string\",\n    \"key_2\": 3990,\n    \"key_3\": \"string\"\n  },\n  \"newUserId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": [\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      },\n      \"key_0\": 7027,\n      \"key_1\": \"string\",\n      \"key_2\": false,\n      \"key_3\": 4188\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "347cb77f-4d05-401b-9d80-4d7075418d7c",
+              "name": "Forbidden - the supplied clientKey lacks permission for this action, or a multi batch exceeded the 50 user / 500 action limit.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deviceId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userAttributes\": {\n    \"key_0\": 2548.581169175113,\n    \"key_1\": \"string\",\n    \"key_2\": 3990,\n    \"key_3\": \"string\"\n  },\n  \"newUserId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": [\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"success\": true,\n      \"error\": {\n        \"message\": \"string\"\n      },\n      \"key_0\": 8911\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb277e2d-cf34-4bb1-b53b-e03a25e7b14f",
+          "name": "Set device attributes",
+          "request": {
+            "name": "Set device attributes",
+            "description": {
+              "content": "Sets device-level attributes (for example push tokens, locale). Requires the production clientKey.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "setDeviceAttributes"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "<string>",
+                  "description": "(Required) Your Leanplum application id."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "<string>",
+                  "description": "(Required) The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) API version, for example 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "deviceId",
+                  "value": "<string>",
+                  "description": "Identifier of the device the request applies to."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": 3483,\n  \"key_1\": 2841.2078697914476\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "35d882a2-6756-42ef-8918-6c733f6d5e7b",
+              "name": "Device attributes set.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "deviceId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": 4893\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": [\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"success\": true,\n      \"error\": {\n        \"message\": \"string\"\n      },\n      \"key_0\": 8911\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f19ab2e-35e9-40e1-968d-43aafc028bec",
+          "name": "Set traffic source / attribution info",
+          "request": {
+            "name": "Set traffic source / attribution info",
+            "description": {
+              "content": "Records acquisition/attribution traffic source information for a user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "setTrafficSourceInfo"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "<string>",
+                  "description": "(Required) Your Leanplum application id."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "<string>",
+                  "description": "(Required) The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) API version, for example 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "Identifier of the user the request applies to."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"publisherName\": \"<string>\",\n  \"publisherSubPublisher\": \"<string>\",\n  \"publisherSubCampaign\": \"<string>\",\n  \"key_0\": 4198.718885241674,\n  \"key_1\": 2561.522746599548\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "25b28416-1ef5-4cd7-9c29-ee03b92e24ef",
+              "name": "Traffic source info set.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"publisherName\": \"<string>\",\n  \"publisherSubPublisher\": \"<string>\",\n  \"publisherSubCampaign\": \"<string>\",\n  \"key_0\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": [\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"success\": true,\n      \"error\": {\n        \"message\": \"string\"\n      },\n      \"key_0\": 8911\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "35a5cb2c-2921-4520-82c7-43d2e408004b",
+          "name": "Delete a user",
+          "request": {
+            "name": "Delete a user",
+            "description": {
+              "content": "Deletes a user and their associated data. Requires the development clientKey.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "deleteUser"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "<string>",
+                  "description": "(Required) Your Leanplum application id."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "<string>",
+                  "description": "(Required) The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) API version, for example 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "Identifier of the user the request applies to."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3a567bc7-41b7-484b-97c3-4f6e763cbc49",
+              "name": "User deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": [\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"success\": true,\n      \"error\": {\n        \"message\": \"string\"\n      },\n      \"key_0\": 8911\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c0605e7-091f-44f7-b1de-44043432c081",
+              "name": "Forbidden - the supplied clientKey lacks permission for this action, or a multi batch exceeded the 50 user / 500 action limit.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": [\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"success\": true,\n      \"error\": {\n        \"message\": \"string\"\n      },\n      \"key_0\": 8911\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.leanplum.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0fa43c4f-823d-42e1-8649-f811a6eb5c8e",
+    "name": "Leanplum A/B Tests User & Device Attributes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Leanplum (Leanplum by CleverTap) REST API. All requests are made to https://api.leanplum.com/api and are dispatched by an `action` parameter that names the method to run (for example action=track or action=sendMessage). Every request carries `appId`, a permission-scoped `clientKey`, and `apiVersion`; most requests also carry a `userId` and/or `deviceId`. Requests may be sent as GET (arguments as query parameters) or POST (arguments in a JSON or multipart body). Multiple actions can be batched with the `multi` method.\n\nOperating status note: Leanplum was acquired by CleverTap in 2022 and now operates as \"Leanplum by CleverTap.\" The documented API surface below remains active during customer migration to CleverTap; CleverTap has wrapped its own methods behind these Leanplum API methods to ease that transition. Endpoint method names are grounded in the public Leanplum API reference; request/response schemas are modeled and should be verified against the live docs.\n\nContact Support:\n Name: API Evangelist\n Email: kin@apievangelist.com",
+      "type": "text/plain"
+    }
+  }
+}

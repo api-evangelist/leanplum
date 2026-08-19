@@ -1,0 +1,4862 @@
+{
+  "item": [
+    {
+      "id": "9bf8a6b9-424b-418c-aa37-01137399b5ca",
+      "name": "User Behavior",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "64a6b87f-33a7-4e64-b90e-e112f2f99607",
+          "name": "advance",
+          "request": {
+            "name": "advance",
+            "description": {
+              "content": "Advances a user to the next state. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below). The state is the section of the app the user is currently in. States are like events with duration.\n\nThis method requires your production API `clientKey`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "advance"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"state\": \"<string>\",\n  \"deviceId\": \"<string>\",\n  \"createDisposition\": \"CreateNever\",\n  \"devMode\": false,\n  \"info\": \"<string>\",\n  \"params\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "296c55b5-0e3e-4f6b-8d84-dbc3a471240a",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"state\": \"<string>\",\n  \"deviceId\": \"<string>\",\n  \"createDisposition\": \"CreateNever\",\n  \"devMode\": false,\n  \"info\": \"<string>\",\n  \"params\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aad519c0-3af2-4f25-aec1-1a3ae244628f",
+          "name": "pauseState",
+          "request": {
+            "name": "pauseState",
+            "description": {
+              "content": "Pauses the current state, but not the session, for a user. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).\n\nThis method requires your production API `clientKey`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "pauseState"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"deviceId\": \"<string>\",\n  \"devMode\": false,\n  \"createDisposition\": \"CreateNever\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9aeffaa8-6449-4d0e-8f85-ca907273cbc3",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4cba87bf-73b1-4b42-9bf4-08ea5c86e631",
+          "name": "resumeState",
+          "request": {
+            "name": "resumeState",
+            "description": {
+              "content": "Resumes the current state for a user. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).\n\nThis method requires your production API `clientKey`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "resumeState"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"deviceId\": \"<string>\",\n  \"devMode\": false,\n  \"createDisposition\": \"CreateNever\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "32b1c16b-dec9-4e91-8059-06e592fc2af2",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "52cebf46-c912-4cc5-8e66-5d8cec101a63",
+          "name": "pauseSession",
+          "request": {
+            "name": "pauseSession",
+            "description": {
+              "content": "Pauses the current session and state for a user. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).\n\nThis method requires your production API `clientKey`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "pauseSession"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"deviceId\": \"<string>\",\n  \"devMode\": false,\n  \"createDisposition\": \"CreateNever\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f916860d-8ce2-4bd1-88f8-e1ca764b2cde",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dfac3a57-d558-4a17-a8ae-6ec245eaea20",
+          "name": "resumeSession",
+          "request": {
+            "name": "resumeSession",
+            "description": {
+              "content": "Resumes the current session and state for a user. Use either after `pauseSession`, or `start` if the app started in the background. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).\n\nThis method requires your production API `clientKey`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "resumeSession"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"deviceId\": \"<string>\",\n  \"devMode\": false,\n  \"createDisposition\": \"CreateNever\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0f8e0524-af77-43b7-aed6-d121253c1b40",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b19e10ae-14d1-4016-92e3-c51848e1ffb7",
+          "name": "heartbeat",
+          "request": {
+            "name": "heartbeat",
+            "description": {
+              "content": "Sends a pulse to indicate that the current session is still in progress, so as not to automatically end it. Sessions are automatically timed out after 2 hours of inactivity — or 30 minutes if the session was paused first. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).\n\nThis method requires your production API `clientKey`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "heartbeat"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"deviceId\": \"<string>\",\n  \"devMode\": false,\n  \"createDisposition\": \"CreateNever\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "feed232b-b42d-4681-8387-092e1ee64d9d",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a743128-40bd-4b87-a68d-2da6676ab21f",
+          "name": "start",
+          "request": {
+            "name": "start",
+            "description": {
+              "content": "Starts a new session and returns the variables that have changed for the user. If the user/device does not exist, a new user will be created (see the `createDisposition` option below). This method requires your production API `clientKey`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "start"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"deviceId\": \"<string>\",\n  \"devMode\": false,\n  \"createDisposition\": \"CreateIfNeeded\",\n  \"appVersion\": \"<string>\",\n  \"systemName\": \"<string>\",\n  \"systemVersion\": \"<string>\",\n  \"browserName\": \"<string>\",\n  \"browserVersion\": \"<string>\",\n  \"deviceName\": \"<string>\",\n  \"deviceModel\": \"<string>\",\n  \"iosPushToken\": \"<string>\",\n  \"gcmRegistrationId\": \"<string>\",\n  \"webPushSubscription\": \"<string>\",\n  \"userAttributes\": \"<object>\",\n  \"locale\": \"<string>\",\n  \"country\": \"<string>\",\n  \"region\": \"<string>\",\n  \"city\": \"<string>\",\n  \"location\": \"<string>\",\n  \"locationAccuracyType\": \"<string>\",\n  \"timezone\": \"<string>\",\n  \"timezoneOffsetSeconds\": \"<integer>\",\n  \"background\": \"<boolean>\",\n  \"includeDefaults\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b4f2303b-2145-4887-8a76-2c1ea3faedd7",
+              "name": "A successful request will return a response array with an object that has a success value set to true, and no error or warning object. It will also include variables, messages and other details relevant to that user.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"deviceId\": \"<string>\",\n  \"devMode\": false,\n  \"createDisposition\": \"CreateIfNeeded\",\n  \"appVersion\": \"<string>\",\n  \"systemName\": \"<string>\",\n  \"systemVersion\": \"<string>\",\n  \"browserName\": \"<string>\",\n  \"browserVersion\": \"<string>\",\n  \"deviceName\": \"<string>\",\n  \"deviceModel\": \"<string>\",\n  \"iosPushToken\": \"<string>\",\n  \"gcmRegistrationId\": \"<string>\",\n  \"webPushSubscription\": \"<string>\",\n  \"userAttributes\": \"<object>\",\n  \"locale\": \"<string>\",\n  \"country\": \"<string>\",\n  \"region\": \"<string>\",\n  \"city\": \"<string>\",\n  \"location\": \"<string>\",\n  \"locationAccuracyType\": \"<string>\",\n  \"timezone\": \"<string>\",\n  \"timezoneOffsetSeconds\": \"<integer>\",\n  \"background\": \"<boolean>\",\n  \"includeDefaults\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": true,\n  \"response[].messages\": {},\n  \"response[].vars\": {\n    \"varName\": \"string\"\n  },\n  \"response[].variants[].id\": 5756.798550580425,\n  \"response[].regions\": {},\n  \"response[].token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "810a009d-707e-4d61-9e9f-06486bc1d6bd",
+          "name": "stop",
+          "request": {
+            "name": "stop",
+            "description": {
+              "content": "Ends the current session. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below). This method requires your production API `clientKey`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "stop"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"deviceId\": \"<string>\",\n  \"devMode\": false,\n  \"createDisposition\": \"CreateNever\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1a27179f-5c12-4939-b7cc-a9a23bff7282",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d37e92ff-035a-440f-be06-a0fe340f518b",
+          "name": "track",
+          "request": {
+            "name": "track",
+            "description": {
+              "content": "Tracks one occurrence of an event for a user. If the user/device does not exist, a new user will be created (see the `createDisposition` option below). This method requires your production API `clientKey`. See [tracking events via API](https://docs.leanplum.com/reference/api-guides#tracking-analytics-data-via-api) for examples.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "track"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"event\": \"<string>\",\n  \"deviceId\": \"<string>\",\n  \"devMode\": false,\n  \"createDisposition\": \"CreateIfNeeded\",\n  \"value\": \"<float>\",\n  \"currencyCode\": \"<string>\",\n  \"info\": \"<string>\",\n  \"time\": \"<float>\",\n  \"params\": \"<object>\",\n  \"messageId\": \"<integer>\",\n  \"disposition\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4a154b8a-ccb9-4747-9860-68a2aa94f9af",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"event\": \"<string>\",\n  \"deviceId\": \"<string>\",\n  \"devMode\": false,\n  \"createDisposition\": \"CreateIfNeeded\",\n  \"value\": \"<float>\",\n  \"currencyCode\": \"<string>\",\n  \"info\": \"<string>\",\n  \"time\": \"<float>\",\n  \"params\": \"<object>\",\n  \"messageId\": \"<integer>\",\n  \"disposition\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "0622c28d-f75a-499c-9d96-15dd59c0b364",
+      "name": "User Information",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f629b15c-cd40-44c3-8109-ea981c95ba22",
+          "name": "setUserAttributes",
+          "request": {
+            "name": "setUserAttributes",
+            "description": {
+              "content": "Sets user attributes for the user given by userId and/or deviceId. If the user has an open session, the attributes for the current session will also be updated. Attributes will then propagate on data going forward. User properties not supplied in this method will not be affected. If the user/device does not exist, a new user will be created (see the `createDisposition` option below).\n\nThis method requires your production API `clientKey`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "setUserAttributes"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"deviceId\": \"<string>\",\n  \"createDisposition\": \"CreateIfNeeded\",\n  \"userAttributes\": \"<object>\",\n  \"userAttributeValuesToAdd\": \"<object>\",\n  \"userAttributeValuesToRemove\": \"<object>\",\n  \"userAttributeValuesToIncrement\": \"<object>\",\n  \"unsubscribeCategoriesToAdd\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"unsubscribeCategoriesToRemove\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"unsubscribeChannelsToAdd\": \"<string>\",\n  \"unsubscribeChannelsToRemove\": \"<string>\",\n  \"newUserId\": \"<string>\",\n  \"events\": \"<object>\",\n  \"states\": \"<object>\",\n  \"created\": \"<float>\",\n  \"lastActive\": \"<float>\",\n  \"totalSessions\": \"<integer>\",\n  \"timeSpentInApp\": \"<float>\",\n  \"locale\": \"<string>\",\n  \"country\": \"<string>\",\n  \"region\": \"<string>\",\n  \"city\": \"<string>\",\n  \"location\": \"<string>\",\n  \"locationAccuracyType\": \"<string>\",\n  \"timezone\": \"<string>\",\n  \"timezoneOffsetSeconds\": \"<integer>\",\n  \"devices\": [\n    {\n      \"deviceId\": \"<string>\",\n      \"appVersion\": \"<string>\",\n      \"systemName\": \"<string>\",\n      \"systemVersion\": \"<string>\",\n      \"browserName\": \"<string>\",\n      \"browserVersion\": \"<string>\",\n      \"deviceName\": \"<string>\",\n      \"deviceModel\": \"<string>\",\n      \"iosPushToken\": \"<string>\",\n      \"gcmRegistrationId\": \"<string>\",\n      \"webPushSubscription\": \"<string>\"\n    },\n    {\n      \"deviceId\": \"<string>\",\n      \"appVersion\": \"<string>\",\n      \"systemName\": \"<string>\",\n      \"systemVersion\": \"<string>\",\n      \"browserName\": \"<string>\",\n      \"browserVersion\": \"<string>\",\n      \"deviceName\": \"<string>\",\n      \"deviceModel\": \"<string>\",\n      \"iosPushToken\": \"<string>\",\n      \"gcmRegistrationId\": \"<string>\",\n      \"webPushSubscription\": \"<string>\"\n    }\n  ],\n  \"devMode\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1ab11dc9-7138-47f3-aed1-03a6f210e5a9",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"deviceId\": \"<string>\",\n  \"createDisposition\": \"CreateIfNeeded\",\n  \"userAttributes\": \"<object>\",\n  \"userAttributeValuesToAdd\": \"<object>\",\n  \"userAttributeValuesToRemove\": \"<object>\",\n  \"userAttributeValuesToIncrement\": \"<object>\",\n  \"unsubscribeCategoriesToAdd\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"unsubscribeCategoriesToRemove\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"unsubscribeChannelsToAdd\": \"<string>\",\n  \"unsubscribeChannelsToRemove\": \"<string>\",\n  \"newUserId\": \"<string>\",\n  \"events\": \"<object>\",\n  \"states\": \"<object>\",\n  \"created\": \"<float>\",\n  \"lastActive\": \"<float>\",\n  \"totalSessions\": \"<integer>\",\n  \"timeSpentInApp\": \"<float>\",\n  \"locale\": \"<string>\",\n  \"country\": \"<string>\",\n  \"region\": \"<string>\",\n  \"city\": \"<string>\",\n  \"location\": \"<string>\",\n  \"locationAccuracyType\": \"<string>\",\n  \"timezone\": \"<string>\",\n  \"timezoneOffsetSeconds\": \"<integer>\",\n  \"devices\": [\n    {\n      \"deviceId\": \"<string>\",\n      \"appVersion\": \"<string>\",\n      \"systemName\": \"<string>\",\n      \"systemVersion\": \"<string>\",\n      \"browserName\": \"<string>\",\n      \"browserVersion\": \"<string>\",\n      \"deviceName\": \"<string>\",\n      \"deviceModel\": \"<string>\",\n      \"iosPushToken\": \"<string>\",\n      \"gcmRegistrationId\": \"<string>\",\n      \"webPushSubscription\": \"<string>\"\n    },\n    {\n      \"deviceId\": \"<string>\",\n      \"appVersion\": \"<string>\",\n      \"systemName\": \"<string>\",\n      \"systemVersion\": \"<string>\",\n      \"browserName\": \"<string>\",\n      \"browserVersion\": \"<string>\",\n      \"deviceName\": \"<string>\",\n      \"deviceModel\": \"<string>\",\n      \"iosPushToken\": \"<string>\",\n      \"gcmRegistrationId\": \"<string>\",\n      \"webPushSubscription\": \"<string>\"\n    }\n  ],\n  \"devMode\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b821418e-f953-4314-aeb0-ad7d711ce326",
+          "name": "setDeviceAttributes",
+          "request": {
+            "name": "setDeviceAttributes",
+            "description": {
+              "content": "Sets device-level attributes, such as a deviceId or an iOS push token, for the current device. If the device is shared between multiple users, pass a `userId` with the `deviceId` to update the device for each user. (Passing just the `deviceId` will only update it once). If the device already exists, the attributes will be updated. If the device and user do not exist, a new user will be created along with this device (see the `createDisposition` option below). See [selecting a user](#selecting-a-user) for more.\n\nSee [Importing iOS push tokens](https://docs.leanplum.com/docs/importing-historical-push-tokens) for an example using setDeviceAttributes. This method requires your production API `clientKey`.\n\n> At least one of the following must be set to create/update a device: `appVersion`, `systemName`, `systemVersion`, `browserName`, `browserVersion`, `deviceName`, `deviceModel`, `iosPushToken`, `gcmRegistrationId`, or `webPushSubscription`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "setDeviceAttributes"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"deviceId\": \"<string>\",\n  \"userId\": \"hfarnsworth\",\n  \"createDisposition\": \"CreateIfNeeded\",\n  \"devMode\": false,\n  \"appVersion\": \"<string>\",\n  \"systemName\": \"<string>\",\n  \"systemVersion\": \"<string>\",\n  \"browserName\": \"<string>\",\n  \"browserVersion\": \"<string>\",\n  \"deviceName\": \"<string>\",\n  \"deviceModel\": \"<string>\",\n  \"iosPushToken\": \"<string>\",\n  \"gcmRegistrationId\": \"<string>\",\n  \"webPushSubscription\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b6b714e3-6272-454a-bab2-02be97393edc",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"deviceId\": \"<string>\",\n  \"userId\": \"hfarnsworth\",\n  \"createDisposition\": \"CreateIfNeeded\",\n  \"devMode\": false,\n  \"appVersion\": \"<string>\",\n  \"systemName\": \"<string>\",\n  \"systemVersion\": \"<string>\",\n  \"browserName\": \"<string>\",\n  \"browserVersion\": \"<string>\",\n  \"deviceName\": \"<string>\",\n  \"deviceModel\": \"<string>\",\n  \"iosPushToken\": \"<string>\",\n  \"gcmRegistrationId\": \"<string>\",\n  \"webPushSubscription\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a7faa677-48cc-49c8-a922-2053bd7426f4",
+          "name": "setTrafficSourceInfo",
+          "request": {
+            "name": "setTrafficSourceInfo",
+            "description": {
+              "content": "Sets traffic source information for the current session of a user. If the user/device does not exist, a new user will be created (see the `createDisposition` option below). This method requires your production API `clientKey`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "setTrafficSourceInfo"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"trafficSource\": {\n    \"publisherId\": \"<string>\",\n    \"publisherName\": \"<string>\",\n    \"publisherSubPublisher\": \"<string>\",\n    \"publisherSubSite\": \"<string>\",\n    \"publisherSubCampaign\": \"<string>\",\n    \"publisherSubAdGroup\": \"<string>\",\n    \"publisherSubAd\": \"<string>\"\n  },\n  \"deviceId\": \"<string>\",\n  \"createDisposition\": \"CreateIfNeeded\",\n  \"time\": \"<float>\",\n  \"devMode\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9c44c02b-d4f6-4f2e-9513-084462537b63",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"trafficSource\": {\n    \"publisherId\": \"<string>\",\n    \"publisherName\": \"<string>\",\n    \"publisherSubPublisher\": \"<string>\",\n    \"publisherSubSite\": \"<string>\",\n    \"publisherSubCampaign\": \"<string>\",\n    \"publisherSubAdGroup\": \"<string>\",\n    \"publisherSubAd\": \"<string>\"\n  },\n  \"deviceId\": \"<string>\",\n  \"createDisposition\": \"CreateIfNeeded\",\n  \"time\": \"<float>\",\n  \"devMode\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "014c7515-cbde-4648-a261-82eafbcb29c0",
+          "name": "registerDevice",
+          "request": {
+            "name": "registerDevice",
+            "description": {
+              "content": "Registers the current device for development. This method requires your development API `clientKey`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "registerDevice"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"deviceId\": \"<string>\",\n  \"email\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "39bc1b58-4c66-4f60-a0d8-338157c4e3cc",
+              "name": "Returns the status of the request and device registration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"deviceId\": \"<string>\",\n  \"email\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": true,\n  \"response[].registered\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ca65646f-0092-4f9a-8572-e7d4defa261a",
+          "name": "deleteUser",
+          "request": {
+            "name": "deleteUser",
+            "description": {
+              "content": "Permanently removes all of a user’s attribute information from our database. To erase a user’s data entirely — including attribute, analytics, and sessions data — set the `fullErasure` flag to true. You can bulk delete users with [multi](reference#post_api-action-multi) (import mode) or contact our support team for assistance. `deleteUser` calls are exempt from API billing.\n\nThis method requires your development API `clientKey`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "deleteUser"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"<string>\",\n  \"deviceId\": \"<string>\",\n  \"fullErasure\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3035eb0b-e11a-4a04-9d04-67ec5a757d30",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"<string>\",\n  \"deviceId\": \"<string>\",\n  \"fullErasure\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd946c93-7779-4055-9c74-fcf211cada60",
+          "name": "block",
+          "request": {
+            "name": "block",
+            "description": {
+              "content": "Stops all data collection for a user going forward. `block` also erases any data previously associated with that user, including all of their attribute and analytics data. The block will take effect as soon as the “success” response is returned. It may take up to 15 days to delete the user’s data completely.\n\nNote that the `block` call deletes a user's past data, but does not delete the user entirely. This allows you to use the `unblock` call to resume data collection.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "block"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"<string>\",\n  \"deviceId\": \"<string>\",\n  \"devMode\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "25f72646-ed6c-4d15-bc02-11281f0e3484",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"<string>\",\n  \"deviceId\": \"<string>\",\n  \"devMode\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04ba3023-d4d4-4cce-8a37-00883223c924",
+          "name": "unblock",
+          "request": {
+            "name": "unblock",
+            "description": {
+              "content": "Resumes data collection for a specific user, and ends a previous `block` on data collection. This will **not** restore any of data that was deleted by the previous `block` call.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "unblock"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"<string>\",\n  \"deviceId\": \"<string>\",\n  \"devMode\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dbcb145a-5955-4762-b65f-e6fb612cb8c9",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"<string>\",\n  \"deviceId\": \"<string>\",\n  \"devMode\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "1be7e621-fa03-4b7a-98d3-040a72ee64b7",
+      "name": "Messages",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fb2003d1-d631-4d93-989f-4789ee1b7b86",
+          "name": "getMessage",
+          "request": {
+            "name": "getMessage",
+            "description": {
+              "content": "Gets information about a message. This method requires your content read-only API `clientKey`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "getMessage"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "YOUR_APP_ID",
+                  "description": "(Required) The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "YOUR_CONTENT_KEY",
+                  "description": "(Required) The Content Read-only key for your Leanplum App."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) The version of the Leanplum API to use. The current version is 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>",
+                  "description": "(Required) The numeric message ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "includeDrafts",
+                  "value": "<boolean>",
+                  "description": "Include drafts and unpublished changes. Default: `false`.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "68524b1d-7bb3-42a3-9a1d-047a2c24269e",
+              "name": "A successful response will return details about a message.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "YOUR_APP_ID"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "YOUR_CONTENT_KEY"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "includeDrafts",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": true,\n  \"response[].message\": {\n    \"id\": 5845,\n    \"campaignID\": 5385,\n    \"campaignName\": \"string\",\n    \"abTestIds\": 6165,\n    \"name\": \"string\",\n    \"active\": true,\n    \"state\": \"string\",\n    \"created\": 5038.219151856476,\n    \"updated\": 3348.310964676462,\n    \"scheduledTime\": 8938.020049138728,\n    \"finished\": 9734.30576793058,\n    \"messageType\": \"string\",\n    \"messageLimits\": \"string\",\n    \"localTriggers\": \"string\",\n    \"serverTriggers\": \"string\",\n    \"targetingSticky\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b8549ff-3504-4d0e-b9d5-fb24319a5926",
+          "name": "getMessages",
+          "request": {
+            "name": "getMessages",
+            "description": {
+              "content": "Gets information about all the messages for a given app. This method requires your content read-only API `clientKey`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "getMessages"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "YOUR_APP_ID",
+                  "description": "(Required) The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "YOUR_CONTENT_KEY",
+                  "description": "(Required) The Content Read-only key for your Leanplum App."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) The version of the Leanplum API to use. The current version is 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "includeDrafts",
+                  "value": "<boolean>",
+                  "description": "Include drafts and unpublished changes. Default: `false`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "recent",
+                  "value": "<boolean>",
+                  "description": "Only return information about active or recently finished messages. Default: `true`.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "216249e9-9693-4e30-a8f0-dadd58f2379b",
+              "name": "A successful response will return a list of messages.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "YOUR_APP_ID"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "YOUR_CONTENT_KEY"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "includeDrafts",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "recent",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": true,\n  \"response[].messages[]\": {\n    \"id\": 1084,\n    \"campaignID\": 3853,\n    \"campaignName\": \"string\",\n    \"abTestIds\": 4580,\n    \"name\": \"string\",\n    \"active\": true,\n    \"state\": \"string\",\n    \"created\": 9443.975742573044,\n    \"updated\": 8106.417587131253,\n    \"scheduledTime\": 5302.2883679879005,\n    \"finished\": 8133.846493429073,\n    \"messageType\": \"string\",\n    \"messageLimits\": \"string\",\n    \"localTriggers\": \"string\",\n    \"serverTriggers\": \"string\",\n    \"targetingSticky\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "821d51db-88ec-44aa-8313-98ea6495d764",
+          "name": "getUnsubscribeCategories",
+          "request": {
+            "name": "getUnsubscribeCategories",
+            "description": {
+              "content": "Gets information about all the email subscription categories for a given app. This method requires your content read-only API `clientKey`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "getUnsubscribeCategories"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "YOUR_APP_ID",
+                  "description": "(Required) The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "YOUR_CONTENT_KEY",
+                  "description": "(Required) The Content Read-only key for your Leanplum App."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) The version of the Leanplum API to use. The current version is 1.0.6."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "90619d14-1175-4d1b-807b-02a18e2eb211",
+              "name": "A successful response will return a list of email subscription categories.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "YOUR_APP_ID"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "YOUR_CONTENT_KEY"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].categories[]\": {\n    \"id\": 108,\n    \"name\": \"string\",\n    \"description\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "78f54502-be20-4c11-aa3e-f6ed1ffb700e",
+          "name": "sendMessage",
+          "request": {
+            "name": "sendMessage",
+            "description": {
+              "content": "Sends a message (typically a push notification) to one device or user. You must provide a `deviceId` and/or a `userId`. If `deviceId` is provided, the message will be sent to the corresponding device only; if only `userId` is provided, the message will be sent to all devices of the user with specified `userId`. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).\n\nMessages are queued, so they will be sent after the request completes.\n\nThis method requires your production API `clientKey`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "sendMessage"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"messageId\": \"<integer>\",\n  \"deviceId\": \"<string>\",\n  \"values\": \"<object>\",\n  \"force\": false,\n  \"devMode\": false,\n  \"createDisposition\": \"CreateNever\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6af54208-3826-4b97-9f2f-5fabbc6747bc",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_PROD_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"messageId\": \"<integer>\",\n  \"deviceId\": \"<string>\",\n  \"values\": \"<object>\",\n  \"force\": false,\n  \"devMode\": false,\n  \"createDisposition\": \"CreateNever\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ca71785-09ac-4d8b-ad06-35640ae362a0",
+          "name": "addAndroidNotificationChannel",
+          "request": {
+            "name": "addAndroidNotificationChannel",
+            "description": {
+              "content": "Creates new notification channels and updates existing ones. Updateable parameters include channel name, description, and default. This method requires your development API `clientKey`.\n\n> Leanplum will not interfere with any channel defined directly in your app code or by other mobile marketing providers. For instance, if your app has both a “Promotions” channel and a “Transactional” channel, but your marketer should only have access to Promotions, then you should only send that channel to Leanplum.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "addAndroidNotificationChannel"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"importance\": 3,\n  \"description\": \"<string>\",\n  \"groupId\": \"<string>\",\n  \"enableLights\": \"<boolean>\",\n  \"lightColor\": \"<integer>\",\n  \"enableVibration\": \"<boolean>\",\n  \"vibrationPattern\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"lockscreenVisibility\": \"<integer>\",\n  \"bypassDnd\": \"<boolean>\",\n  \"showBadge\": \"<boolean>\",\n  \"sound\": \"<string>\",\n  \"default\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5b843e88-b485-4ea1-bc0d-7695ce9f0438",
+              "name": "The response will indicate whether or not the channel was created successfully.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"importance\": 3,\n  \"description\": \"<string>\",\n  \"groupId\": \"<string>\",\n  \"enableLights\": \"<boolean>\",\n  \"lightColor\": \"<integer>\",\n  \"enableVibration\": \"<boolean>\",\n  \"vibrationPattern\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"lockscreenVisibility\": \"<integer>\",\n  \"bypassDnd\": \"<boolean>\",\n  \"showBadge\": \"<boolean>\",\n  \"sound\": \"<string>\",\n  \"default\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": true,\n  \"response[].channelCreated\": false,\n  \"response[].channelId\": \"12345\",\n  \"response[].channelUpdated\": false,\n  \"response[].name\": \"string\",\n  \"response[].importance\": 8722\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "254d2851-5185-4672-bdbe-996fdc642a2f",
+          "name": "getAndroidNotificationChannels",
+          "request": {
+            "name": "getAndroidNotificationChannels",
+            "description": {
+              "content": "Gets all Android notification channels defined in Leanplum and their associated settings. No additional arguments are required. This method requires your production API `clientKey`.\n\nThis method requires your production API `clientKey`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "getAndroidNotificationChannels"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "YOUR_APP_ID",
+                  "description": "(Required) The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "YOUR_PROD_KEY",
+                  "description": "(Required) The Production key for your Leanplum App."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) The version of the Leanplum API to use. The current version is 1.0.6."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef3c014b-3d34-4c8d-b7d2-e25750e1d3c4",
+              "name": "Returns the Android notification channels you have defined in Leanplum and their associated settings. Note — an HTTP status of 200 does not guarantee the request was processed successfully. Pay close attention to `response[].warning` and `response[].error`; if returned with a message, the request may have been skipped or ignored.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "YOUR_APP_ID"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "YOUR_PROD_KEY"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": true,\n  \"response[].notificationChannels\": [\n    {\n      \"importance\": 2,\n      \"name\": \"Promotional\",\n      \"id\": \"abcde\"\n    },\n    {\n      \"importance\": 2,\n      \"name\": \"Promotional\",\n      \"id\": \"abcde\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6d45e8df-1ef5-4d57-881e-a4d9ee2975d4",
+          "name": "deleteAndroidNotificationChannel",
+          "request": {
+            "name": "deleteAndroidNotificationChannel",
+            "description": {
+              "content": "Permanently removes an Android notification channel from Leanplum. This method requires your development API `clientKey`.\n\n**Note** — You cannot delete the channel that is defined as default (unless it is the only channel). To delete the default channel, mark another channel as default first.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "deleteAndroidNotificationChannel"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"channelId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ec66057a-6972-41ae-9262-192df00ffd10",
+              "name": "Response indicates whether channel deletion was successful and returns the channel id of the deleted channel.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"channelId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].channelDeleted\": true,\n  \"response[].channelId\": \"12345\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "ed5e01e2-1db1-4d7b-953d-2370c004b053",
+      "name": "A/B Tests",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "168296e0-f44a-4b80-8072-d4ed7035797d",
+          "name": "getAbTest",
+          "request": {
+            "name": "getAbTest",
+            "description": {
+              "content": "Gets information about an A/B test. This method requires your content read-only API `clientKey`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "getAbTest"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "YOUR_APP_ID",
+                  "description": "(Required) The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "YOUR_CONTENT_KEY",
+                  "description": "(Required) The Content Read-only key for your Leanplum App."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) The version of the Leanplum API to use. The current version is 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>",
+                  "description": "(Required) The numeric A/B test ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "includeDrafts",
+                  "value": "<boolean>",
+                  "description": "Include drafts and unpublished changes. Default: `false`.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f26ff734-60f7-4993-a00b-f8ac6d736d9a",
+              "name": "A successful response will return details about an A/B test.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "YOUR_APP_ID"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "YOUR_CONTENT_KEY"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "includeDrafts",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].abTest\": {\n    \"id\": 3677,\n    \"name\": \"string\",\n    \"active\": true,\n    \"created\": 3152.039082800027,\n    \"updated\": 9214.614615937595,\n    \"finished\": 4578.158209628894,\n    \"chosenVariant\": 4277.146378691453,\n    \"targetingSticky\": true,\n    \"state\": \"string\",\n    \"variants[].id\": 4007,\n    \"variants[].name\": \"string\",\n    \"variants[].percent\": 2985.713121123671,\n    \"variants[].variables[].name\": \"string\",\n    \"variants[].variables[].value\": \"string\"\n  },\n  \"response[].abTest.details\": {},\n  \"response[].abTest.details.publishedBy\": \"string\",\n  \"response[].abTest.details.createdBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e27c33b-9e39-4d43-8c35-8c8e83bcd236",
+          "name": "getAbTests",
+          "request": {
+            "name": "getAbTests",
+            "description": {
+              "content": "Gets information about A/B tests. This method requires your content read-only API `clientKey`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "getAbTests"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "YOUR_APP_ID",
+                  "description": "(Required) The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "YOUR_CONTENT_KEY",
+                  "description": "(Required) The Content Read-only key for your Leanplum App."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) The version of the Leanplum API to use. The current version is 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "includeDrafts",
+                  "value": "<boolean>",
+                  "description": "Include drafts and unpublished changes. Default: `false`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "recent",
+                  "value": "<boolean>",
+                  "description": "Only return information about active or recently finished A/B tests. Default: `true`.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6754b58c-a380-45aa-acdf-9f208fe295ab",
+              "name": "A successful response will return a list of A/B tests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "YOUR_APP_ID"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "YOUR_CONTENT_KEY"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "includeDrafts",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "recent",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].abTests[]\": {\n    \"id\": 6959,\n    \"name\": \"string\",\n    \"active\": false,\n    \"created\": 3973.2626129008695,\n    \"updated\": 3913.0132307691947,\n    \"finished\": 2059.1177078704313,\n    \"chosenVariant\": 3080.663758292346,\n    \"targetingSticky\": false,\n    \"state\": \"string\",\n    \"variants[].id\": 7093,\n    \"variants[].name\": \"string\",\n    \"variants[].percent\": 2397.684059835137,\n    \"variants[].variables[].name\": \"string\",\n    \"variants[].variables[].value\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b3c3bf5-e6fd-4785-bd9f-7054a8243405",
+          "name": "getVariant",
+          "request": {
+            "name": "getVariant",
+            "description": {
+              "content": "Gets information about an A/B test variant. This method requires your content read-only API `clientKey`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "getVariant"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "YOUR_APP_ID",
+                  "description": "(Required) The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "YOUR_CONTENT_KEY",
+                  "description": "(Required) The Content Read-only key for your Leanplum App."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) The version of the Leanplum API to use. The current version is 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>",
+                  "description": "(Required) The numeric variant ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "includeDrafts",
+                  "value": "<boolean>",
+                  "description": "Include drafts and unpublished changes. Default: `false`.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5f32b555-b95d-494c-9653-9de80ddae646",
+              "name": "A successful response will return details about a variant.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "YOUR_APP_ID"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "YOUR_CONTENT_KEY"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "includeDrafts",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].variant\": {\n    \"id\": 4373,\n    \"name\": \"string\",\n    \"percent\": 2870.68552119895,\n    \"variables[].name\": \"string\",\n    \"variables[].value\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f0c0ecb3-567f-485e-bfe7-979fda5a8b18",
+      "name": "Files and Variables",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9d67ecdc-27e8-4316-8286-0971f4db054b",
+          "name": "getVars",
+          "request": {
+            "name": "getVars",
+            "description": {
+              "content": "Gets the variable values for the current user or device. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below). To see default variable values, use the `includeDefaults` parameter.\n\nThis method requires your production API `clientKey`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "getVars"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "YOUR_APP_ID",
+                  "description": "(Required) The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "YOUR_PROD_KEY",
+                  "description": "(Required) The Production key for your Leanplum App."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) The version of the Leanplum API to use. The current version is 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "createDisposition",
+                  "value": "CreateNever",
+                  "description": "The policy that determines whether users are created by the API. Possible values:\n  * `CreateIfNeeded` creates a user with the given IDs if one does not already exist.\n  * `CreateNever` requires that the user already exists, otherwise the API action is skipped and a warning will be returned.\n\nThe default value for this method is `CreateNever`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "(Required) The current user ID. Required unless using device ID. You can set this to whatever you use at your company for user IDs. Leave it blank to use the device ID.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "deviceId",
+                  "value": "<string>",
+                  "description": "The device ID for which to retrieve the variables.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "devMode",
+                  "value": "false",
+                  "description": "Whether the user is in Development Mode, i.e. the user associated with the request is a developer and not a user. This is important for reporting purposes. Default: `false`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeDefaults",
+                  "value": "true",
+                  "description": "Whether to include default ('defaults in code') values in output. Default: `true`.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a12d39a3-10d6-47aa-827e-0187cfec48b6",
+              "name": "A successful request will return a response array with an object that has a success value set to true, and no error or warning object. It will also include variables, messages and other details relevant to that user.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "YOUR_APP_ID"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "YOUR_PROD_KEY"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "createDisposition",
+                      "value": "CreateNever"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deviceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "devMode",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeDefaults",
+                      "value": "true"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": true,\n  \"response[].vars\": {\n    \"varName\": \"string\"\n  },\n  \"response[].variants[].id\": 5268.319640511913\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90ec7cfe-a231-47ea-8328-8d08084241f5",
+          "name": "setVars",
+          "request": {
+            "name": "setVars",
+            "description": {
+              "content": "Sets the list of variables to be used in the Leanplum content management system. This method requires your development API `clientKey`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "setVars"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"vars\": \"<object>\",\n  \"deviceId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "28af8e20-dc90-406a-94d2-9096f02cccfd",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"vars\": \"<object>\",\n  \"deviceId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c007c1a5-4efa-4d13-95ec-3d768853bcca",
+          "name": "deleteVars",
+          "request": {
+            "name": "deleteVars",
+            "description": {
+              "content": "Deletes the list of variables from the Leanplum content management system. This method requires your development API `clientKey`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "deleteVars"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"vars\": [\n    \"variableName\",\n    \"variableName\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e93226eb-6b7c-42f7-9a8c-5ba1f5a610c8",
+              "name": "Returns the status and a list of variables that were deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"vars\": [\n    \"variableName\",\n    \"variableName\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": true,\n  \"response[].variablesRemoved\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8f36f000-81b9-450e-a5e0-4d855e373e1c",
+          "name": "downloadFile",
+          "request": {
+            "name": "downloadFile",
+            "description": {
+              "content": "Redirects to a file uploaded to the Leanplum dashboard (the File tab). Must be the only API method in a batch. This method requires your production API `clientKey`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "downloadFile"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "YOUR_APP_ID",
+                  "description": "(Required) The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "YOUR_PROD_KEY",
+                  "description": "(Required) The Production key for your Leanplum App."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) The version of the Leanplum API to use. The current version is 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "filename",
+                  "value": "<string>",
+                  "description": "(Required) The name of the file to download."
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "46cab00d-98d1-481a-b8c4-37c63516420b",
+              "name": "A successful request will redirect to the file and begin a download.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "YOUR_APP_ID"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "YOUR_PROD_KEY"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "filename",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "56ad6592-ea3b-42d4-81af-0f9f7dee6000",
+          "name": "uploadFile",
+          "request": {
+            "name": "uploadFile",
+            "description": {
+              "content": "Uploads up to 16 files or 50 MB at a time to use in the File picker and File tab of the Leanlum dashboard. This method requires your development API `clientKey`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "uploadFile"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"data\": [\n    {\n      \"filename\": \"<string>\",\n      \"size\": \"<integer>\",\n      \"hash\": \"<string>\"\n    },\n    {\n      \"filename\": \"<string>\",\n      \"size\": \"<integer>\",\n      \"hash\": \"<string>\"\n    }\n  ],\n  \"file{k}\": \"<binary>\",\n  \"filename\": \"<string>\",\n  \"file\": \"<binary>\",\n  \"size\": \"<integer>\",\n  \"hash\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "20cf64fd-6ae2-4493-b054-e0758427f482",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"data\": [\n    {\n      \"filename\": \"<string>\",\n      \"size\": \"<integer>\",\n      \"hash\": \"<string>\"\n    },\n    {\n      \"filename\": \"<string>\",\n      \"size\": \"<integer>\",\n      \"hash\": \"<string>\"\n    }\n  ],\n  \"file{k}\": \"<binary>\",\n  \"filename\": \"<string>\",\n  \"file\": \"<binary>\",\n  \"size\": \"<integer>\",\n  \"hash\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f9cf2f1f-9b14-4e48-953b-fe969186c8b0",
+      "name": "Export Data",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "220a4e02-31a2-474b-be04-8594b1b79de6",
+          "name": "addPostback",
+          "request": {
+            "name": "addPostback",
+            "description": {
+              "content": "Adds a postback rule to be triggered by certain Leanplum message or A/B test events. The maximum number of postbacks allowed is three per app. This method requires your data export API `clientKey`. \n\nSee `type` and `channels` below for all possible events that can trigger postbacks. To see what values can be returned by the resulting POST request, see `postbackUrl` with an example template below. \n\n> **Postback retry policy:** If your app is unresponsive, Leanplum's request will timeout in 30 seconds. If the error code is 5xx, we will retry up to 9 more times with exponential backoff, starting from 1 hour, up to 10 hours. If all 10 times fail, the data is lost.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "addPostback"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DATA_EXPORT_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"type\": \"messageEvents\",\n  \"postbackUrl\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "41a9bd4b-4148-4fc4-870e-632ae0b03f4d",
+              "name": "A successful response will return the ID of the new postback.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DATA_EXPORT_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"type\": \"messageEvents\",\n  \"postbackUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].postbackId\": 3876\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1dd77737-ac07-4f97-8c41-b8868d8442e7",
+          "name": "listPostbacks",
+          "request": {
+            "name": "listPostbacks",
+            "description": {
+              "content": "List current postback rules. This method requires your data export API `clientKey`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "listPostbacks"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "YOUR_APP_ID",
+                  "description": "(Required) The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "YOUR_DATA_EXPORT_KEY",
+                  "description": "(Required) The Data Export key for your Leanplum App."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) The version of the Leanplum API to use. The current version is 1.0.6."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b1d3a297-628d-41b0-bf60-408bf7c27a1c",
+              "name": "A successful response will return a list of postbacks.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "YOUR_APP_ID"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "YOUR_DATA_EXPORT_KEY"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].postbacks[]\": {\n    \"postbackId\": 4405,\n    \"type\": \"string\",\n    \"postbackUrl\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9b55ed9-ac67-464f-b7a3-4469d20ad35f",
+          "name": "deletePostback",
+          "request": {
+            "name": "deletePostback",
+            "description": {
+              "content": "Deletes a particular postback. This method requires your data export API `clientKey`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "deletePostback"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DATA_EXPORT_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"postbackId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bdf32553-806c-4bce-a72d-77115226621c",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DATA_EXPORT_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"postbackId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "057e55ca-15cd-480c-a9b0-e6648698aed4",
+          "name": "exportData",
+          "request": {
+            "name": "exportData",
+            "description": {
+              "content": "Exports raw data to downloadable files. Data is split into roughly 256 MB files, and is not necessarily ordered. Exports can be made in JSON or CSV format. For JSON format, each file contains 1 line per session, with each session JSON-encoded. For CSV format, data is split into separate files for sessions, states, events, event parameters, and user attributes. \n\n> Note that for daily exports, you may see some variation in sessions data results. This is because sessions data can come in up to 8 days after a user's last interaction with your app. \n\nExport files are automatically deleted 24 hours after export occurs. Data becomes available to export every 2 hours, and only for complete sessions. You cannot export data that has become available more than 60 days ago. You may only export data 24 times per day. Exports with invalid arguments do not count towards this limit.\n\nUse [getExportResults](#get_api-action-getexportresults) with the returned `jobId` to get the results.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "exportData"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "YOUR_APP_ID",
+                  "description": "(Required) The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "YOUR_DATA_EXPORT_KEY",
+                  "description": "(Required) The Data Export key for your Leanplum App."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) The version of the Leanplum API to use. The current version is 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<string>",
+                  "description": "(Required) First date in range to include in PDT/PST (format: YYYYmmdd). Example: `20140223`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "exportFormat",
+                  "value": "<string>",
+                  "description": "The format to export data. Can be either `json` or `csv`. Default: `json`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<string>",
+                  "description": "Last date in range to include in PDT/PST (format: YYYYmmdd). Defaults to startDate if not provided. Example: `20140223`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<number>",
+                  "description": "First time (when data became available) to include (seconds since midnight UTC on January 1, 1970). If not provided, accepts all times before endTime, or all times if endTime is also not provided. The main use is to set this to the last time you exported data to only get the new data since your last export.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<number>",
+                  "description": "Last time (when data became available) to include (seconds since midnight UTC on January 1, 1970). If not provided, accepts all times after startTime, or all times if startTime is also not provided."
+                },
+                {
+                  "disabled": false,
+                  "key": "callbackUrl",
+                  "value": "<string>",
+                  "description": "URL to POST a response to when the export completes. The response is the response format of `getExportResults`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "s3BucketName",
+                  "value": "<string>",
+                  "description": "The name of an AWS S3 bucket to copy exported files to."
+                },
+                {
+                  "disabled": false,
+                  "key": "s3AccessId",
+                  "value": "<string>",
+                  "description": "The AWS Access ID used to authenticate to S3. Required if `s3BucketName` is set.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "s3AccessKey",
+                  "value": "<string>",
+                  "description": "The AWS Secret Access Key used to authenticate to S3. Required if `s3BucketName` is set.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "s3ObjectPrefix",
+                  "value": "<string>",
+                  "description": "An optional prefix of files to write to S3. Example: `dirname/` to write files to a directory within the S3 bucket.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "compressData",
+                  "value": "<boolean>",
+                  "description": "An option to compress the data. Only works when uploading to S3. If set to true, the files will be compressed using gzip before being uploaded."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "08eda252-3d41-4235-a508-fadb3fb261d3",
+              "name": "A successful response will return the ID of the export job.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "YOUR_APP_ID"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "YOUR_DATA_EXPORT_KEY"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exportFormat",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "callbackUrl",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s3BucketName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s3AccessId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s3AccessKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s3ObjectPrefix",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "compressData",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": true,\n  \"response[].jobId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2eb1a11-a510-40e1-9455-a12029397e8a",
+          "name": "exportReport",
+          "request": {
+            "name": "exportReport",
+            "description": {
+              "content": "Exports statistics for an A/B test, message, bookmarked report, or user activity in your app (as in the Analytics tab of the dashboard) over specified period of time. Report data becomes available to export every 2 hours, and only for complete sessions. You may only export report data 100 times per day per app. Exports with invalid arguments do not count towards the limit.\n\nThis method requires your data export API `clientKey`.\n\nUse [getExportResults](#get_api-action-getexportresults) with the returned `jobId` to get the results.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "exportReport"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "YOUR_APP_ID",
+                  "description": "(Required) The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "YOUR_DATA_EXPORT_KEY",
+                  "description": "(Required) The Data Export key for your Leanplum App."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) The version of the Leanplum API to use. The current version is 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<string>",
+                  "description": "(Required) First date in range to include in PDT/PST (format: YYYYmmdd). Example: `20150708`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "dataType",
+                  "value": "<string>",
+                  "description": "(Required) The type of the id provided. It can be either:\n   * `UserActivity` for general statistics about your app\n   * `AbTestResults` for stats about an A/B test\n   * `MessageResults` for stats about a message, or\n   * `BookmarkedReport` for stats about a bookmarked report.\n\nIf you choose `AbTestResults`, `MessageResults`, or `BookmarkedReport`, you must also supply the corresponding `abTestId`, `messageId`, or `bookmarkName`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<string>",
+                  "description": "Last date in range to include in PDT/PST (format: YYYYmmdd). Defaults to startDate if not provided. Example: `20150708`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "abTestId",
+                  "value": "<number>",
+                  "description": "Supply if any only if `dataType` is set to `AbTestResults`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "messageId",
+                  "value": "<number>",
+                  "description": "Supply if and only if the `dataType` is set to `MessageResults`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "bookmarkName",
+                  "value": "<string>",
+                  "description": "Supply if and only if the `dataType` is set to `BookmarkedReport`. This is the name of the report, as it appears in your Analytics tab.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "eventNames",
+                  "value": "<string>,<string>",
+                  "description": "A JSON-encoded array containing names of the events to be included in the report. Example: `[\"Add to cart\", \"Purchase\"]`\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7310de8a-c5cf-433b-8cb1-ae14fef475ea",
+              "name": "A successful response will return the ID of the export job.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "YOUR_APP_ID"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "YOUR_DATA_EXPORT_KEY"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dataType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "abTestId",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "messageId",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "bookmarkName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "eventNames",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": true,\n  \"response[].jobId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0cbcee0c-e8f0-416c-821d-8e97256b6972",
+          "name": "exportUser",
+          "request": {
+            "name": "exportUser",
+            "description": {
+              "content": "Retrieves attributes for the current user. This method requires your data export API `clientKey`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "exportUser"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "YOUR_APP_ID",
+                  "description": "(Required) The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "YOUR_DATA_EXPORT_KEY",
+                  "description": "(Required) The Data Export key for your Leanplum App."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) The version of the Leanplum API to use. The current version is 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "hfarnsworth",
+                  "description": "(Required) The current user ID. You can set this to whatever your company uses for user IDs. Leave it blank to use the device ID. For more info, see [selecting a user](#selecting-a-user).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "deviceId",
+                  "value": "<string>",
+                  "description": "A unique ID for the device targeted by the request. You must provide a `deviceId` and/or a `userId`. See [selecting a user](#selecting-a-user).\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e85063da-d755-4f7c-b050-ff011d82f840",
+              "name": "A successful request will return a map of the user's attributes, events and states.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "YOUR_APP_ID"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "YOUR_DATA_EXPORT_KEY"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "hfarnsworth"
+                    },
+                    {
+                      "key": "deviceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": true,\n  \"response[].userId\": \"hfarnsworth@planetexpress.com\",\n  \"response[].userAttributes\": {},\n  \"response[].events\": {\n    \"eventName\": {\n      \"count\": 2455,\n      \"value\": 3957.0053302669685,\n      \"firstTime\": 1176,\n      \"lastTime\": 5723\n    }\n  },\n  \"response[].states\": {\n    \"stateName\": {\n      \"count\": 5794,\n      \"firstTime\": 2,\n      \"lastTime\": 4313\n    }\n  },\n  \"response[].created\": 8614.64419230556,\n  \"response[].lastActive\": 9840.79327931637,\n  \"response[].totalSessions\": 9312.451857787124,\n  \"response[].timeSpentInApp\": 7784.975962349062,\n  \"response[].locale\": \"string\",\n  \"response[].country\": \"string\",\n  \"response[].region\": \"string\",\n  \"response[].city\": \"string\",\n  \"response[].location\": \"string\",\n  \"response[].locationAccuracyType\": \"string\",\n  \"response[].timezone\": \"string\",\n  \"response[].timezoneOffsetSeconds\": 7046.012531880151,\n  \"response[].unsubscribeChannels\": [\n    \"Email\",\n    \"Email\"\n  ],\n  \"response[].unsubscribeCategories[].id\": 4745,\n  \"response[].unsubscribeCategories[].name\": \"string\",\n  \"response[].devices[]\": {\n    \"deviceId\": \"string\",\n    \"appVersion\": \"string\",\n    \"systemName\": \"string\",\n    \"systemVersion\": \"string\",\n    \"browserName\": \"string\",\n    \"browserVersion\": \"string\",\n    \"deviceName\": \"string\",\n    \"deviceModel\": \"string\",\n    \"iosPushToken\": \"string\",\n    \"gcmRegistrationId\": \"string\",\n    \"webPushSubscription\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8effd50d-bc78-4d16-86cd-883b3bea1c73",
+          "name": "exportUsers",
+          "request": {
+            "name": "exportUsers",
+            "description": {
+              "content": "Exports multiple user IDs. The export may be executed up to 40 times successfully per day, and this limit resets at 12:00 am PST each calendar day. This method requires your data export API `clientKey`.\n\nUse [getExportResults](#get_api-action-getexportresults) with the returned `jobId` to get the results.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "exportUsers"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "YOUR_APP_ID",
+                  "description": "(Required) The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "YOUR_DATA_EXPORT_KEY",
+                  "description": "(Required) The Data Export key for your Leanplum App."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) The version of the Leanplum API to use. The current version is 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "audienceName",
+                  "value": "<string>",
+                  "description": "Export users in a particular audience. Use the audience name as seen on your audience dashboard. If skipped, Leanplum will export all users, unless other filters are applied.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "abTestId",
+                  "value": "<integer>",
+                  "description": "Limit export to only users that are in the given A/B test. The output will include the variant ID and name for each user."
+                },
+                {
+                  "disabled": false,
+                  "key": "userAttribute",
+                  "value": "<string>",
+                  "description": "Export users with a specific attribute set. The export results will include the userId and attribute value for each user. For example, userAttribute `email` would export all email users along with their email addresses."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "af4e7e41-48be-4880-9cdd-7a90c15348f2",
+              "name": "A successful response will return the ID of the export job.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "YOUR_APP_ID"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "YOUR_DATA_EXPORT_KEY"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "audienceName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "abTestId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "userAttribute",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": true,\n  \"response[].jobId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ca73282-5ca9-49a0-8c9e-253bf1991b86",
+          "name": "getExportResults",
+          "request": {
+            "name": "getExportResults",
+            "description": {
+              "content": "Retrieves the result of an export job generated by: `exportData`, `exportReport`, and `exportUsers`. This method requires your data export API `clientKey`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "getExportResults"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "YOUR_APP_ID",
+                  "description": "(Required) The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "YOUR_DATA_EXPORT_KEY",
+                  "description": "(Required) The Data Export key for your Leanplum App."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) The version of the Leanplum API to use. The current version is 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "jobId",
+                  "value": "<string>",
+                  "description": "(Required) The export job ID."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2b349dfd-bbcc-4c69-84bd-98a398d9db21",
+              "name": "Returns the status and either a list of file URLs that contain the exported data (for `exportData` and `exportUsers`), or JSON in the response body (`exportReport`).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "YOUR_APP_ID"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "YOUR_DATA_EXPORT_KEY"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "jobId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].state\": \"FINISHED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "54225b0b-9513-4c8d-86b6-767fa42b309f",
+      "name": "Import Data",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bbe963d9-e556-447a-95e4-370df1bda0ac",
+          "name": "multi (CSV)",
+          "request": {
+            "name": "multi (CSV)",
+            "description": {
+              "content": "Imports a (potentially large) CSV file with API actions to be executed. The file will be imported asynchronously as a job. Use `getMultiResults` to get the job status. This method requires your development API `clientKey`. See [CSV uploads](/v1/docs/import-user-data-with-a-csv-file-upload) for more on using `multi` to upload user attributes, events, and device attributes.\n\nThe file should contain a header row with the API argument names that are found in the API documentation, such as `userId`, `deviceId`, and `action` (if `defaultAction` is not specified). To indicate nested JSON arguments, use a dot within the column name, such as `userAttributes.Gender`.\n\n```csv\nuserId,userAttributes.Gender,userAttributes.Age\nuser1,Male,25\nuser2,Female,37\n```\n\n> The file is broken into separate API requests that contain batches of 50 actions. Each unique user lookup in a batch is a billable API call. See [billing and costs](./reference#billing) for more.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "multi"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"apiVersion\": \"1.0.6\",\n  \"createJob\": true,\n  \"gcsBucket\": \"<string>\",\n  \"file\": \"<string>\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"defaultAction\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "07bf82a7-e763-45cc-b3c1-1791668081fd",
+              "name": "A successful response will return a `jobId` and status of `200`. **Note**: an HTTP status of 200 does not guarantee the call was processed successfully. Pay close attention to `response[].warning` and `response[].error`; if returned with a message, the call may have been skipped or ignored.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"apiVersion\": \"1.0.6\",\n  \"createJob\": true,\n  \"gcsBucket\": \"<string>\",\n  \"file\": \"<string>\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"defaultAction\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].jobId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aa255f87-632b-4a6e-9426-81592a475c14",
+          "name": "getMultiResults",
+          "request": {
+            "name": "getMultiResults",
+            "description": {
+              "content": "Gets the status of a multi import job. This method requires your development API `clientKey`.\n\nExample:\n`http://api.leanplum.com/api?action=getMultiResults&appId=APP_ID&clientKey=DEVELOPMENT_KEY&jobId=JOB_ID`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "getMultiResults"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "YOUR_APP_ID",
+                  "description": "(Required) The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "YOUR_DEV_KEY",
+                  "description": "(Required) The Development key for your Leanplum App."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) The version of the Leanplum API to use. The current version is 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "jobId",
+                  "value": "<string>",
+                  "description": "(Required) The ID of the job to query. The job ID is returned by `multi`.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b4003113-e554-4eda-a1e6-c01d681e1fdf",
+              "name": "Returns the status and a list of file URLs that contain the individual API responses as documented in the API documentation for the relevant API methods. Each response is represented as a line of JSON.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "YOUR_APP_ID"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "YOUR_DEV_KEY"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "jobId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].state\": \"FINISHED\",\n  \"response[].data\": {\n    \"successesCount\": 10,\n    \"failuresCount\": 0,\n    \"files\": [\n      \"fileURL\",\n      \"fileURL\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "36039104-34f9-460c-9d74-a5c84cfdeebc",
+      "name": "Campaigns",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d97d1587-85c6-4559-9787-36aeaec954d2",
+          "name": "startCampaign",
+          "request": {
+            "name": "startCampaign",
+            "description": {
+              "content": "Activates a campaign for one device or user. You must provide a `deviceId` and/or a `userId`. If `deviceId` is provided, the campaign top-level actions will be sent to the corresponding device only; if only `userId` is provided, the campaign top-level actions will be sent to all devices of the user with specified `userId`. If the user/device does not exist, sending the actions will be skipped. You can modify this behavior with the `createDisposition` option (see below).\n\nThis method requires your development API `clientKey`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "startCampaign"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"campaignId\": \"<integer>\",\n  \"deviceId\": \"<string>\",\n  \"values\": \"<object>\",\n  \"devMode\": false,\n  \"createDisposition\": \"CreateNever\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8ce81b82-3b96-43b3-9666-595481892576",
+              "name": "The default response for most API actions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appId\": \"YOUR_APP_ID\",\n  \"clientKey\": \"YOUR_DEV_KEY\",\n  \"apiVersion\": \"1.0.6\",\n  \"userId\": \"hfarnsworth\",\n  \"campaignId\": \"<integer>\",\n  \"deviceId\": \"<string>\",\n  \"values\": \"<object>\",\n  \"devMode\": false,\n  \"createDisposition\": \"CreateNever\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response[].success\": false,\n  \"response[].warning.message\": \"string\",\n  \"response[].error.message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.leanplum.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "appId"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e77ad1d2-c988-4f47-81fc-2851bcbe7c49",
+    "name": "API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "An API to perform actions from a server or remote device.",
+      "type": "text/plain"
+    }
+  }
+}

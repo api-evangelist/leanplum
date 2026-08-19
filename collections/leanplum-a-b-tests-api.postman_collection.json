@@ -1,0 +1,364 @@
+{
+  "item": [
+    {
+      "id": "08b9eb86-52c2-48db-892b-a1da9317f735",
+      "name": "A/B Tests",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ee81f619-ca90-4f50-accb-5c764306e208",
+          "name": "List A/B tests",
+          "request": {
+            "name": "List A/B tests",
+            "description": {
+              "content": "Returns the A/B test experiments in the app. Requires the content read-only clientKey.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "getAbTests"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "<string>",
+                  "description": "(Required) Your Leanplum application id."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "<string>",
+                  "description": "(Required) The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) API version, for example 1.0.6."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f2b30f74-d657-46e5-b702-45deeb186b96",
+              "name": "List of A/B tests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": [\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      },\n      \"key_0\": true,\n      \"key_1\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4623a487-e6e6-4e2e-bde1-f6c5cde5d01b",
+          "name": "Get a single A/B test",
+          "request": {
+            "name": "Get a single A/B test",
+            "description": {},
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "getAbTest"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "<string>",
+                  "description": "(Required) Your Leanplum application id."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "<string>",
+                  "description": "(Required) The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) API version, for example 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "(Required) A/B test id."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "11ecacc3-2744-44f6-ab3e-9ae74ed8d23e",
+              "name": "A/B test details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": [\n    {\n      \"success\": true,\n      \"error\": {\n        \"message\": \"string\"\n      },\n      \"key_0\": true,\n      \"key_1\": 9435.334418356368\n    },\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36ec0d26-2ad7-43fc-9fd3-80c0ae685f76",
+          "name": "Get the variant assigned to a user",
+          "request": {
+            "name": "Get the variant assigned to a user",
+            "description": {},
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "getVariant"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "<string>",
+                  "description": "(Required) Your Leanplum application id."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "<string>",
+                  "description": "(Required) The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) API version, for example 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "Identifier of the user the request applies to."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "995e653e-66d8-486d-b7e3-418feb867652",
+              "name": "Variant assignment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": [\n    {\n      \"success\": true,\n      \"error\": {\n        \"message\": \"string\"\n      },\n      \"key_0\": true,\n      \"key_1\": 9435.334418356368\n    },\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.leanplum.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0e78fa28-6906-4cf4-bb05-5f3c94a0ff6a",
+    "name": "Leanplum A/B Tests API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Leanplum (Leanplum by CleverTap) REST API. All requests are made to https://api.leanplum.com/api and are dispatched by an `action` parameter that names the method to run (for example action=track or action=sendMessage). Every request carries `appId`, a permission-scoped `clientKey`, and `apiVersion`; most requests also carry a `userId` and/or `deviceId`. Requests may be sent as GET (arguments as query parameters) or POST (arguments in a JSON or multipart body). Multiple actions can be batched with the `multi` method.\n\nOperating status note: Leanplum was acquired by CleverTap in 2022 and now operates as \"Leanplum by CleverTap.\" The documented API surface below remains active during customer migration to CleverTap; CleverTap has wrapped its own methods behind these Leanplum API methods to ease that transition. Endpoint method names are grounded in the public Leanplum API reference; request/response schemas are modeled and should be verified against the live docs.\n\nContact Support:\n Name: API Evangelist\n Email: kin@apievangelist.com",
+      "type": "text/plain"
+    }
+  }
+}

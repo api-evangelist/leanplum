@@ -4,7 +4,10 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Leanplum
 providerId: leanplum
 created: '2026-07-03'
-modified: '2026-07-03'
+modified: '2026-08-13'
+generated: '2026-08-13'
+method: searched
+source: https://docs.leanplum.com/reference/responses
 reconciled: false
 tags:
 - Mobile Marketing
@@ -13,53 +16,134 @@ tags:
 - Rate Limiting
 - Quotas
 description: >-
-  Leanplum does not publish global per-minute numeric rate limits for its REST
-  API. The one hard, documented constraint is on the multi (batching) method: a
-  single multi call is limited to 50 users and/or 500 actions, and any call that
-  exceeds this limit is ignored and returns HTTP 403. Each unique user lookup in
-  a request counts as a separate billable API call, and concurrent requests
-  touching the same users (from the SDK or API) are queued and executed after an
-  in-flight multi batch completes. Beyond the multi limit, throughput is governed
-  by account/contract terms rather than a public per-endpoint cap.
+  Leanplum publishes no global per-minute request cap and no rate-limit response
+  headers, but it does publish four hard, numeric constraints: a 1 request/second
+  per-device cap on development-mode traffic, a concurrency limit of one in-flight
+  request per userId ("strict device locking"), the multi batching limits of 50
+  users / 500 actions per call, and a data-export quota of 24 exports per day. The
+  only runtime throttling signal is the status code (429 for the rate and
+  concurrency limits, 403 for an oversized multi) plus a message string inside
+  response[].error.message — a client cannot read remaining quota anywhere.
 notes: >-
-  Numeric per-account request-rate limits are not documented as of the review
-  date. Design server-side integrations around the multi batching limits (batch
-  up to 50 users / 500 actions), implement retry with backoff on 403, and confirm
-  account-specific throughput with Leanplum/CleverTap.
+  Upgraded 2026-08-13 from the published Responses reference, which documents the
+  devMode 1 rps limit, strict device locking, the 429 status, and the recommended
+  backoff. No numeric per-account request-rate limit is published; throughput beyond
+  these caps is governed by contract terms. Design server-side integrations to batch
+  per user first through multi, never issue concurrent calls for the same userId,
+  and retry 429/5xx with exponential backoff.
 sources:
+- https://docs.leanplum.com/reference/responses
 - https://docs.leanplum.com/reference/batching-requests
-- https://docs.leanplum.com/reference/multi-json
+- https://docs.leanplum.com/reference/reduce-billable-requests
 - https://docs.leanplum.com/reference/making-requests
+- https://docs.leanplum.com/reference/get_api-action-exportdata
+- https://docs.leanplum.com/reference/post_api-action-addpostback
 responseCodes:
-  throttled: 403
+  throttled: 429
+  batch_exceeded: 403
+headers:
+  published: false
+  request: []
+  response: []
+  retry_after: false
+  notes: >-
+    Leanplum publishes no X-RateLimit-*, no RateLimit-*, and no Retry-After header.
+    The client learns it was throttled only from the status code and the human-readable
+    string in response[].error.message ("Per device rate limit exceeded.",
+    "Too Many Requests.", "Request failed due to concurrent requests to the same
+    profile ID").
 limits:
+- name: Development Mode - Per Device
+  scope: device
+  metric: requests
+  limit: 1
+  window: second
+  responseCode: 429
+  errorMessages:
+  - Per device rate limit exceeded.
+  - Too Many Requests.
+  notes: >-
+    Applies to any request carrying devMode=true. Published at
+    https://docs.leanplum.com/reference/responses.
+- name: Strict Device Locking - Per Profile Concurrency
+  scope: user
+  metric: concurrent requests
+  limit: 1
+  window: concurrent
+  responseCode: 429
+  errorMessages:
+  - Request failed due to concurrent requests to the same profile ID
+  notes: >-
+    No two GET or POST requests may execute at the same time against the same userId;
+    Leanplum serializes them to keep data consistent and fails the loser. Fold per-user
+    work into a single multi call.
 - name: Multi Batch - Users
   scope: request
   metric: users
   limit: 50
+  responseCode: 403
   notes: A single multi call may reference at most 50 users; exceeding this returns 403 and the call is ignored.
 - name: Multi Batch - Actions
   scope: request
   metric: actions
   limit: 500
+  responseCode: 403
   notes: A single multi call may contain at most 500 actions; exceeding this returns 403 and the call is ignored.
+- name: Data Export - Daily Jobs
+  scope: account
+  metric: exports
+  limit: 24
+  window: day
+  notes: >-
+    exportData may be run at most 24 times per day. Exports with invalid arguments do
+    not count toward the limit.
+- name: Data Export - Lookback Window
+  scope: account
+  metric: days
+  limit: 60
+  notes: You cannot export data that became available more than 60 days ago.
+- name: Data Export - Result Retention
+  scope: request
+  metric: hours
+  limit: 24
+  notes: Export files are automatically deleted 24 hours after the export occurs.
+- name: Postbacks Per App
+  scope: account
+  metric: postback rules
+  limit: 3
+  notes: The maximum number of registered postbacks is three per app.
 - name: GET Request URL Length
   scope: request
   metric: characters
   limit: 2083
-  notes: GET requests are bounded by a ~2,083 character URL limit; use POST for larger payloads.
+  notes: GET requests are bounded by the ~2,083 character URL limit; use POST for larger payloads.
 - name: Account Throughput
   scope: account
   metric: requests
   limit: not published
   notes: No fixed numeric per-account request-rate limit is documented; throughput is governed by contract terms.
 policies:
+- name: Retry with exponential backoff
+  description: >-
+    On 429 or 5xx, Leanplum's published guidance is to retry after 2 ± random(0,1)
+    seconds, then 4 ± random(0,2), then 8 ± random(0,4), up to a bounded retry count.
+  source: https://docs.leanplum.com/reference/responses
 - name: Billable User Lookups
-  description: Each unique user lookup in a request is counted as a billable API call, so batching users efficiently controls both throughput and cost.
+  description: >-
+    Each unique user lookup in a request is one billable API call. Batching per user
+    first and then across users controls both throughput and cost; batching by action
+    instead doubles the billable count for the same work.
+  source: https://docs.leanplum.com/reference/reduce-billable-requests
 - name: Concurrent Request Queuing
-  description: While a multi batch is processing, concurrent requests for the same users (from SDK or API) are queued and executed after the batch completes.
-- name: Backoff Strategy
-  description: Clients should batch within the 50 user / 500 action limits and implement retry with exponential backoff on 403 responses.
+  description: >-
+    While a multi batch is processing, concurrent requests for the same users (from
+    SDK or API) are queued and executed after the batch completes.
+- name: Postback Delivery Backoff
+  description: >-
+    Outbound postbacks time out after 30 seconds; on a 5xx from the receiver Leanplum
+    retries up to 9 more times with exponential backoff starting at 1 hour, up to 10
+    hours, after which the data is lost.
+  source: https://docs.leanplum.com/reference/post_api-action-addpostback
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

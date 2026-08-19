@@ -1,0 +1,52 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  openapi/leanplum-api-openapi.json (Leanplum's own published OpenAPI, 42
+  operations) plus conventions/leanplum-conventions.yml and
+  errors/leanplum-problem-types.yml
+description: >-
+  Packaged Agent Skills for the Leanplum REST API, one per marquee flow. Every
+  operation named in these skills is grounded in Leanplum's published OpenAPI; no
+  operation, parameter or endpoint was invented. Leanplum publishes no skills or
+  AGENTS.md of its own — searched docs.leanplum.com and the Leanplum GitHub org on
+  2026-08-13.
+api: leanplum:leanplum-api
+skills:
+- name: leanplum-send-message
+  file: leanplum-send-message.md
+  description: >-
+    Send a push/newsfeed/in-app message to a user or device from a server, with
+    template values, and verify acceptance.
+  operations: [getMessages, getMessage, sendMessage]
+  key_class: production (send) + content read-only (lookup)
+  risk: >-
+    Reaches real end users. Requires human confirmation in an agentic deployment;
+    not idempotent.
+- name: leanplum-track-behavior
+  file: leanplum-track-behavior.md
+  description: >-
+    Server-side session, event, state and profile writes, batched correctly through
+    `multi` so unique-user lookups are not billed twice.
+  operations: [start, track, advance, heartbeat, pauseSession, resumeSession, stop,
+    setUserAttributes, setDeviceAttributes, setTrafficSourceInfo, multi, getMultiResults]
+  key_class: production (writes) + development (multi)
+  risk: >-
+    track/advance are append-only; a blind retry double-writes because there is no
+    idempotency key.
+- name: leanplum-export-data
+  file: leanplum-export-data.md
+  description: >-
+    Submit and poll export jobs, download results inside the 24-hour window, and
+    manage postbacks (max 3 per app).
+  operations: [exportData, exportUsers, exportUser, exportReport, getExportResults,
+    addPostback, listPostbacks, deletePostback, downloadFile]
+  key_class: data export
+  risk: Read-mostly; addPostback/deletePostback mutate delivery configuration.
+shared_rules:
+- Base URL is https://api.leanplum.com/api; the method travels in `action`, not the path.
+- Every request carries appId, a permission-scoped clientKey, and apiVersion=1.0.6.
+- HTTP 200 with success:true does NOT mean the action ran — always inspect
+  response[].warning and response[].error.
+- No idempotency key exists. Retry only 429 and 5xx, with exponential backoff
+  (2s, 4s, 8s with jitter), and deduplicate client-side.
+- Never issue concurrent requests for the same userId; strict device locking returns 429.

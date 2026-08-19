@@ -1,0 +1,130 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.leanplum.com/reference/making-requests,
+  https://docs.leanplum.com/reference/responses,
+  https://docs.leanplum.com/reference/batching-requests,
+  https://docs.leanplum.com/reference/selecting-a-user,
+  https://docs.leanplum.com/reference/creating-new-users-with-our-api,
+  and openapi/leanplum-api-openapi.json
+description: >-
+  Cross-cutting runtime semantics for the Leanplum REST API. Leanplum is an
+  action-dispatch API, not a resource API: every call goes to the single endpoint
+  https://api.leanplum.com/api and names the method in an `action` query parameter
+  (or in the POST body). There are no REST resource paths, no path parameters and
+  no HTTP verb semantics — `GET` and `POST` are interchangeable for most methods
+  and the choice is a payload-size decision, not a semantic one.
+style:
+  shape: action-dispatch (single endpoint, `action` selector)
+  endpoint: https://api.leanplum.com/api
+  verbs: >-
+    GET and POST both accepted for most methods. GET puts every argument in the
+    query string (subject to the 2,083-character URL limit); POST accepts arguments
+    in the URL, the body, or both.
+  content_types: [application/json, multipart/form-data]
+  api_version_param: apiVersion
+  current_api_version: 1.0.6
+authentication:
+  style: api-key-in-query
+  parameters: [appId, clientKey]
+  key_classes:
+  - production — write methods against live data (start, track, sendMessage, ...)
+  - development — test-pipeline and content-mutating methods (setVars, multi, deleteUser, ...)
+  - data export — export and postback methods (exportData, addPostback, ...)
+  - content read-only — read methods (getMessages, getAbTests, ...)
+  note: >-
+    Each method's own documentation names the key class it requires; using the wrong
+    class returns "Invalid access key".
+  see: authentication/leanplum-authentication.yml
+idempotency:
+  supported: false
+  idempotency_key_header: null
+  note: >-
+    Leanplum publishes NO idempotency key, no request-id de-duplication and no
+    replay-safety guarantee. The nearest published mechanism is "strict device
+    locking" — Leanplum serializes concurrent GET/POST for the same `userId` and
+    fails the loser with 429 — which protects consistency, not de-duplication: a
+    retried `track` will record the event twice. Agents must treat every write
+    (`track`, `advance`, `sendMessage`, `setUserAttributes`) as at-least-once and
+    de-duplicate client-side.
+  safe_to_retry:
+  - setUserAttributes (last-write-wins on the attribute set)
+  - setVars / deleteVars (declarative)
+  unsafe_to_retry:
+  - track (appends an event occurrence)
+  - advance (appends a state)
+  - sendMessage (re-sends the message)
+  - startCampaign
+pagination:
+  supported: false
+  note: >-
+    No documented pagination parameters, cursors or link headers. Bulk reads are
+    handled by asynchronous export jobs instead: `exportData` / `exportUsers` /
+    `exportReport` return a `jobId`, and `getExportResults` is polled for the
+    downloadable file set.
+async_jobs:
+  pattern: submit-then-poll
+  submit: [exportData, exportUsers, exportReport, multi]
+  poll: [getExportResults, getMultiResults]
+  handle_field: response[].jobId
+  note: >-
+    Export files are split into roughly 256 MB parts and are deleted 24 hours after
+    the export runs.
+batching:
+  method: multi
+  endpoint: https://api.leanplum.com/api?action=multi
+  limits:
+    users_per_call: 50
+    actions_per_call: 500
+    csv_upload_batch_size: 50
+  on_exceeded: HTTP 403, call ignored
+  billing_note: >-
+    Each UNIQUE USER LOOKUP in a request is one billable API call, so batching
+    should be done per-user first and then across users. Batching by action instead
+    of by user doubles the billable count for the same work.
+  concurrency_note: >-
+    While a `multi` call is processing, concurrent requests (API or SDK) touching
+    those users are queued and run after the batch completes.
+  source: https://docs.leanplum.com/reference/batching-requests
+subject_selection:
+  parameters: [userId, deviceId]
+  rules:
+  - userId only — the action applies to the user, not a device; device info is
+    excluded from analytics. sendMessage fans out to all of the user's devices.
+  - deviceId only — the action applies to that device; the user ID is inferred.
+  - both — the action applies to that user on that device.
+  create_disposition:
+    parameter: createDisposition
+    values: [CreateIfNeeded, CreateNever]
+    note: >-
+      Controls whether a call auto-creates a missing profile. Defaults differ per
+      method; when a profile is missing and the default is CreateNever, the call is
+      SKIPPED and returns a warning on an HTTP 200.
+    source: https://docs.leanplum.com/reference/creating-new-users-with-our-api
+error_envelope:
+  shape: '{"response":[{"success":bool,"warning":{"message":str},"error":{"message":str}}]}'
+  critical: >-
+    HTTP 200 + success:true does NOT mean the action ran. Inspect
+    response[].warning and response[].error on every 200.
+  see: errors/leanplum-problem-types.yml
+rate_limit_signaling:
+  response_headers: none published
+  exhaustion_status: 429 (concurrency + devMode), 403 (multi batch limit exceeded)
+  note: >-
+    Leanplum publishes no X-RateLimit-*/RateLimit-* headers and no Retry-After. The
+    only runtime signal is the status code plus the message string in
+    response[].error.message, so a client cannot read remaining quota — it can only
+    react after exhaustion.
+  see: rate-limits/leanplum-rate-limits.yml
+request_tracing:
+  request_id_header: none published
+  note: No correlation/request-id header is documented on requests or responses.
+versioning:
+  scheme: explicit per-request version argument
+  parameter: apiVersion
+  current: 1.0.6
+  note: >-
+    The version travels in every request body/query, not in the URL path and not in
+    a header. The published OpenAPI pins `apiVersion` to the single enum value
+    `1.0.6`, so there is no second live version to negotiate.
+  see: lifecycle/leanplum-lifecycle.yml

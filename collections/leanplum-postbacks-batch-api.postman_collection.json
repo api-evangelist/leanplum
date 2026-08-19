@@ -1,0 +1,336 @@
+{
+  "item": [
+    {
+      "id": "3bac52f9-79ee-44ed-9c0c-1c99f3be84bf",
+      "name": "Postbacks & Batch",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b446818f-0bae-4294-93fb-c48f2c475ff9",
+          "name": "Register a postback (webhook)",
+          "request": {
+            "name": "Register a postback (webhook)",
+            "description": {
+              "content": "Registers an HTTP postback callback fired on configured events.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "addPostback"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "<string>",
+                  "description": "(Required) Your Leanplum application id."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "<string>",
+                  "description": "(Required) The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) API version, for example 1.0.6."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<string>\",\n  \"key_0\": 9347,\n  \"key_1\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fb56982f-b019-4e59-8e04-4b380b79ed9a",
+              "name": "Postback registered.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": [\n    {\n      \"success\": true,\n      \"error\": {\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"success\": true,\n      \"error\": {\n        \"message\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1f923b2-55ed-4fe8-b8a3-4bc5d1e039f0",
+          "name": "Batch multiple actions",
+          "request": {
+            "name": "Batch multiple actions",
+            "description": {
+              "content": "Batches multiple API actions into a single request. Limited to 50 users and/or 500 actions per call; calls exceeding the limit are ignored and return 403. Each unique user lookup is a billable API call.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "multi"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "<string>",
+                  "description": "(Required) Your Leanplum application id."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "<string>",
+                  "description": "(Required) The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) API version, for example 1.0.6."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    {\n      \"action\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"key_0\": 3925\n    },\n    {\n      \"action\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"key_0\": \"string\",\n      \"key_1\": 420.9458976902136,\n      \"key_2\": 169\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "08ebe934-d31a-4dde-b6b7-e9e55f1951fb",
+              "name": "Batch processed; per-action results returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"action\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"key_0\": true\n    },\n    {\n      \"action\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"key_0\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": [\n    {\n      \"success\": true,\n      \"error\": {\n        \"message\": \"string\"\n      },\n      \"key_0\": true,\n      \"key_1\": 6495,\n      \"key_2\": \"string\"\n    },\n    {\n      \"success\": true,\n      \"error\": {\n        \"message\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1c4aee6-a79c-4667-9575-f23cf18d28e3",
+              "name": "Batch exceeded the 50 user / 500 action limit and was ignored.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"action\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"key_0\": true\n    },\n    {\n      \"action\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"key_0\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.leanplum.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "bb333e65-db7d-41a4-a549-84b93130c907",
+    "name": "Leanplum A/B Tests Postbacks & Batch API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Leanplum (Leanplum by CleverTap) REST API. All requests are made to https://api.leanplum.com/api and are dispatched by an `action` parameter that names the method to run (for example action=track or action=sendMessage). Every request carries `appId`, a permission-scoped `clientKey`, and `apiVersion`; most requests also carry a `userId` and/or `deviceId`. Requests may be sent as GET (arguments as query parameters) or POST (arguments in a JSON or multipart body). Multiple actions can be batched with the `multi` method.\n\nOperating status note: Leanplum was acquired by CleverTap in 2022 and now operates as \"Leanplum by CleverTap.\" The documented API surface below remains active during customer migration to CleverTap; CleverTap has wrapped its own methods behind these Leanplum API methods to ease that transition. Endpoint method names are grounded in the public Leanplum API reference; request/response schemas are modeled and should be verified against the live docs.\n\nContact Support:\n Name: API Evangelist\n Email: kin@apievangelist.com",
+      "type": "text/plain"
+    }
+  }
+}

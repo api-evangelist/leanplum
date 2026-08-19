@@ -1,0 +1,86 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.leanplum.com/changelog
+docs: https://docs.leanplum.com/changelog
+description: >-
+  Leanplum publishes a dated changelog on its ReadMe-hosted documentation site. It
+  is an SDK release log, not an API change log — no entry describes a change to the
+  REST API surface, which has been pinned at apiVersion 1.0.6 throughout. From 2022
+  onward every entry is about wrapping a CleverTap SDK for the migration.
+scheme:
+  type: dated-entries
+  versioned_subject: client SDKs (iOS, Android, Unity, JavaScript, React Native)
+  api_versioned: false
+  current_api_version: '1.0.6'
+  feed: null
+  note: No RSS/Atom feed and no machine-readable changelog endpoint is published.
+entry_count: 23
+window: 10 most recent entries (page 1 of the published changelog)
+latest: '2025-04-04'
+entries:
+- date: '2025-04-04'
+  title: Unity SDK 7.1.0
+  slug: unity-sdk-710
+  url: https://docs.leanplum.com/changelog/unity-sdk-710
+  breaking: false
+  highlights:
+  - Uses CleverTap Unity SDK 5.2.0, enabling CleverTap Variables to be defined and synced from the Unity Editor.
+- date: '2025-03-21'
+  title: Unity SDK 7.0.0
+  slug: unity-sdk-700
+  url: https://docs.leanplum.com/changelog/unity-sdk-700
+  breaking: true
+  highlights:
+  - Structural change to the Android project setup — leanplum-wrapper is now a module in the generated Unity Android project rather than an .aar library; manual migration steps required.
+  - Depends on Leanplum iOS SDK 6.6.1, Leanplum Android SDK 7.6.3, CleverTap Unity SDK 5.1.0.
+- date: '2023-07-21'
+  title: Unity SDK 6.0.0
+  slug: unity-sdk-600
+  url: https://docs.leanplum.com/changelog/unity-sdk-600
+  breaking: true
+  highlights:
+  - Wraps the CleverTap Unity SDK to enable migration to CleverTap.
+  - iOS plugin now bundles CleverTap-iOS-SDK and SDWebImage xcframeworks.
+- date: '2023-05-04'
+  title: Unity SDK 5.1.0
+  slug: unity-sdk-510
+  url: https://docs.leanplum.com/changelog/unity-sdk-510
+  breaking: false
+- date: '2023-05-04'
+  title: JavaScript SDK 1.11.0
+  slug: javascript-sdk-1110
+  url: https://docs.leanplum.com/changelog/javascript-sdk-1110
+  breaking: false
+  highlights:
+  - Wraps the CleverTap Web SDK to enable the migration to CleverTap.
+- date: '2023-01-16'
+  title: Android 13 Notification Opt-in
+  slug: android-13-notification-opt-in
+  url: https://docs.leanplum.com/changelog/android-13-notification-opt-in
+  breaking: false
+  highlights:
+  - Leanplum Android SDK 7.1.0 adds Push Pre-permission (ask-to-ask) and Register For Push templates for the Android 13 notification permission prompt.
+- date: '2022-12-16'
+  title: Unity SDK 5.0.0
+  slug: unity-sdk-500
+  url: https://docs.leanplum.com/changelog/unity-sdk-500
+  breaking: true
+- date: '2022-10-31'
+  title: Android SDK 7.0.1 and iOS SDK 6.0.2
+  slug: android-sdk-700-and-ios-sdk-600
+  url: https://docs.leanplum.com/changelog/android-sdk-700-and-ios-sdk-600
+  breaking: true
+- date: '2022-08-16'
+  title: Custom In-App Templates Migration - Android 6.0.0
+  slug: custom-in-app-templates-migration-android-600
+  url: https://docs.leanplum.com/changelog/custom-in-app-templates-migration-android-600
+  breaking: true
+- date: '2022-08-16'
+  title: Custom In-App Templates Migration - iOS 5.0.0
+  slug: custom-in-app-templates-migration-ios-500
+  url: https://docs.leanplum.com/changelog/custom-in-app-templates-migration-ios-500
+  breaking: true
+notes: >-
+  Read from the changelog index on 2026-08-13; dates are the `created_at` values the
+  site itself publishes. 13 further entries exist on later pages and are outside the
+  recent window recorded here.

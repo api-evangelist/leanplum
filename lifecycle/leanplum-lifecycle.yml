@@ -1,0 +1,91 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.leanplum.com/changelog, https://docs.leanplum.com/reference/making-requests,
+  openapi/leanplum-api-openapi.json, and live probes of status.leanplum.com and
+  www.leanplum.com on 2026-08-13
+description: >-
+  Lifecycle posture of the Leanplum REST API. The API itself is stable and
+  single-versioned (`apiVersion=1.0.6`), but the PRODUCT is in a managed wind-down:
+  CleverTap acquired Leanplum in 2022, www.leanplum.com now 301s to clevertap.com,
+  the Leanplum status page has been decommissioned, and every SDK release since
+  2022 is explicitly a CleverTap-migration wrapper. The contract is live; the
+  platform behind it is a migration path.
+versioning:
+  scheme: explicit request argument
+  parameter: apiVersion
+  current_version: '1.0.6'
+  in: query-or-body
+  spec_enum: ['1.0.6']
+  note: >-
+    The published OpenAPI declares `apiVersion` with a single-value enum, so 1.0.6
+    is the only version the contract admits. No dated versions, no version header,
+    no path versioning. Older docs were served under a `/v1/` docs prefix, which
+    still appears in some in-page links.
+deprecation_policy:
+  published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: >-
+    Leanplum publishes no deprecation policy, no notice window, and no
+    Sunset/Deprecation response headers. No operation in the published OpenAPI
+    carries `deprecated: true`. The de-facto deprecation signal is the CleverTap
+    migration, which is communicated through changelog entries and account contacts
+    rather than through the API.
+  deprecated_operations: []
+status_page:
+  published: false
+  url: https://status.leanplum.com/
+  probed_status: 200
+  probed_effective_url: https://leanplum.statuspage.io/inactive
+  note: >-
+    status.leanplum.com resolves and returns 200, but Atlassian Statuspage redirects
+    it to /inactive — the page has been decommissioned. CleverTap operates
+    https://status.clevertap.com/ (HTTP 200), and it was fetched on 2026-08-13: it
+    names no Leanplum component anywhere on the page. No StatusPage pointer is
+    emitted for Leanplum, because neither host publishes Leanplum availability.
+sla:
+  published: false
+  note: >-
+    No public SLA or uptime commitment. The REST API is described as "available to
+    all our customers on full-service accounts", with integration scope negotiated
+    through a customer success manager.
+  source: https://docs.leanplum.com/reference/api-introduction
+support_lifecycle:
+  ownership:
+    acquirer: CleverTap
+    acquired: '2022'
+    evidence:
+    - url: https://www.leanplum.com/
+      status: 200
+      note: 301 redirect chain terminates at https://clevertap.com/
+    - url: https://www.leanplum.com/pricing
+      status: 200
+      note: redirects to https://clevertap.com/pricing/
+    - url: https://www.leanplum.com/blog/
+      status: 200
+      note: redirects to https://clevertap.com/blog/
+  still_operated:
+  - url: https://docs.leanplum.com/
+    status: 200
+    note: Developer documentation, live and updated (page timestamps 2025-09-15).
+  - url: https://www.leanplum.com/dashboard/login
+    status: 200
+    note: The Leanplum dashboard login is still served from Leanplum's own host.
+  - url: https://api.leanplum.com/api
+    status: 404 on /
+    note: API host live; the root path is not an endpoint.
+  migration_signal: >-
+    Every SDK changelog entry from 2022 onward describes wrapping the corresponding
+    CleverTap SDK — Leanplum JavaScript SDK 1.11.0 "wraps the CleverTap Web SDK to
+    enable the migration to CleverTap"; Unity SDK 6.0.0 and 7.x carry CleverTap Unity
+    SDK dependencies. CleverTap has wrapped its own methods behind the Leanplum API
+    surface so existing REST integrations keep working during migration.
+release_cadence:
+  changelog_entries_total: 23
+  latest_entry: '2025-04-04'
+  latest_entry_title: Unity SDK 7.1.0
+  note: >-
+    The changelog tracks SDK releases only — there is no dated changelog for the
+    REST API itself. See changelog/leanplum-changelog.yml.

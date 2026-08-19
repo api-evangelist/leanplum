@@ -1,0 +1,81 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.leanplum.com/docs/use-the-right-api-keys,
+  https://docs.leanplum.com/reference/responses, and
+  https://docs.leanplum.com/reference/making-requests
+docs: https://docs.leanplum.com/docs/use-the-right-api-keys
+description: >-
+  Leanplum has no separate sandbox HOST and no test-mode API. Testing is done
+  against the same https://api.leanplum.com/api endpoint using a different KEY: each
+  Leanplum app is provisioned with a production key and a development key that route
+  to separate backend pipelines. Leanplum additionally provisions two Leanplum apps
+  per customer — one development, one production — so the two pipelines cannot be
+  crossed by accident.
+model: key-scoped-environments
+base_url: https://api.leanplum.com/api
+separate_host: false
+environments:
+- id: development
+  key_class: development clientKey
+  pipeline: development/test
+  characteristics:
+  - Sends user data to Leanplum in real time over an open web socket.
+  - Enables methods that only work with the development key (content mutation, CSV
+    import, device registration).
+  - Logs to the Leanplum debugger for validation.
+  - Test devices can be registered and forced into specific A/B test variants.
+  - Activity is kept out of Analytics and appears under "Developer Activity" instead.
+  warning: >-
+    Leanplum's docs say NEVER ship a development key in a production build — the
+    open socket degrades app performance and the data is not captured in analytics.
+- id: production
+  key_class: production clientKey
+  pipeline: live
+  characteristics:
+  - Live user data, counted in Analytics.
+  - Required by the live write methods (start, track, advance, sendMessage, ...).
+dev_mode_flag:
+  parameter: devMode
+  value: 'true'
+  effect: Marks a request as development-mode traffic.
+  rate_limit: 1 request per second per device
+  error_on_exceeded: '"Per device rate limit exceeded." / "Too Many Requests." (HTTP 429)'
+  source: https://docs.leanplum.com/reference/responses
+key_discovery:
+  dashboard_path: Development -> App Settings -> API Keys
+  url: https://www.leanplum.com/dashboard#/account/apps
+key_classes_full:
+- production
+- development
+- data export
+- content read-only
+- content read-write
+key_classes_note: >-
+  The key variables shipped in Leanplum's own published Postman environment are
+  appKey, devKey, prodKey, contentReadOnlyKey, contentReadWriteKey and
+  dataExportKey — all empty placeholders in the published collection.
+test_fixtures:
+  test_credentials_published: false
+  test_identifiers_published: false
+  note: >-
+    Leanplum publishes NO shared test keys, magic test user/device IDs, or hosted
+    demo credentials. Every developer tests with their own account's development
+    key against their own development Leanplum app. Nothing in this file is a usable
+    credential, and none was invented.
+tooling:
+- name: Leanplum debugger
+  url: https://docs.leanplum.com/docs/debugger
+  purpose: Inspect development-pipeline traffic during integration.
+- name: Register your test device
+  url: https://docs.leanplum.com/v1/docs/register-your-test-device
+  purpose: Force a device into specific A/B test variants for validation.
+- name: Official Postman collection
+  url: https://www.getpostman.com/collections/378a83c1424d632661d0
+  purpose: 44 pre-built requests with key variables, the closest thing to a console.
+console:
+  published: false
+  note: >-
+    The docs site's OpenAPI carries `x-explorer-enabled: false` and
+    `x-samples-enabled: false`, so the interactive "Try It" explorer is switched OFF
+    on the API reference. There is no in-browser request console.

@@ -24,6 +24,16 @@ info:
   license:
     name: Proprietary
     url: https://www.leanplum.com
+  x-provenance:
+    origin: api-evangelist-modeled
+    note: >-
+      Method names are grounded in Leanplum's public API reference, but the
+      request/response schemas in this document were MODELED by API Evangelist, not
+      published by Leanplum. Leanplum's own OpenAPI 3.0.0 document (42 operations)
+      was harvested on 2026-08-13 and is saved verbatim at
+      openapi/leanplum-api-openapi.json — prefer it.
+    harvested_original: openapi/leanplum-api-openapi.json
+    stamped: '2026-08-13'
 servers:
 - url: https://api.leanplum.com
   description: Leanplum production API

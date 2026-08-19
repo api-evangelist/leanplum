@@ -1,0 +1,185 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/leanplum-api-openapi.json
+docs: https://docs.leanplum.com/reference/api-introduction
+description: >-
+  Entity graph derived from Leanplum's published OpenAPI (42 operations) and the API
+  introduction guide. Leanplum is an action-dispatch API with no resource paths and
+  no components.schemas beyond a single shared request body, so the relationships
+  below are derived from the ID-reference ARGUMENTS the operations take
+  (userId, deviceId, messageId, abTestId, variantId, jobId, postbackId) rather than
+  from $ref links, which the spec does not use for entities.
+identifier_style:
+  prefixed_ids: false
+  note: >-
+    No typed ID prefixes. `userId` is customer-assigned (whatever your systems use);
+    `deviceId` is device-assigned; `messageId`, `abTestId` and `postbackId` are
+    numeric IDs surfaced in the Leanplum dashboard URL; `jobId` is an opaque export
+    or import job handle.
+entities:
+- name: App
+  id_field: appId
+  description: >-
+    The Leanplum instance of one application. Every request carries appId. Each app
+    has its own key set (production, development, data export, content read-only).
+  operations: []
+- name: User
+  id_field: userId
+  description: >-
+    A profile, keyed by an ID your systems choose. Holds user attributes and
+    behavioral counters (lifetime occurrences of events).
+  operations: [setUserAttributes, deleteUser, exportUser, exportUsers, block, unblock]
+- name: Device
+  id_field: deviceId
+  description: >-
+    A device, optionally associated with a User. Holds push tokens and device
+    attributes.
+  operations: [setDeviceAttributes, registerDevice]
+- name: Session
+  id_field: null
+  description: >-
+    One use of the app by a user. Times out after 2 hours of inactivity, or 30
+    minutes after being paused. Sessions are the unit raw data exports are split by.
+  operations: [start, stop, pauseSession, resumeSession, heartbeat]
+- name: Event
+  id_field: null
+  key_field: event
+  description: Something the user did, with an optional value and custom params.
+  operations: [track]
+- name: State
+  id_field: null
+  key_field: state
+  description: A part of the app the user is in — an event with duration.
+  operations: [advance, pauseState, resumeState]
+- name: TrafficSource
+  id_field: null
+  description: Attribution data attached to a user.
+  operations: [setTrafficSourceInfo]
+- name: Message
+  id_field: messageId
+  description: >-
+    A push, email, in-app or newsfeed message authored in the dashboard. The ID
+    appears in the dashboard URL (/messaging/{MESSAGE_ID}).
+  operations: [getMessage, getMessages, sendMessage]
+- name: UnsubscribeCategory
+  id_field: null
+  description: Email unsubscribe categories configured for the app.
+  operations: [getUnsubscribeCategories]
+- name: AndroidNotificationChannel
+  id_field: null
+  description: Android notification channel definitions managed through the API.
+  operations: [addAndroidNotificationChannel, getAndroidNotificationChannels, deleteAndroidNotificationChannel]
+- name: Campaign
+  id_field: null
+  description: A dashboard campaign that can be started through the API.
+  operations: [startCampaign]
+- name: AbTest
+  id_field: abTestId
+  description: An A/B test authored in the dashboard.
+  operations: [getAbTest, getAbTests]
+- name: Variant
+  id_field: variantId
+  description: One arm of an A/B test; a user is assigned to a variant.
+  operations: [getVariant]
+- name: Variable
+  id_field: null
+  key_field: vars
+  description: >-
+    Remotely configurable content values returned to the client. Returned by `start`
+    and readable without a session via `getVars`.
+  operations: [getVars, setVars, deleteVars]
+- name: File
+  id_field: null
+  key_field: filename
+  description: A file referenced by the value of a file variable.
+  operations: [downloadFile, uploadFile]
+- name: ExportJob
+  id_field: jobId
+  description: >-
+    Asynchronous export of raw sessions, users, or an analytics report. Results are
+    polled and expire 24 hours after the export runs.
+  operations: [exportData, exportUsers, exportReport, getExportResults]
+- name: ImportJob
+  id_field: jobId
+  description: >-
+    Asynchronous CSV import executed through `multi`, broken into batches of 50
+    actions.
+  operations: [multi, getMultiResults]
+- name: Postback
+  id_field: postbackId
+  description: >-
+    An outbound webhook rule triggered by message or A/B test events. Maximum three
+    per app.
+  operations: [addPostback, listPostbacks, deletePostback]
+relationships:
+- from: App
+  to: User
+  type: has_many
+  via: appId
+- from: App
+  to: Message
+  type: has_many
+  via: appId
+- from: App
+  to: AbTest
+  type: has_many
+  via: appId
+- from: App
+  to: Postback
+  type: has_many
+  via: appId
+  cardinality_limit: 3
+- from: User
+  to: Device
+  type: has_many
+  via: deviceId
+  note: >-
+    A device may also exist without a user (logged-out); passing deviceId alone
+    infers the user.
+- from: User
+  to: Session
+  type: has_many
+  via: userId
+- from: Session
+  to: Event
+  type: has_many
+  via: userId + session context
+- from: Session
+  to: State
+  type: has_many
+  via: userId + session context
+- from: User
+  to: TrafficSource
+  type: has_one
+  via: userId
+- from: AbTest
+  to: Variant
+  type: has_many
+  via: abTestId
+- from: User
+  to: Variant
+  type: belongs_to
+  via: variantId
+  note: getVariant returns the variant a given user is assigned to.
+- from: User
+  to: Variable
+  type: has_many
+  via: userId
+  note: Variables are resolved per user by segment/variant targeting.
+- from: Variable
+  to: File
+  type: has_one
+  via: file variable value
+- from: Message
+  to: Postback
+  type: has_many
+  via: messageEvents postback type
+- from: ExportJob
+  to: App
+  type: belongs_to
+  via: appId
+- from: ImportJob
+  to: App
+  type: belongs_to
+  via: appId
+render: null

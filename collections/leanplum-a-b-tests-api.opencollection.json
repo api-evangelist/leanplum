@@ -1,0 +1,123 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Leanplum A/B Tests API",
+    "version": "1.0.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "A/B Tests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List A/B tests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=getAbTests",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              }
+            ]
+          },
+          "docs": "Returns the A/B test experiments in the app. Requires the content read-only clientKey."
+        },
+        {
+          "info": {
+            "name": "Get a single A/B test",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=getAbTest",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "A/B test id."
+              }
+            ]
+          },
+          "docs": "Get a single A/B test"
+        },
+        {
+          "info": {
+            "name": "Get the variant assigned to a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=getVariant",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the user the request applies to."
+              }
+            ]
+          },
+          "docs": "Get the variant assigned to a user"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

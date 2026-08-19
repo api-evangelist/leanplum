@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Leanplum A/B Tests Postbacks & Batch API",
+    "version": "1.0.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Postbacks & Batch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Register a postback (webhook)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=addPostback",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers an HTTP postback callback fired on configured events."
+        },
+        {
+          "info": {
+            "name": "Batch multiple actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=multi",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Batches multiple API actions into a single request. Limited to 50 users and/or 500 actions per call; calls exceeding the limit are ignored and return 403. Each unique user lookup is a billable API call."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

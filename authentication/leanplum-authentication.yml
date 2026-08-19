@@ -1,0 +1,102 @@
+generated: '2026-08-13'
+method: searched
+source: openapi/leanplum-api-openapi.json
+docs: https://docs.leanplum.com/docs/use-the-right-api-keys
+additional_docs:
+- https://docs.leanplum.com/reference/making-requests
+- https://docs.leanplum.com/reference/api-methods
+- https://docs.leanplum.com/reference/responses
+description: >-
+  Leanplum authenticates every request with two API-key parameters carried in the
+  query string or the request body — an `appId` identifying the Leanplum app, and a
+  `clientKey` whose CLASS determines which methods you may call. There is no OAuth,
+  no OIDC, no bearer token, no signature scheme, and no Authorization header. Keys
+  are long-lived and are read from the dashboard.
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - query
+  - body
+  oauth: false
+  oidc: false
+  mtls: false
+  bearer: false
+  authorization_header: false
+schemes:
+- name: appIdQuery
+  type: apiKey
+  in: query
+  parameter: appId
+  required: true
+  description: >-
+    The application ID. Found in the Leanplum dashboard under Development -> App
+    Settings -> API Keys.
+  sources:
+  - openapi/leanplum-api-openapi.json
+  - https://docs.leanplum.com/docs/use-the-right-api-keys
+- name: clientKeyQuery
+  type: apiKey
+  in: query
+  parameter: clientKey
+  required: true
+  description: >-
+    The client access key. Must be the production, development, read-only, or data
+    export key, depending on which API method you are calling.
+  sources:
+  - openapi/leanplum-api-openapi.json
+  - https://docs.leanplum.com/docs/use-the-right-api-keys
+key_classes:
+- id: production
+  purpose: Live write methods against the production pipeline.
+  methods: [start, stop, track, advance, pauseSession, resumeSession, pauseState,
+    resumeState, heartbeat, setUserAttributes, setDeviceAttributes, setTrafficSourceInfo,
+    sendMessage, getVars, downloadFile, getAndroidNotificationChannels]
+- id: development
+  purpose: >-
+    Test/development pipeline and content-mutating methods. Sends data in real time
+    over an open socket and keeps activity out of Analytics.
+  methods: [registerDevice, deleteUser, setVars, deleteVars, uploadFile,
+    addAndroidNotificationChannel, deleteAndroidNotificationChannel, multi,
+    getMultiResults, startCampaign]
+  warning: >-
+    Never ship a development key in a production build — the open socket degrades app
+    performance and the data is not captured in analytics.
+- id: data export
+  purpose: Data egress and postback rule management.
+  methods: [exportData, exportReport, exportUser, exportUsers, getExportResults,
+    addPostback, listPostbacks, deletePostback]
+- id: content read-only
+  purpose: Read dashboard-authored content.
+  methods: [getMessage, getMessages, getUnsubscribeCategories, getAbTest, getAbTests, getVariant]
+- id: content read-write
+  purpose: >-
+    Read and write dashboard content. Present as `contentReadWriteKey` in Leanplum's
+    own published Postman environment.
+key_management:
+  discovery_path: Leanplum dashboard -> Development -> App Settings -> API Keys
+  discovery_url: https://www.leanplum.com/dashboard#/account/apps
+  environments: >-
+    Leanplum provisions TWO apps per customer — one development, one production —
+    each with its own key set, specifically to reduce the risk of using the wrong key.
+  rotation_policy: not published
+  expiry: none published (keys are long-lived)
+  scopes: none — authorization is by key class, not by scope
+transport_security:
+  https_required: true
+  note: >-
+    The published spec lists both `https://api.leanplum.com` and
+    `http://api.leanplum.com` as servers. Use HTTPS only — credentials travel in the
+    query string, so a plaintext call leaks the clientKey to every intermediary.
+risks:
+- >-
+    Credentials in the QUERY STRING are logged by proxies, CDNs, browser history and
+    server access logs by default. Prefer POST with the arguments in the JSON body,
+    which Leanplum explicitly supports, over GET.
+- >-
+    No scopes and no per-key expiry: a leaked production key can write to every live
+    profile in the app until it is rotated from the dashboard.
+failure_modes:
+- message: Invalid access key
+  cause: Wrong key class for the method, or a mismatched appId/clientKey pair.
+  see: errors/leanplum-problem-types.yml

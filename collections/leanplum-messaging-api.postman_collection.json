@@ -1,0 +1,451 @@
+{
+  "item": [
+    {
+      "id": "0fac7bc0-d4ae-4294-9e33-cb21ce705702",
+      "name": "Messaging",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4d16632d-63a7-427d-a42f-32b188cdc9a0",
+          "name": "Send a message to a user",
+          "request": {
+            "name": "Send a message to a user",
+            "description": {
+              "content": "Sends a push notification, news-feed message, in-app message, or other message type to a user. Requires the production clientKey.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "sendMessage"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "<string>",
+                  "description": "(Required) Your Leanplum application id."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "<string>",
+                  "description": "(Required) The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) API version, for example 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "Identifier of the user the request applies to."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"messageId\": \"<string>\",\n  \"createDisposition\": \"<string>\",\n  \"values\": {\n    \"key_0\": 4034.27239902309\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "81adeab5-16d5-4193-9664-c23d4945a007",
+              "name": "Message queued/sent.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messageId\": \"<string>\",\n  \"createDisposition\": \"<string>\",\n  \"values\": {\n    \"key_0\": \"string\",\n    \"key_1\": false,\n    \"key_2\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": [\n    {\n      \"success\": true,\n      \"error\": {\n        \"message\": \"string\"\n      },\n      \"key_0\": false,\n      \"key_1\": false,\n      \"key_2\": 8048\n    },\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad0e2285-12ba-472d-be74-7f40f8b0275f",
+              "name": "Forbidden - the supplied clientKey lacks permission for this action, or a multi batch exceeded the 50 user / 500 action limit.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messageId\": \"<string>\",\n  \"createDisposition\": \"<string>\",\n  \"values\": {\n    \"key_0\": \"string\",\n    \"key_1\": false,\n    \"key_2\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": [\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      },\n      \"key_0\": false,\n      \"key_1\": 5344,\n      \"key_2\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "103050cb-92fd-4cd4-a549-95a69acad9a1",
+          "name": "List messages",
+          "request": {
+            "name": "List messages",
+            "description": {
+              "content": "Returns the message campaign definitions in the app. Requires the content read-only clientKey.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "getMessages"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "<string>",
+                  "description": "(Required) Your Leanplum application id."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "<string>",
+                  "description": "(Required) The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) API version, for example 1.0.6."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7b3c2cd5-95f1-48f7-91eb-c3cec7e23f73",
+              "name": "List of messages.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": [\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      },\n      \"key_0\": false,\n      \"key_1\": 5344,\n      \"key_2\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de976bfe-d55d-475f-a165-31b64605bf3b",
+          "name": "Get a single message",
+          "request": {
+            "name": "Get a single message",
+            "description": {
+              "content": "Returns metadata for one message campaign by id. Requires the content read-only clientKey.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "getMessage"
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "<string>",
+                  "description": "(Required) Your Leanplum application id."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientKey",
+                  "value": "<string>",
+                  "description": "(Required) The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+                },
+                {
+                  "disabled": false,
+                  "key": "apiVersion",
+                  "value": "1.0.6",
+                  "description": "(Required) API version, for example 1.0.6."
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "(Required) Message id."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c79d81f5-752f-4ca6-9bc0-292666d7014c",
+              "name": "Message metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiVersion",
+                      "value": "1.0.6"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": [\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"success\": false,\n      \"error\": {\n        \"message\": \"string\"\n      },\n      \"key_0\": false,\n      \"key_1\": 5344,\n      \"key_2\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.leanplum.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "94ba6527-2896-46e0-983e-5cecb6d80de1",
+    "name": "Leanplum A/B Tests Messaging API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Leanplum (Leanplum by CleverTap) REST API. All requests are made to https://api.leanplum.com/api and are dispatched by an `action` parameter that names the method to run (for example action=track or action=sendMessage). Every request carries `appId`, a permission-scoped `clientKey`, and `apiVersion`; most requests also carry a `userId` and/or `deviceId`. Requests may be sent as GET (arguments as query parameters) or POST (arguments in a JSON or multipart body). Multiple actions can be batched with the `multi` method.\n\nOperating status note: Leanplum was acquired by CleverTap in 2022 and now operates as \"Leanplum by CleverTap.\" The documented API surface below remains active during customer migration to CleverTap; CleverTap has wrapped its own methods behind these Leanplum API methods to ease that transition. Endpoint method names are grounded in the public Leanplum API reference; request/response schemas are modeled and should be verified against the live docs.\n\nContact Support:\n Name: API Evangelist\n Email: kin@apievangelist.com",
+      "type": "text/plain"
+    }
+  }
+}

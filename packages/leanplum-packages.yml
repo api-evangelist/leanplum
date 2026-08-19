@@ -1,0 +1,151 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://github.com/Leanplum (first-party org), registry.npmjs.org,
+  search.maven.org (g:com.leanplum), trunk.cocoapods.org, and
+  https://docs.leanplum.com/reference/overview (SDK setup index)
+description: >-
+  First-party Leanplum client SDKs. Leanplum was acquired by CleverTap in 2022;
+  the SDKs are still published from the Leanplum GitHub org and the same registry
+  accounts (npm publisher `leanplum`, Maven group `com.leanplum`, CocoaPods pod
+  `Leanplum-iOS-SDK`), and recent releases explicitly wrap the CleverTap SDKs to
+  carry customers through the migration. There is no server-side / backend SDK for
+  the REST API — Leanplum ships mobile and web client SDKs only, plus an official
+  Postman collection and a Python API samples repo.
+notes: >-
+  Currency read from each registry's metadata endpoint on 2026-08-13. The Android
+  (Maven) line last shipped 2025-03-13 and the iOS pod 2025-03-18, while the
+  JavaScript and React Native packages shipped in late 2025 — the mobile SDKs are
+  the older of the set. `com.leanplum:leanplum-mipush` is a release behind the rest
+  of the Android family (7.4.1 vs 7.6.3).
+packages:
+- language: javascript
+  name: leanplum-sdk
+  registry: npm
+  url: https://www.npmjs.com/package/leanplum-sdk
+  repository: https://github.com/Leanplum/Leanplum-JavaScript-SDK
+  official: true
+  version: 1.14.0
+  published: '2025-10-27'
+  note: >-
+    Published by npm user `leanplum`. Web SDK; recent versions wrap the CleverTap
+    Web SDK for the migration.
+- language: javascript
+  name: '@leanplum/react-native-sdk'
+  registry: npm
+  url: https://www.npmjs.com/package/@leanplum/react-native-sdk
+  repository: https://github.com/Leanplum/Leanplum-ReactNative-SDK
+  official: true
+  version: 2.4.0
+  published: '2025-08-14'
+  note: Published by npm user `leanplum`.
+- language: swift
+  name: Leanplum-iOS-SDK
+  registry: cocoapods
+  url: https://cocoapods.org/pods/Leanplum-iOS-SDK
+  repository: https://github.com/Leanplum/Leanplum-iOS-SDK
+  official: true
+  version: 6.6.1
+  published: '2025-03-18'
+  note: >-
+    Latest stable pod. A `6.6.1-beta1` prerelease was pushed the same day. Repo has
+    commits as recently as 2026-04-08, so work continues past the last published pod.
+- language: java
+  name: com.leanplum:leanplum-core
+  registry: maven
+  url: https://central.sonatype.com/artifact/com.leanplum/leanplum-core
+  repository: https://github.com/Leanplum/Leanplum-Android-SDK
+  official: true
+  version: 7.6.3
+  published: '2025-03-13'
+- language: java
+  name: com.leanplum:leanplum-fcm
+  registry: maven
+  url: https://central.sonatype.com/artifact/com.leanplum/leanplum-fcm
+  repository: https://github.com/Leanplum/Leanplum-Android-SDK
+  official: true
+  version: 7.6.3
+  published: '2025-03-13'
+  note: Firebase Cloud Messaging push module.
+- language: java
+  name: com.leanplum:leanplum-push
+  registry: maven
+  url: https://central.sonatype.com/artifact/com.leanplum/leanplum-push
+  repository: https://github.com/Leanplum/Leanplum-Android-SDK
+  official: true
+  version: 7.6.3
+  published: '2025-03-13'
+- language: java
+  name: com.leanplum:leanplum-location
+  registry: maven
+  url: https://central.sonatype.com/artifact/com.leanplum/leanplum-location
+  repository: https://github.com/Leanplum/Leanplum-Android-SDK
+  official: true
+  version: 7.6.3
+  published: '2025-03-13'
+- language: java
+  name: com.leanplum:leanplum-hms
+  registry: maven
+  url: https://central.sonatype.com/artifact/com.leanplum/leanplum-hms
+  repository: https://github.com/Leanplum/Leanplum-Android-SDK
+  official: true
+  version: 7.6.3
+  published: '2025-03-13'
+  note: Huawei Mobile Services push module.
+- language: java
+  name: com.leanplum:leanplum-mipush
+  registry: maven
+  url: https://central.sonatype.com/artifact/com.leanplum/leanplum-mipush
+  repository: https://github.com/Leanplum/Leanplum-Android-SDK
+  official: true
+  version: 7.4.1
+  published: '2024-04-04'
+  note: Xiaomi MiPush module — a minor version behind the rest of the Android family.
+- language: csharp
+  name: Leanplum-Unity-SDK
+  registry: github-releases
+  url: https://github.com/Leanplum/Leanplum-Unity-SDK/releases
+  repository: https://github.com/Leanplum/Leanplum-Unity-SDK
+  official: true
+  version: 7.1.0
+  published: '2025-04-04'
+  note: >-
+    Distributed as a `.unitypackage` on GitHub Releases, not through a package
+    registry. Version and date taken from the matching changelog entry
+    https://docs.leanplum.com/changelog/unity-sdk-710 (repo pushed 2025-12-01 since).
+- language: cpp
+  name: Leanplum-Unreal-SDK
+  registry: github-releases
+  url: https://github.com/Leanplum/Leanplum-Unreal-SDK
+  repository: https://github.com/Leanplum/Leanplum-Unreal-SDK
+  official: true
+  version: null
+  published: null
+  note: >-
+    No package registry and no tagged release read on 2026-08-13; the repo has not
+    been pushed since 2022-12-02. Recorded as checked-and-empty, not unchecked.
+- language: python
+  name: Leanplum-API-Samples
+  registry: github
+  url: https://github.com/Leanplum/Leanplum-API-Samples
+  repository: https://github.com/Leanplum/Leanplum-API-Samples
+  official: true
+  version: null
+  published: null
+  note: >-
+    Sample scripts for the REST API, not a distributed library — no registry entry
+    exists to read a version from. Last pushed 2022-03-30. Linked from
+    https://docs.leanplum.com/reference/api-introduction.
+collections:
+- name: Leanplum API (official Postman collection)
+  format: postman-collection-v2.0.0
+  url: https://www.getpostman.com/collections/378a83c1424d632661d0
+  run_in_postman: https://app.getpostman.com/run-collection/af34563723926fff1e8a
+  official: true
+  saved_as: collections/leanplum-official.postman_collection.json
+  note: >-
+    Linked from https://docs.leanplum.com/reference/api-methods. 8 folders / 44
+    requests, matching the eight tags in the published OpenAPI.
+excluded:
+- name: '@brandingbrand/react-native-leanplum, @gleeph/react-native-leanplum, @mparticle/web-leanplum-kit, react-native-leanplum, n8n-nodes-leanplum, ember-cli-leanplum'
+  reason: Third-party community wrappers, not published by Leanplum. official=false, not counted.

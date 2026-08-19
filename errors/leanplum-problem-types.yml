@@ -1,0 +1,124 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.leanplum.com/reference/responses
+docs: https://docs.leanplum.com/reference/responses
+format: proprietary
+description: >-
+  Leanplum does not use RFC 9457 problem+json. It returns a `response[]` array
+  envelope in which EVERY element carries a `success` boolean and may carry a
+  `warning.message` and/or an `error.message`. The critical semantic — stated in
+  Leanplum's own docs — is that HTTP 200 with `success: true` does NOT mean the
+  action succeeded; it only means the request was received. An agent MUST inspect
+  `response[].error` and `response[].warning` on a 200 before treating a call as
+  done.
+envelope:
+  root: response
+  type: array
+  note: One element per action; a `multi` batch returns one element per batched action.
+  fields:
+  - name: response[].success
+    type: boolean
+    meaning: >-
+      The request was RECEIVED. Not a statement that the action was performed.
+  - name: response[].warning.message
+    type: string
+    meaning: The action was likely skipped. Human-readable reason.
+  - name: response[].error.message
+    type: string
+    meaning: The action was skipped or the request failed. Human-readable reason.
+response_shapes:
+- id: received-and-performed
+  http_status: 200
+  body: '{"response":[{"success":true}]}'
+  meaning: Request received and the action was taken successfully.
+  action: Treat as success. This is the ONLY shape that means success.
+- id: received-with-warning
+  http_status: 200
+  body: '{"response":[{"success":true,"warning":{"message":"User not found; request skipped."}}]}'
+  meaning: Request received, action likely SKIPPED. See warning message.
+  action: >-
+    Do not treat as success. Common cause is a userId/deviceId that does not exist;
+    set `createDisposition=CreateIfNeeded` if the profile should be created.
+- id: received-with-error
+  http_status: 200
+  body: '{"response":[{"success":true,"error":{"message":"Error message provided here."}}]}'
+  meaning: Request received, action SKIPPED. See error message.
+  action: Do not retry blindly — the request was accepted, the action was rejected.
+- id: request-failed
+  http_status: 4xx/5xx
+  body: '{"response":[{"success":false,"error":{"message":"..."}}]}'
+  meaning: The request was not received successfully.
+  action: See the status-specific entries below.
+problem_types:
+- id: invalid-access-key
+  http_status: 4xx
+  message: Invalid access key
+  cause: >-
+    The `clientKey` supplied does not match the operation's required key class
+    (production, development, data export, or content read-only) or the `appId`.
+  remediation: >-
+    Supply the correct key. See
+    https://docs.leanplum.com/docs/use-the-right-api-keys — each method's docs name
+    the key class it requires.
+  retryable: false
+- id: strict-device-locking
+  http_status: 429
+  message: Request failed due to concurrent requests to the same profile ID
+  cause: >-
+    Multiple concurrent API calls against the same `userId`. Leanplum serializes
+    GET/POST against one profile to keep data consistent.
+  remediation: >-
+    Do not issue concurrent requests for the same user. Batch per-user work into a
+    single `multi` call, then retry with exponential backoff (docs suggest 2s, 4s,
+    8s with jitter, up to a bounded retry count).
+  retryable: true
+- id: dev-mode-rate-limit
+  http_status: 429
+  message: Per device rate limit exceeded. / Too Many Requests.
+  cause: >-
+    Requests carrying `devMode=true` are capped at 1 request per second per device.
+  remediation: >-
+    Throttle development-mode traffic to 1 rps per device, or drop `devMode` for
+    load work. Retry with exponential backoff.
+  retryable: true
+- id: blocked-user
+  http_status: 451
+  message: Unavailable For Legal Reasons
+  cause: >-
+    The call attempts to update a `userId` that has been blocked via the `block`
+    method.
+  remediation: >-
+    Unblock the profile with the `unblock` method if the block was not intended;
+    otherwise stop sending for that user. This is a compliance/erasure control, not
+    a transient fault.
+  retryable: false
+- id: server-error
+  http_status: 5xx
+  message: (varies)
+  cause: Internal Leanplum server error.
+  remediation: >-
+    Retry with exponential backoff up to a bounded retry count — Leanplum's own
+    example is 2s ± random(0,1), then 4s ± random(0,2), then 8s ± random(0,4).
+  retryable: true
+- id: multi-batch-limit-exceeded
+  http_status: 403
+  message: (call ignored)
+  cause: >-
+    A `multi` call exceeding the documented batching limits (50 users and/or 500
+    actions) is ignored.
+  remediation: Split the batch. See https://docs.leanplum.com/reference/batching-requests
+  retryable: false
+  source: https://docs.leanplum.com/reference/batching-requests
+retry_policy:
+  applies_to: [429, 5xx]
+  strategy: exponential-backoff-with-jitter
+  published_example:
+  - after: 2s ± random(0,1)
+  - after: 4s ± random(0,2)
+  - after: 8s ± random(0,4)
+  source: https://docs.leanplum.com/reference/responses
+exceptions:
+- operation: downloadFile
+  note: >-
+    The only method that does not return the JSON envelope — it returns the file
+    bytes.

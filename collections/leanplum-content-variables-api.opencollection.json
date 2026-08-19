@@ -1,0 +1,133 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Leanplum A/B Tests Content & Variables API",
+    "version": "1.0.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Content & Variables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get variables for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=getVars",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the user the request applies to."
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the device the request applies to."
+              }
+            ]
+          },
+          "docs": "Returns the variable values presented to the current user or device from the Leanplum content management system."
+        },
+        {
+          "info": {
+            "name": "Define content variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=setVars",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the list of variables used in the Leanplum content management system. Requires the development clientKey."
+        },
+        {
+          "info": {
+            "name": "Download a managed file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=downloadFile",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query",
+                "description": "Name/path of the file to download."
+              }
+            ]
+          },
+          "docs": "Downloads a file asset managed in Leanplum."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

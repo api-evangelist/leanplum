@@ -1,0 +1,110 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/leanplum-api-openapi.json
+status: candidate
+description: >-
+  Leanplum publishes NO MCP server. Searched the Leanplum GitHub org (65 repos,
+  none MCP-related), the documentation site, npm (publisher `leanplum`), and the
+  open web on 2026-08-13; nothing was found, and no /mcp endpoint was guessed or
+  probed into existence. The tools below are a CANDIDATE surface derived from
+  Leanplum's own published OpenAPI so that the shape of a future server is on
+  record. They are not implemented and not callable.
+pointer_emitted: false
+pointer_note: >-
+  No `type: MCPServer` pointer is wired in apis.yml. That pointer asserts the
+  PROVIDER ships an MCP server, and Leanplum does not — wiring it for a
+  status:candidate / mode:none file would credit an agent surface that does not
+  exist, the same failure the well-known and agent-card rules exist to prevent.
+  Wire it only if and when Leanplum publishes a real server.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: derived
+  note: >-
+    `auth: api-key` describes what a server WOULD need — the underlying REST API
+    authenticates with an `appId` plus a permission-scoped `clientKey` in the query
+    string. There is nothing deployed to verify.
+search_evidence:
+- source: https://api.github.com/orgs/Leanplum/repos
+  result: 65 repos, no MCP server repo
+- source: https://registry.npmjs.org/-/v1/search?text=leanplum
+  result: no MCP package from publisher `leanplum`
+- source: https://docs.leanplum.com/llms.txt
+  result: 200, no MCP or agent surface listed
+- source: web search "Leanplum MCP server model context protocol"
+  result: no Leanplum result
+candidate_tools:
+- name: leanplum_track_event
+  rest: [track]
+  description: Track a user event with optional value and custom parameters.
+  writes: true
+- name: leanplum_start_session
+  rest: [start]
+  description: Start a user session and return the variables presented to that user.
+  writes: true
+- name: leanplum_advance_state
+  rest: [advance]
+  description: Advance a user to a named application state.
+  writes: true
+- name: leanplum_set_user_attributes
+  rest: [setUserAttributes]
+  description: Set or update user attributes and behavioral counters on a profile.
+  writes: true
+- name: leanplum_set_device_attributes
+  rest: [setDeviceAttributes]
+  description: Set device attributes, including imported push tokens.
+  writes: true
+- name: leanplum_send_message
+  rest: [sendMessage]
+  description: Send a push, newsfeed or other message to a user or a specific device.
+  writes: true
+  sensitive: true
+- name: leanplum_list_messages
+  rest: [getMessages, getMessage]
+  description: List messages created in the dashboard, or fetch one by ID.
+  writes: false
+- name: leanplum_list_ab_tests
+  rest: [getAbTests, getAbTest, getVariant]
+  description: List A/B tests, fetch one, or fetch a user's assigned variant.
+  writes: false
+- name: leanplum_get_vars
+  rest: [getVars]
+  description: Read a user's variables without starting a session.
+  writes: false
+- name: leanplum_set_vars
+  rest: [setVars, deleteVars]
+  description: Create, update or delete dashboard variables (development key).
+  writes: true
+- name: leanplum_export_data
+  rest: [exportData, getExportResults]
+  description: Submit a raw-session export job and poll for its downloadable results.
+  writes: false
+  async: true
+- name: leanplum_export_user
+  rest: [exportUser, exportUsers]
+  description: Export one user profile, or the set of users matching criteria.
+  writes: false
+- name: leanplum_manage_postbacks
+  rest: [addPostback, listPostbacks, deletePostback]
+  description: Register, list and delete outbound postback (webhook) rules.
+  writes: true
+- name: leanplum_batch
+  rest: [multi, getMultiResults]
+  description: Batch up to 50 users / 500 actions in one call and poll the job.
+  writes: true
+guardrails_if_built:
+- >-
+    sendMessage and startCampaign reach real end users. They should require
+    human-in-the-loop confirmation; see agentic-access/leanplum-agentic-access.yml.
+- >-
+    The API has NO idempotency key. track/advance/sendMessage are append-only and a
+    retried tool call double-writes. See conventions/leanplum-conventions.yml.
+- >-
+    HTTP 200 + success:true does not mean the action ran. A tool wrapper must inspect
+    response[].error and response[].warning. See errors/leanplum-problem-types.yml.
+- >-
+    Do not issue concurrent calls for the same userId — strict device locking returns
+    429. Batch per-user work through `multi` instead.

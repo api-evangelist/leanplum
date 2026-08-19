@@ -1,0 +1,184 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Leanplum A/B Tests User & Device Attributes API",
+    "version": "1.0.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User & Device Attributes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Set user attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=setUserAttributes",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the user the request applies to."
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the device the request applies to."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets attributes for the user given by userId and/or deviceId, used for segmentation and targeting. Requires the production clientKey."
+        },
+        {
+          "info": {
+            "name": "Set device attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=setDeviceAttributes",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the device the request applies to."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets device-level attributes (for example push tokens, locale). Requires the production clientKey."
+        },
+        {
+          "info": {
+            "name": "Set traffic source / attribution info",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=setTrafficSourceInfo",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the user the request applies to."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records acquisition/attribution traffic source information for a user."
+        },
+        {
+          "info": {
+            "name": "Delete a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=deleteUser",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the user the request applies to."
+              }
+            ]
+          },
+          "docs": "Deletes a user and their associated data. Requires the development clientKey."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

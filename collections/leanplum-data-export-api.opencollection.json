@@ -1,0 +1,202 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Leanplum A/B Tests Data Export API",
+    "version": "1.0.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Data Export",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Export raw data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=exportData",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date (YYYYMMDD)."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date (YYYYMMDD)."
+              },
+              {
+                "name": "exportFormat",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Exports raw session and event data to downloadable JSON or CSV files over a date range. Runs asynchronously; poll getMultiResults for status. Requires the data export clientKey."
+        },
+        {
+          "info": {
+            "name": "Export user profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=exportUsers",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              }
+            ]
+          },
+          "docs": "Exports user profile data. Requires the data export clientKey."
+        },
+        {
+          "info": {
+            "name": "Export a single user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=exportUser",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the user the request applies to."
+              }
+            ]
+          },
+          "docs": "Exports the profile and history for one user. Requires the data export clientKey."
+        },
+        {
+          "info": {
+            "name": "Export a report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=exportReport",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              }
+            ]
+          },
+          "docs": "Exports messaging and A/B test reports. Requires the data export clientKey."
+        },
+        {
+          "info": {
+            "name": "Get status of an async job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=getMultiResults",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "query",
+                "description": "The job id returned by an export/import call."
+              }
+            ]
+          },
+          "docs": "Returns the status of an asynchronous multi import or data export job."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -4,7 +4,11 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Leanplum
 providerId: leanplum
 created: '2026-07-03'
-modified: '2026-07-03'
+modified: '2026-08-13'
+generated: '2026-08-13'
+method: searched
+source: https://clevertap.com/pricing/
+plan_count: 2
 reconciled: false
 tags:
 - Mobile Marketing
@@ -23,14 +27,33 @@ description: >-
   platform subscription rather than priced separately, though multi/user lookups
   are metered as billable API calls.
 notes: >-
-  Exact tier names and rates are not public and are not reconciled here. Pricing
-  is quote-based - contact Leanplum/CleverTap sales. Prospective customers should
-  confirm whether new contracts are written on Leanplum or migrated to CleverTap.
+  Re-checked 2026-08-13. There is no Leanplum-branded pricing page left:
+  https://www.leanplum.com/pricing returns 200 after redirecting to
+  https://clevertap.com/pricing/, so the pricing surface for the brand is now
+  CleverTap's. That page publishes ONE self-serve tier — Essentials, listed at
+  Rs.600/month promotional (from Rs.6,000/month), banded by MAU from 5,000 to
+  100,000+, with a 30-day free trial — and two contact-sales tiers (Advanced,
+  Cutting Edge) plus unpriced add-on modules (WhatsApp, Advanced Email, RCS,
+  Promos). None of those tiers is scoped to Leanplum or to REST API access, so the
+  two Leanplum entries below remain contact-sales and are NOT restated as CleverTap
+  tiers. Prospective customers should confirm whether a new contract is written on
+  Leanplum or migrated to CleverTap.
 sources:
-- https://www.leanplum.com
+- https://clevertap.com/pricing/
+- https://www.leanplum.com/pricing
+- https://docs.leanplum.com/reference/api-introduction
 - https://docs.leanplum.com/reference/making-requests
-- https://docs.leanplum.com/reference/batching-requests
+- https://docs.leanplum.com/reference/reduce-billable-requests
 - https://clevertap.com/blog/clevertap-welcomes-leanplum/
+probe_evidence:
+- url: https://www.leanplum.com/pricing
+  status: 200
+  effective_url: https://clevertap.com/pricing/
+  checked: '2026-08-13'
+- url: https://www.leanplum.com/
+  status: 200
+  effective_url: https://clevertap.com/
+  checked: '2026-08-13'
 plans:
 - id: leanplum-platform
   name: Leanplum Platform (Contact Sales)

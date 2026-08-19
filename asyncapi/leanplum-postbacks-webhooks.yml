@@ -1,0 +1,86 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.leanplum.com/reference/post_api-action-addpostback and the published
+  OpenAPI at openapi/leanplum-api-openapi.json (/api?action=addPostback)
+docs: https://docs.leanplum.com/reference/post_api-action-addpostback
+description: >-
+  Leanplum's outbound event surface is "postbacks": customer-registered URL
+  templates that Leanplum POSTs to when a message or A/B test event occurs.
+  Postbacks are managed through the REST API itself (addPostback / listPostbacks /
+  deletePostback), all of which require the DATA EXPORT clientKey. Leanplum
+  publishes no AsyncAPI document and no event schema registry — this file is the
+  webhook catalog derived from the published postback reference, and the apis.yml
+  pointer is `Webhooks`, not `AsyncAPI`.
+asyncapi_spec_published: false
+transport:
+  protocol: https
+  method: POST
+  target: customer-supplied URL template (`postbackUrl`)
+  payload_style: >-
+    URL-template substitution, not a JSON body schema. Values are interpolated into
+    the registered URL using the same curly-brace template syntax as Leanplum
+    dashboard message templates.
+management:
+  register: addPostback
+  list: listPostbacks
+  delete: deletePostback
+  key_class_required: data export clientKey
+  max_postbacks_per_app: 3
+delivery:
+  timeout_seconds: 30
+  retry_on: 5xx
+  max_attempts: 10
+  retry_schedule: exponential backoff starting at 1 hour, up to 10 hours
+  on_exhaustion: data is lost
+  verbatim: >-
+    "If your app is unresponsive, Leanplum's request will timeout in 30 seconds. If
+    the error code is 5xx, we will retry up to 9 more times with exponential
+    backoff, starting from 1 hour, up to 10 hours. If all 10 times fail, the data is
+    lost."
+  signature_verification: none published
+  note: >-
+    No HMAC signature, shared secret, or signing header is documented, so a receiver
+    cannot cryptographically verify a postback came from Leanplum. Authenticate by
+    embedding a secret in the registered URL template if that matters to you.
+postback_types:
+- id: messageEvents
+  description: Triggered by message events on the selected channels.
+- id: abTestEvents
+  description: Triggered by the A/B test impression/enter event.
+channels:
+- name: Push Notification
+  events: [Sent, Open, Held Back]
+- name: Email
+  events: [Sent, Deferred, Delivered, Bounce, Open, Click, Marked as spam, Dropped, Unsubscribe, Held Back]
+- name: In-app Message
+  events_by_template:
+    all_templates: [View, Held back]
+    center_popup_confirm_interstitial: [Accept]
+    rich_interstitial: [Select Button 1, Select Button 2]
+  note: >-
+    The published parameter description enumerates further per-template events
+    (e.g. Satisfaction Survey); the ones recorded here are those read verbatim.
+  default: If no `channels` value is supplied, all three channels trigger postbacks.
+payload_values:
+  all_events:
+  - name: User ID
+    description: The user ID that triggered the postback.
+  - name: Device ID
+    description: The device ID that triggered the postback.
+  - name: Trigger time
+    description: >-
+      Time in milliseconds at which the postback was triggered. May be in the past
+      if the triggering event occurred in the past.
+  message_events:
+  - name: Message ID
+    description: The message ID that triggered the postback.
+  - name: Message event
+    description: The message event that triggered the postback.
+related_streaming:
+  - name: exportData
+    description: >-
+      Bulk raw-session export (submit/poll job), not an event stream. Data becomes
+      available every 2 hours, only for complete sessions, retained 60 days, files
+      deleted 24 hours after export, maximum 24 exports per day.
+    docs: https://docs.leanplum.com/reference/get_api-action-exportdata

@@ -1,0 +1,126 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  openapi/leanplum-api-openapi.json, https://docs.leanplum.com/reference/responses,
+  https://docs.leanplum.com/reference/making-requests, and
+  https://clevertap.com/security/ (fetched 2026-08-13)
+description: >-
+  Cross-cutting standards conformance for the Leanplum REST API. Leanplum is a
+  proprietary action-dispatch API and conforms to very little of the industry
+  vocabulary: no OAuth, no OIDC, no RFC 9457, no RFC 8594, no standard rate-limit
+  headers, no pagination convention. It does publish an OpenAPI 3.0.0 document,
+  which is the one machine-readable standard it meets.
+standards:
+- id: openapi
+  name: OpenAPI Specification
+  version: 3.0.0
+  conforms: true
+  evidence: >-
+    Leanplum serves an OpenAPI 3.0.0 document (x-api-id "leanplum-api", 42
+    operations, 8 tags, servers https://api.leanplum.com) from its own ReadMe-hosted
+    documentation at docs.leanplum.com; saved to openapi/leanplum-api-openapi.json.
+  gaps:
+  - No operationId on any operation.
+  - Every response is declared under `default` only — no explicit 2xx/4xx/5xx codes,
+    even though the docs describe 429, 451 and 5xx behaviour in prose.
+  - Paths encode a query string (`/api?action=track`), which is not a valid OpenAPI
+    path template; the action selector should be a parameter.
+  - components.schemas is empty — request bodies are inlined per operation.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  evidence: >-
+    securitySchemes are two apiKey-in-query schemes (appId, clientKey). No
+    authorization server, no token endpoint, no scopes.
+    /.well-known/oauth-authorization-server returned 404 on both hosts.
+- id: oidc
+  name: OpenID Connect
+  conforms: false
+  evidence: /.well-known/openid-configuration returned 404 on docs.leanplum.com and api.leanplum.com.
+- id: rfc9457
+  name: RFC 9457 Problem Details for HTTP APIs
+  conforms: false
+  evidence: >-
+    Errors use a proprietary `{"response":[{"success":bool,"error":{"message":str}}]}`
+    envelope with no type/title/status/detail/instance members and no
+    application/problem+json media type. See errors/leanplum-problem-types.yml.
+- id: rfc8594
+  name: RFC 8594 Sunset HTTP Header
+  conforms: false
+  evidence: No Sunset or Deprecation headers documented; no deprecation policy published.
+- id: rfc6585-429
+  name: RFC 6585 HTTP 429 Too Many Requests
+  conforms: partial
+  evidence: >-
+    429 IS returned for strict device locking and for the devMode 1 rps cap, but no
+    Retry-After header is documented — the client is told to guess an exponential
+    backoff. See rate-limits/leanplum-rate-limits.yml.
+- id: draft-ietf-httpapi-ratelimit-headers
+  name: RateLimit header fields for HTTP
+  conforms: false
+  evidence: No RateLimit-*/X-RateLimit-* headers are published on any response.
+- id: idempotency-key
+  name: Idempotency-Key (draft-ietf-httpapi-idempotency-key-header)
+  conforms: false
+  evidence: >-
+    No idempotency key of any form. Retries of track/advance/sendMessage double-write.
+- id: pagination
+  name: Cursor or page-based pagination
+  conforms: false
+  evidence: >-
+    No pagination parameters anywhere in the spec. Bulk reads go through
+    asynchronous export jobs instead.
+- id: webhooks
+  name: Outbound event delivery (webhooks)
+  conforms: partial
+  evidence: >-
+    Postbacks deliver message and A/B test events to a customer URL with a published
+    30s timeout and a 10-attempt exponential-backoff retry policy, but there is no
+    signature/HMAC verification and no event payload schema — the payload is
+    URL-template substitution. See asyncapi/leanplum-postbacks-webhooks.yml.
+- id: asyncapi
+  name: AsyncAPI
+  conforms: false
+  evidence: No AsyncAPI document published.
+- id: mcp
+  name: Model Context Protocol
+  conforms: false
+  evidence: No MCP server published. See mcp/leanplum-mcp.yml.
+- id: a2a
+  name: A2A Agent Card
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json both returned 404 on
+    docs.leanplum.com and api.leanplum.com.
+- id: llms-txt
+  name: llms.txt
+  conforms: true
+  evidence: >-
+    https://docs.leanplum.com/llms.txt returns 200 text/plain (1,988 bytes) with a
+    guides / API reference / changelog index, and every documentation page is served
+    with a `.md` markdown twin. Saved to llms/leanplum-llms.txt.
+- id: gdpr-erasure
+  name: Data subject erasure controls
+  conforms: partial
+  evidence: >-
+    The API exposes `deleteUser` (delete a profile) and `block`/`unblock`; calls
+    targeting a blocked userId return HTTP 451 Unavailable For Legal Reasons, which
+    is an unusually explicit compliance signal in the contract itself.
+compliance_programs:
+  scope_note: >-
+    Leanplum was acquired by CleverTap in 2022 and www.leanplum.com now 301-redirects
+    to clevertap.com — the operating company's public site IS clevertap.com. The
+    certifications below are published by CleverTap and are recorded here as the
+    programs covering the Leanplum product post-acquisition. The CleverTap security
+    page does NOT name Leanplum, so this is an inherited-parent claim, not a
+    Leanplum-specific attestation.
+  source: https://clevertap.com/security/
+  fetched: '2026-08-13'
+  certifications:
+  - SOC 2 Type II
+  - ISO 27001
+  - GDPR
+  - CCPA
+  - HIPAA
+  trust_portal: https://trust.clevertap.com/
+  trust_portal_status: 403

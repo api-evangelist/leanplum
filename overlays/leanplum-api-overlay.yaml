@@ -1,0 +1,139 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Leanplum API
+  version: 1.0.0
+extends: ../openapi/leanplum-api-openapi.json
+x-provenance:
+  generated: '2026-08-13'
+  method: generated
+  source: >-
+    Derived from openapi/leanplum-api-openapi.json (Leanplum's own published spec)
+    plus https://docs.leanplum.com/reference/responses,
+    https://docs.leanplum.com/reference/batching-requests and
+    https://docs.leanplum.com/reference/making-requests.
+  note: >-
+    Non-destructive. Adds the metadata Leanplum's published document omits —
+    contact/licence, tag descriptions, and the error codes the docs describe in prose
+    but never declare in the spec (429, 451, 5xx). It does NOT invent request or
+    response schemas, and it does NOT add operationIds, because inventing an
+    operationId would create an identifier that does not exist in Leanplum's contract.
+actions:
+- target: $.info
+  update:
+    contact:
+      name: Leanplum Support (via CleverTap)
+      url: https://docs.leanplum.com/
+    license:
+      name: Proprietary
+      url: https://clevertap.com/terms-service/
+    x-api-status: >-
+      Active. Leanplum was acquired by CleverTap in 2022; the REST API remains
+      operational during customer migration to CleverTap, which has wrapped its own
+      methods behind these Leanplum methods.
+    x-current-api-version: 1.0.6
+- target: $
+  update:
+    tags:
+    - name: User Behavior
+      description: >-
+        Sessions, events and states — the behavioural stream. start/stop,
+        pauseSession/resumeSession, heartbeat, track, advance, pauseState/resumeState.
+        Requires the production clientKey.
+    - name: User Information
+      description: >-
+        Profile and device state — user attributes, device attributes, attribution,
+        device registration, deletion, and block/unblock (GDPR-facing).
+    - name: Messages
+      description: >-
+        Read messages authored in the dashboard and send them to a user or device.
+        sendMessage requires the production clientKey; the get* methods are read-only.
+    - name: A/B Tests
+      description: >-
+        Read A/B tests, their variants, and the variant a given user is assigned to.
+        Read-only key class.
+    - name: Files and Variables
+      description: >-
+        Remotely configurable content. getVars/downloadFile use the production key;
+        setVars/deleteVars/uploadFile require the development key.
+    - name: Export Data
+      description: >-
+        Asynchronous data egress (submit a job, poll getExportResults) plus postback
+        rule management. Requires the data export clientKey.
+    - name: Import Data
+      description: >-
+        Bulk ingest via a CSV `multi` upload, executed asynchronously as a job.
+        Requires the development clientKey.
+    - name: Campaigns
+      description: Start a dashboard campaign through the API. Requires the development clientKey.
+    externalDocs:
+      description: Leanplum API reference
+      url: https://docs.leanplum.com/reference/api-methods
+- target: $.paths.*.*.responses
+  description: >-
+    Declare the status codes Leanplum documents in prose at
+    https://docs.leanplum.com/reference/responses but leaves out of the published
+    spec, which declares only `default`.
+  update:
+    '429':
+      description: >-
+        Too Many Requests. Either strict device locking (concurrent requests for the
+        same userId are serialized and the loser fails) or the devMode rate limit of
+        1 request per second per device. Retry with exponential backoff; no
+        Retry-After header is sent.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              response:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                      example: false
+                    error:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          example: Request failed due to concurrent requests to the same profile ID
+    '451':
+      description: >-
+        Unavailable For Legal Reasons. Returned when the call attempts to update a
+        userId that has been blocked with the `block` method.
+    '500':
+      description: >-
+        Internal server error. Retry with exponential backoff up to a bounded retry
+        count.
+- target: $.paths['/api?action=multi']
+  update:
+    post:
+      x-batch-limits:
+        users_per_call: 50
+        actions_per_call: 500
+        on_exceeded: HTTP 403, call ignored
+        billing: each unique user lookup in the batch is one billable API call
+        source: https://docs.leanplum.com/reference/batching-requests
+- target: $.paths['/api?action=addPostback']
+  update:
+    post:
+      x-webhook-delivery:
+        timeout_seconds: 30
+        retry_on: 5xx
+        max_attempts: 10
+        backoff: exponential, starting at 1 hour, up to 10 hours
+        on_exhaustion: data is lost
+        signature_verification: none published
+        catalog: asyncapi/leanplum-postbacks-webhooks.yml
+- target: $.paths['/api?action=exportData']
+  update:
+    get:
+      x-quota:
+        exports_per_day: 24
+        data_availability: every 2 hours, complete sessions only
+        retention_days: 60
+        result_file_ttl_hours: 24
+        file_split_size: ~256 MB
+        note: Exports with invalid arguments do not count toward the daily limit.

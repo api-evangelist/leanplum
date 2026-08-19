@@ -1,0 +1,62 @@
+generated: '2026-08-13'
+method: searched
+source: https://clevertap.com/security/
+fetched: '2026-08-13'
+description: >-
+  Leanplum publishes no trust center of its own. Leanplum was acquired by CleverTap
+  in 2022 and its website now 301-redirects to clevertap.com — the operating
+  company's public surface IS clevertap.com — so the trust surface recorded here is
+  CleverTap's. This is an inherited-parent record, stated as such: the CleverTap
+  security page does not name Leanplum anywhere, and no Leanplum-scoped attestation
+  was found.
+ownership_justification: >-
+  https://www.leanplum.com/ returns 200 after a 301 chain terminating at
+  https://clevertap.com/; https://www.leanplum.com/pricing lands on
+  https://clevertap.com/pricing/ and https://www.leanplum.com/blog/ on
+  https://clevertap.com/blog/. CleverTap is the company that operates the Leanplum
+  brand.
+trust_center:
+  url: https://clevertap.com/security/
+  status: 200
+  operator: CleverTap
+  leanplum_named_on_page: false
+portal:
+  name: CleverTap Trust Portal
+  url: https://trust.clevertap.com/
+  status: 403
+  note: >-
+    Probed 2026-08-13 and returned HTTP 403 to an anonymous client — audit reports,
+    policies and controls are gated. The security page describes it as hosting
+    "security posture, audit reports, policies and controls".
+certifications:
+- name: SOC 2 Type II
+  scope: CleverTap platform
+  evidence_url: https://clevertap.com/security/
+- name: ISO 27001
+  scope: CleverTap platform
+  evidence_url: https://clevertap.com/security/
+- name: GDPR
+  type: regulation compliance claim
+  evidence_url: https://clevertap.com/security/
+- name: CCPA
+  type: regulation compliance claim
+  evidence_url: https://clevertap.com/security/
+- name: HIPAA
+  type: regulation compliance claim
+  evidence_url: https://clevertap.com/security/
+verbatim_claim: >-
+  "CleverTap currently is compliant with GDPR, CCPA, SOC 2 Type II, ISO 27001, and
+  HIPAA."
+platform_controls:
+- two-factor authentication
+- role-based access
+- restricted IP access
+- campaign approval workflow
+vulnerability_disclosure:
+  published: false
+  note: >-
+    No security.txt on any Leanplum host (7 well-known paths x 2 hosts, all 404), no
+    bug bounty program found on HackerOne/Bugcrowd/Intigriti, and no security contact
+    or disclosure policy on the CleverTap security page. probe-security-programs.py
+    returned vdp=none on 2026-08-13, so no vulnerability-disclosure artifact was
+    written and no VulnerabilityDisclosure or Security pointer is emitted.

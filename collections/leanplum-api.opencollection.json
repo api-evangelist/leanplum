@@ -1,0 +1,1214 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "appId",
+      "value": "{{appId}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Behavior",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "advance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=advance",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Advances a user to the next state. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below). The state is the section of the app the user is currently in. States are like events with duration.\n\nThis method requires your production API `clientKey`.\n"
+        },
+        {
+          "info": {
+            "name": "pauseState",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=pauseState",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Pauses the current state, but not the session, for a user. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).\n\nThis method requires your production API `clientKey`.\n"
+        },
+        {
+          "info": {
+            "name": "resumeState",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=resumeState",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resumes the current state for a user. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).\n\nThis method requires your production API `clientKey`.\n"
+        },
+        {
+          "info": {
+            "name": "pauseSession",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=pauseSession",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Pauses the current session and state for a user. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).\n\nThis method requires your production API `clientKey`.\n"
+        },
+        {
+          "info": {
+            "name": "resumeSession",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=resumeSession",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resumes the current session and state for a user. Use either after `pauseSession`, or `start` if the app started in the background. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).\n\nThis method requires your production API `clientKey`.\n"
+        },
+        {
+          "info": {
+            "name": "heartbeat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=heartbeat",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a pulse to indicate that the current session is still in progress, so as not to automatically end it. Sessions are automatically timed out after 2 hours of inactivity — or 30 minutes if the session was paused first. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).\n\nThis method requires your production API `clientKey`.\n"
+        },
+        {
+          "info": {
+            "name": "start",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=start",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts a new session and returns the variables that have changed for the user. If the user/device does not exist, a new user will be created (see the `createDisposition` option below). This method requires your production API `clientKey`.\n"
+        },
+        {
+          "info": {
+            "name": "stop",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=stop",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Ends the current session. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below). This method requires your production API `clientKey`.\n"
+        },
+        {
+          "info": {
+            "name": "track",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=track",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tracks one occurrence of an event for a user. If the user/device does not exist, a new user will be created (see the `createDisposition` option below). This method requires your production API `clientKey`. See [tracking events via API](https://docs.leanplum.com/reference/api-guides#tracking-analytics-data-via-api) for examples.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User Information",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "setUserAttributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=setUserAttributes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets user attributes for the user given by userId and/or deviceId. If the user has an open session, the attributes for the current session will also be updated. Attributes will then propagate on data going forward. User properties not supplied in this method will not be affected. If the user/device does not exist, a new user will be created (see the `createDisposition` option below).\n\nThis method requires your production API `clientKey`.\n"
+        },
+        {
+          "info": {
+            "name": "setDeviceAttributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=setDeviceAttributes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets device-level attributes, such as a deviceId or an iOS push token, for the current device. If the device is shared between multiple users, pass a `userId` with the `deviceId` to update the device for each user. (Passing just the `deviceId` will only update it once). If the device already exists, the attributes will be updated. If the device and user do not exist, a new user will be created along with this device (see the `createDisposition` option below). See [selecting a user](#selecting-a-"
+        },
+        {
+          "info": {
+            "name": "setTrafficSourceInfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=setTrafficSourceInfo",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets traffic source information for the current session of a user. If the user/device does not exist, a new user will be created (see the `createDisposition` option below). This method requires your production API `clientKey`.\n"
+        },
+        {
+          "info": {
+            "name": "registerDevice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=registerDevice",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers the current device for development. This method requires your development API `clientKey`."
+        },
+        {
+          "info": {
+            "name": "deleteUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=deleteUser",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Permanently removes all of a user’s attribute information from our database. To erase a user’s data entirely — including attribute, analytics, and sessions data — set the `fullErasure` flag to true. You can bulk delete users with [multi](reference#post_api-action-multi) (import mode) or contact our support team for assistance. `deleteUser` calls are exempt from API billing.\n\nThis method requires your development API `clientKey`.\n"
+        },
+        {
+          "info": {
+            "name": "block",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=block",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stops all data collection for a user going forward. `block` also erases any data previously associated with that user, including all of their attribute and analytics data. The block will take effect as soon as the “success” response is returned. It may take up to 15 days to delete the user’s data completely.\n\nNote that the `block` call deletes a user's past data, but does not delete the user entirely. This allows you to use the `unblock` call to resume data collection.\n"
+        },
+        {
+          "info": {
+            "name": "unblock",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=unblock",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resumes data collection for a specific user, and ends a previous `block` on data collection. This will **not** restore any of data that was deleted by the previous `block` call.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getMessage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=getMessage",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The Content Read-only key for your Leanplum App."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Leanplum API to use. The current version is 1.0.6."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "The numeric message ID."
+              },
+              {
+                "name": "includeDrafts",
+                "value": "",
+                "type": "query",
+                "description": "Include drafts and unpublished changes. Default: `false`.\n"
+              }
+            ]
+          },
+          "docs": "Gets information about a message. This method requires your content read-only API `clientKey`."
+        },
+        {
+          "info": {
+            "name": "getMessages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=getMessages",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The Content Read-only key for your Leanplum App."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Leanplum API to use. The current version is 1.0.6."
+              },
+              {
+                "name": "includeDrafts",
+                "value": "",
+                "type": "query",
+                "description": "Include drafts and unpublished changes. Default: `false`.\n"
+              },
+              {
+                "name": "recent",
+                "value": "",
+                "type": "query",
+                "description": "Only return information about active or recently finished messages. Default: `true`.\n"
+              }
+            ]
+          },
+          "docs": "Gets information about all the messages for a given app. This method requires your content read-only API `clientKey`."
+        },
+        {
+          "info": {
+            "name": "getUnsubscribeCategories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=getUnsubscribeCategories",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The Content Read-only key for your Leanplum App."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Leanplum API to use. The current version is 1.0.6."
+              }
+            ]
+          },
+          "docs": "Gets information about all the email subscription categories for a given app. This method requires your content read-only API `clientKey`."
+        },
+        {
+          "info": {
+            "name": "sendMessage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=sendMessage",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a message (typically a push notification) to one device or user. You must provide a `deviceId` and/or a `userId`. If `deviceId` is provided, the message will be sent to the corresponding device only; if only `userId` is provided, the message will be sent to all devices of the user with specified `userId`. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).\n\nMessages are q"
+        },
+        {
+          "info": {
+            "name": "addAndroidNotificationChannel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=addAndroidNotificationChannel",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates new notification channels and updates existing ones. Updateable parameters include channel name, description, and default. This method requires your development API `clientKey`.\n\n> Leanplum will not interfere with any channel defined directly in your app code or by other mobile marketing providers. For instance, if your app has both a “Promotions” channel and a “Transactional” channel, but your marketer should only have access to Promotions, then you should only send that channel to Lean"
+        },
+        {
+          "info": {
+            "name": "getAndroidNotificationChannels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=getAndroidNotificationChannels",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The Production key for your Leanplum App."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Leanplum API to use. The current version is 1.0.6."
+              }
+            ]
+          },
+          "docs": "Gets all Android notification channels defined in Leanplum and their associated settings. No additional arguments are required. This method requires your production API `clientKey`.\n\nThis method requires your production API `clientKey`.\n"
+        },
+        {
+          "info": {
+            "name": "deleteAndroidNotificationChannel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=deleteAndroidNotificationChannel",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Permanently removes an Android notification channel from Leanplum. This method requires your development API `clientKey`.\n\n**Note** — You cannot delete the channel that is defined as default (unless it is the only channel). To delete the default channel, mark another channel as default first.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "A/B Tests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getAbTest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=getAbTest",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The Content Read-only key for your Leanplum App."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Leanplum API to use. The current version is 1.0.6."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "The numeric A/B test ID."
+              },
+              {
+                "name": "includeDrafts",
+                "value": "",
+                "type": "query",
+                "description": "Include drafts and unpublished changes. Default: `false`.\n"
+              }
+            ]
+          },
+          "docs": "Gets information about an A/B test. This method requires your content read-only API `clientKey`."
+        },
+        {
+          "info": {
+            "name": "getAbTests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=getAbTests",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The Content Read-only key for your Leanplum App."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Leanplum API to use. The current version is 1.0.6."
+              },
+              {
+                "name": "includeDrafts",
+                "value": "",
+                "type": "query",
+                "description": "Include drafts and unpublished changes. Default: `false`.\n"
+              },
+              {
+                "name": "recent",
+                "value": "",
+                "type": "query",
+                "description": "Only return information about active or recently finished A/B tests. Default: `true`.\n"
+              }
+            ]
+          },
+          "docs": "Gets information about A/B tests. This method requires your content read-only API `clientKey`."
+        },
+        {
+          "info": {
+            "name": "getVariant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=getVariant",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The Content Read-only key for your Leanplum App."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Leanplum API to use. The current version is 1.0.6."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "The numeric variant ID."
+              },
+              {
+                "name": "includeDrafts",
+                "value": "",
+                "type": "query",
+                "description": "Include drafts and unpublished changes. Default: `false`.\n"
+              }
+            ]
+          },
+          "docs": "Gets information about an A/B test variant. This method requires your content read-only API `clientKey`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Files and Variables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getVars",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=getVars",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The Production key for your Leanplum App."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Leanplum API to use. The current version is 1.0.6."
+              },
+              {
+                "name": "createDisposition",
+                "value": "",
+                "type": "query",
+                "description": "The policy that determines whether users are created by the API. Possible values:\n  * `CreateIfNeeded` creates a user with the given IDs if one does not already exist.\n  * `CreateNever` requires that the user already exists, otherwise the API action is skipped and a warning will be returned.\n\nThe default value for this method is `CreateNever`.\n"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "The current user ID. Required unless using device ID. You can set this to whatever you use at your company for user IDs. Leave it blank to use the device ID.\n"
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "query",
+                "description": "The device ID for which to retrieve the variables.\n"
+              },
+              {
+                "name": "devMode",
+                "value": "",
+                "type": "query",
+                "description": "Whether the user is in Development Mode, i.e. the user associated with the request is a developer and not a user. This is important for reporting purposes. Default: `false`.\n"
+              },
+              {
+                "name": "includeDefaults",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include default ('defaults in code') values in output. Default: `true`.\n"
+              }
+            ]
+          },
+          "docs": "Gets the variable values for the current user or device. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below). To see default variable values, use the `includeDefaults` parameter.\n\nThis method requires your production API `clientKey`.\n"
+        },
+        {
+          "info": {
+            "name": "setVars",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=setVars",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the list of variables to be used in the Leanplum content management system. This method requires your development API `clientKey`."
+        },
+        {
+          "info": {
+            "name": "deleteVars",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=deleteVars",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes the list of variables from the Leanplum content management system. This method requires your development API `clientKey`."
+        },
+        {
+          "info": {
+            "name": "downloadFile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=downloadFile",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The Production key for your Leanplum App."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Leanplum API to use. The current version is 1.0.6."
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query",
+                "description": "The name of the file to download."
+              }
+            ]
+          },
+          "docs": "Redirects to a file uploaded to the Leanplum dashboard (the File tab). Must be the only API method in a batch. This method requires your production API `clientKey`."
+        },
+        {
+          "info": {
+            "name": "uploadFile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=uploadFile",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads up to 16 files or 50 MB at a time to use in the File picker and File tab of the Leanlum dashboard. This method requires your development API `clientKey`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Export Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "addPostback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=addPostback",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a postback rule to be triggered by certain Leanplum message or A/B test events. The maximum number of postbacks allowed is three per app. This method requires your data export API `clientKey`. \n\nSee `type` and `channels` below for all possible events that can trigger postbacks. To see what values can be returned by the resulting POST request, see `postbackUrl` with an example template below. \n\n> **Postback retry policy:** If your app is unresponsive, Leanplum's request will timeout in 30 se"
+        },
+        {
+          "info": {
+            "name": "listPostbacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=listPostbacks",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The Data Export key for your Leanplum App."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Leanplum API to use. The current version is 1.0.6."
+              }
+            ]
+          },
+          "docs": "List current postback rules. This method requires your data export API `clientKey`."
+        },
+        {
+          "info": {
+            "name": "deletePostback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=deletePostback",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a particular postback. This method requires your data export API `clientKey`."
+        },
+        {
+          "info": {
+            "name": "exportData",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=exportData",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The Data Export key for your Leanplum App."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Leanplum API to use. The current version is 1.0.6."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "First date in range to include in PDT/PST (format: YYYYmmdd). Example: `20140223`.\n"
+              },
+              {
+                "name": "exportFormat",
+                "value": "",
+                "type": "query",
+                "description": "The format to export data. Can be either `json` or `csv`. Default: `json`.\n"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Last date in range to include in PDT/PST (format: YYYYmmdd). Defaults to startDate if not provided. Example: `20140223`.\n"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "First time (when data became available) to include (seconds since midnight UTC on January 1, 1970). If not provided, accepts all times before endTime, or all times if endTime is also not provided. The main use is to set this to the last time you exported data to only get the new data since your last export.\n"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Last time (when data became available) to include (seconds since midnight UTC on January 1, 1970). If not provided, accepts all times after startTime, or all times if startTime is also not provided."
+              },
+              {
+                "name": "callbackUrl",
+                "value": "",
+                "type": "query",
+                "description": "URL to POST a response to when the export completes. The response is the response format of `getExportResults`.\n"
+              },
+              {
+                "name": "s3BucketName",
+                "value": "",
+                "type": "query",
+                "description": "The name of an AWS S3 bucket to copy exported files to."
+              },
+              {
+                "name": "s3AccessId",
+                "value": "",
+                "type": "query",
+                "description": "The AWS Access ID used to authenticate to S3. Required if `s3BucketName` is set.\n"
+              },
+              {
+                "name": "s3AccessKey",
+                "value": "",
+                "type": "query",
+                "description": "The AWS Secret Access Key used to authenticate to S3. Required if `s3BucketName` is set.\n"
+              },
+              {
+                "name": "s3ObjectPrefix",
+                "value": "",
+                "type": "query",
+                "description": "An optional prefix of files to write to S3. Example: `dirname/` to write files to a directory within the S3 bucket.\n"
+              },
+              {
+                "name": "compressData",
+                "value": "",
+                "type": "query",
+                "description": "An option to compress the data. Only works when uploading to S3. If set to true, the files will be compressed using gzip before being uploaded."
+              }
+            ]
+          },
+          "docs": "Exports raw data to downloadable files. Data is split into roughly 256 MB files, and is not necessarily ordered. Exports can be made in JSON or CSV format. For JSON format, each file contains 1 line per session, with each session JSON-encoded. For CSV format, data is split into separate files for sessions, states, events, event parameters, and user attributes. \n\n> Note that for daily exports, you may see some variation in sessions data results. This is because sessions data can come in up to 8 d"
+        },
+        {
+          "info": {
+            "name": "exportReport",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=exportReport",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The Data Export key for your Leanplum App."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Leanplum API to use. The current version is 1.0.6."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "First date in range to include in PDT/PST (format: YYYYmmdd). Example: `20150708`.\n"
+              },
+              {
+                "name": "dataType",
+                "value": "",
+                "type": "query",
+                "description": "The type of the id provided. It can be either:\n   * `UserActivity` for general statistics about your app\n   * `AbTestResults` for stats about an A/B test\n   * `MessageResults` for stats about a message, or\n   * `BookmarkedReport` for stats about a bookmarked report.\n\nIf you choose `AbTestResults`, `MessageResults`, or `BookmarkedReport`, you must also supply the corresponding `abTestId`, `messageId`, or `bookmarkName`.\n"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Last date in range to include in PDT/PST (format: YYYYmmdd). Defaults to startDate if not provided. Example: `20150708`.\n"
+              },
+              {
+                "name": "abTestId",
+                "value": "",
+                "type": "query",
+                "description": "Supply if any only if `dataType` is set to `AbTestResults`.\n"
+              },
+              {
+                "name": "messageId",
+                "value": "",
+                "type": "query",
+                "description": "Supply if and only if the `dataType` is set to `MessageResults`.\n"
+              },
+              {
+                "name": "bookmarkName",
+                "value": "",
+                "type": "query",
+                "description": "Supply if and only if the `dataType` is set to `BookmarkedReport`. This is the name of the report, as it appears in your Analytics tab.\n"
+              },
+              {
+                "name": "eventNames",
+                "value": "",
+                "type": "query",
+                "description": "A JSON-encoded array containing names of the events to be included in the report. Example: `[\"Add to cart\", \"Purchase\"]`\n"
+              }
+            ]
+          },
+          "docs": "Exports statistics for an A/B test, message, bookmarked report, or user activity in your app (as in the Analytics tab of the dashboard) over specified period of time. Report data becomes available to export every 2 hours, and only for complete sessions. You may only export report data 100 times per day per app. Exports with invalid arguments do not count towards the limit.\n\nThis method requires your data export API `clientKey`.\n\nUse [getExportResults](#get_api-action-getexportresults) with the r"
+        },
+        {
+          "info": {
+            "name": "exportUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=exportUser",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The Data Export key for your Leanplum App."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Leanplum API to use. The current version is 1.0.6."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "The current user ID. You can set this to whatever your company uses for user IDs. Leave it blank to use the device ID. For more info, see [selecting a user](#selecting-a-user).\n"
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "query",
+                "description": "A unique ID for the device targeted by the request. You must provide a `deviceId` and/or a `userId`. See [selecting a user](#selecting-a-user).\n"
+              }
+            ]
+          },
+          "docs": "Retrieves attributes for the current user. This method requires your data export API `clientKey`."
+        },
+        {
+          "info": {
+            "name": "exportUsers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=exportUsers",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The Data Export key for your Leanplum App."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Leanplum API to use. The current version is 1.0.6."
+              },
+              {
+                "name": "audienceName",
+                "value": "",
+                "type": "query",
+                "description": "Export users in a particular audience. Use the audience name as seen on your audience dashboard. If skipped, Leanplum will export all users, unless other filters are applied.\n"
+              },
+              {
+                "name": "abTestId",
+                "value": "",
+                "type": "query",
+                "description": "Limit export to only users that are in the given A/B test. The output will include the variant ID and name for each user."
+              },
+              {
+                "name": "userAttribute",
+                "value": "",
+                "type": "query",
+                "description": "Export users with a specific attribute set. The export results will include the userId and attribute value for each user. For example, userAttribute `email` would export all email users along with their email addresses."
+              }
+            ]
+          },
+          "docs": "Exports multiple user IDs. The export may be executed up to 40 times successfully per day, and this limit resets at 12:00 am PST each calendar day. This method requires your data export API `clientKey`.\n\nUse [getExportResults](#get_api-action-getexportresults) with the returned `jobId` to get the results.\n"
+        },
+        {
+          "info": {
+            "name": "getExportResults",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=getExportResults",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The Data Export key for your Leanplum App."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Leanplum API to use. The current version is 1.0.6."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "query",
+                "description": "The export job ID."
+              }
+            ]
+          },
+          "docs": "Retrieves the result of an export job generated by: `exportData`, `exportReport`, and `exportUsers`. This method requires your data export API `clientKey`.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Import Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "multi (CSV)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=multi",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Imports a (potentially large) CSV file with API actions to be executed. The file will be imported asynchronously as a job. Use `getMultiResults` to get the job status. This method requires your development API `clientKey`. See [CSV uploads](/v1/docs/import-user-data-with-a-csv-file-upload) for more on using `multi` to upload user attributes, events, and device attributes.\n\nThe file should contain a header row with the API argument names that are found in the API documentation, such as `userId`, "
+        },
+        {
+          "info": {
+            "name": "getMultiResults",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.leanplum.com/api?action=getMultiResults",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The Development key for your Leanplum App."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Leanplum API to use. The current version is 1.0.6."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the job to query. The job ID is returned by `multi`.\n"
+              }
+            ]
+          },
+          "docs": "Gets the status of a multi import job. This method requires your development API `clientKey`.\n\nExample:\n`http://api.leanplum.com/api?action=getMultiResults&appId=APP_ID&clientKey=DEVELOPMENT_KEY&jobId=JOB_ID`\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Campaigns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "startCampaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=startCampaign",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Activates a campaign for one device or user. You must provide a `deviceId` and/or a `userId`. If `deviceId` is provided, the campaign top-level actions will be sent to the corresponding device only; if only `userId` is provided, the campaign top-level actions will be sent to all devices of the user with specified `userId`. If the user/device does not exist, sending the actions will be skipped. You can modify this behavior with the `createDisposition` option (see below).\n\nThis method requires you"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,291 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Leanplum A/B Tests Events & Tracking API",
+    "version": "1.0.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events & Tracking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Start a session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=start",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the user the request applies to."
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the device the request applies to."
+              }
+            ]
+          },
+          "docs": "Starts a user session. Returns the set of variables presented to the user/device. Requires the production clientKey."
+        },
+        {
+          "info": {
+            "name": "Pause the current session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=pauseSession",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the user the request applies to."
+              }
+            ]
+          },
+          "docs": "Pause the current session"
+        },
+        {
+          "info": {
+            "name": "Resume a paused session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=resumeSession",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the user the request applies to."
+              }
+            ]
+          },
+          "docs": "Resume a paused session"
+        },
+        {
+          "info": {
+            "name": "Keep a session alive",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=heartbeat",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the user the request applies to."
+              }
+            ]
+          },
+          "docs": "Sends a heartbeat to keep the current session active."
+        },
+        {
+          "info": {
+            "name": "Stop the current session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=stop",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the user the request applies to."
+              }
+            ]
+          },
+          "docs": "Stop the current session"
+        },
+        {
+          "info": {
+            "name": "Track an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=track",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the user the request applies to."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tracks a user event (for example a purchase) with an optional monetary value and custom parameters. Requires the production clientKey."
+        },
+        {
+          "info": {
+            "name": "Advance to an application state",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.leanplum.com/api?action=advance",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "Your Leanplum application id."
+              },
+              {
+                "name": "clientKey",
+                "value": "",
+                "type": "query",
+                "description": "The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure."
+              },
+              {
+                "name": "apiVersion",
+                "value": "",
+                "type": "query",
+                "description": "API version, for example 1.0.6."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the user the request applies to."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Advances the user to a named application state. Requires the production clientKey."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
