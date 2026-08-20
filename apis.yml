@@ -50,6 +50,15 @@ apis:
   tags:
   - User Behavior
   - User Information
+  - Message
+  - A/B Tests
+  - Files and Variables
+  - Export Data
+  - Import Data
+  - Campaigns
+  tags_raw:
+  - User Behavior
+  - User Information
   - Messages
   - A/B Tests
   - Files and Variables
