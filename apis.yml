@@ -36,60 +36,6 @@ created: '2026-07-03'
 modified: '2026-08-13'
 specificationVersion: '0.23'
 apis:
-- aid: leanplum:leanplum-api
-  name: Leanplum API
-  description: >-
-    The complete Leanplum REST API as Leanplum itself publishes it — one OpenAPI
-    3.0.0 document (x-api-id "leanplum-api") covering all 42 methods across eight
-    tags: User Behavior, User Information, Messages, A/B Tests, Files and Variables,
-    Export Data, Import Data and Campaigns. Every call goes to the single endpoint
-    https://api.leanplum.com/api and names its method in an `action` parameter,
-    authenticated with an appId plus a permission-scoped clientKey.
-  humanURL: https://docs.leanplum.com/reference/api-methods
-  baseURL: https://api.leanplum.com/api
-  tags:
-  - User Behavior
-  - User Information
-  - Message
-  - A/B Tests
-  - Files and Variables
-  - Export Data
-  - Import Data
-  - Campaigns
-  tags_raw:
-  - User Behavior
-  - User Information
-  - Messages
-  - A/B Tests
-  - Files and Variables
-  - Export Data
-  - Import Data
-  - Campaigns
-  properties:
-  - type: OpenAPI
-    url: openapi/leanplum-api-openapi.json
-  - type: Overlay
-    url: overlays/leanplum-api-overlay.yaml
-  - type: Documentation
-    url: https://docs.leanplum.com/reference/overview
-  - type: APIReference
-    url: https://docs.leanplum.com/reference/api-methods
-  - type: GettingStarted
-    url: https://docs.leanplum.com/reference/api-introduction
-  - type: Authentication
-    url: authentication/leanplum-authentication.yml
-  - type: ErrorCatalog
-    url: errors/leanplum-problem-types.yml
-  - type: RateLimits
-    url: rate-limits/leanplum-rate-limits.yml
-  - type: Conventions
-    url: conventions/leanplum-conventions.yml
-  - type: DataModel
-    url: data-model/leanplum-data-model.yml
-  - type: Webhooks
-    url: asyncapi/leanplum-postbacks-webhooks.yml
-  - type: Postman
-    url: https://www.getpostman.com/collections/378a83c1424d632661d0
 - aid: leanplum:leanplum-a-b-tests-api
   name: Leanplum A/B Tests API
   description: The A/B Tests API from Leanplum — 3 operation(s) for a/b tests.
@@ -329,6 +275,216 @@ apis:
     url: https://docs.leanplum.com/reference/batching-requests
   - type: APIReference
     url: https://docs.leanplum.com/reference/multi-json
+- aid: leanplum:leanplum-campaigns-api
+  name: Leanplum Campaigns API
+  description: The Campaigns API from Leanplum — 1 operation(s) for campaigns.
+  humanURL: https://docs.leanplum.com/reference/api-methods
+  baseURL: https://api.leanplum.com/api
+  tags:
+  - Campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/leanplum-campaigns-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/overview
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: GettingStarted
+    url: https://docs.leanplum.com/reference/api-introduction
+  - type: Authentication
+    url: authentication/leanplum-authentication.yml
+  - type: ErrorCatalog
+    url: errors/leanplum-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/leanplum-rate-limits.yml
+  - type: Conventions
+    url: conventions/leanplum-conventions.yml
+  - type: DataModel
+    url: data-model/leanplum-data-model.yml
+  - type: Webhooks
+    url: asyncapi/leanplum-postbacks-webhooks.yml
+  - type: Postman
+    url: https://www.getpostman.com/collections/378a83c1424d632661d0
+- aid: leanplum:leanplum-export-data-api
+  name: Leanplum Export Data API
+  description: The Export Data API from Leanplum — 8 operation(s) for export data.
+  humanURL: https://docs.leanplum.com/reference/api-methods
+  baseURL: https://api.leanplum.com/api
+  tags:
+  - Export Data
+  properties:
+  - type: OpenAPI
+    url: openapi/leanplum-export-data-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/overview
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: GettingStarted
+    url: https://docs.leanplum.com/reference/api-introduction
+  - type: Authentication
+    url: authentication/leanplum-authentication.yml
+  - type: ErrorCatalog
+    url: errors/leanplum-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/leanplum-rate-limits.yml
+  - type: Conventions
+    url: conventions/leanplum-conventions.yml
+  - type: DataModel
+    url: data-model/leanplum-data-model.yml
+  - type: Webhooks
+    url: asyncapi/leanplum-postbacks-webhooks.yml
+  - type: Postman
+    url: https://www.getpostman.com/collections/378a83c1424d632661d0
+- aid: leanplum:leanplum-files-and-variables-api
+  name: Leanplum Files and Variables API
+  description: The Files and Variables API from Leanplum — 5 operation(s) for files and variables.
+  humanURL: https://docs.leanplum.com/reference/api-methods
+  baseURL: https://api.leanplum.com/api
+  tags:
+  - Files and Variables
+  properties:
+  - type: OpenAPI
+    url: openapi/leanplum-files-and-variables-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/overview
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: GettingStarted
+    url: https://docs.leanplum.com/reference/api-introduction
+  - type: Authentication
+    url: authentication/leanplum-authentication.yml
+  - type: ErrorCatalog
+    url: errors/leanplum-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/leanplum-rate-limits.yml
+  - type: Conventions
+    url: conventions/leanplum-conventions.yml
+  - type: DataModel
+    url: data-model/leanplum-data-model.yml
+  - type: Webhooks
+    url: asyncapi/leanplum-postbacks-webhooks.yml
+  - type: Postman
+    url: https://www.getpostman.com/collections/378a83c1424d632661d0
+- aid: leanplum:leanplum-import-data-api
+  name: Leanplum Import Data API
+  description: The Import Data API from Leanplum — 2 operation(s) for import data.
+  humanURL: https://docs.leanplum.com/reference/api-methods
+  baseURL: https://api.leanplum.com/api
+  tags:
+  - Import Data
+  properties:
+  - type: OpenAPI
+    url: openapi/leanplum-import-data-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/overview
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: GettingStarted
+    url: https://docs.leanplum.com/reference/api-introduction
+  - type: Authentication
+    url: authentication/leanplum-authentication.yml
+  - type: ErrorCatalog
+    url: errors/leanplum-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/leanplum-rate-limits.yml
+  - type: Conventions
+    url: conventions/leanplum-conventions.yml
+  - type: DataModel
+    url: data-model/leanplum-data-model.yml
+  - type: Webhooks
+    url: asyncapi/leanplum-postbacks-webhooks.yml
+  - type: Postman
+    url: https://www.getpostman.com/collections/378a83c1424d632661d0
+- aid: leanplum:leanplum-messages-api
+  name: Leanplum Messages API
+  description: The Messages API from Leanplum — 7 operation(s) for messages.
+  humanURL: https://docs.leanplum.com/reference/api-methods
+  baseURL: https://api.leanplum.com/api
+  tags:
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/leanplum-messages-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/overview
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: GettingStarted
+    url: https://docs.leanplum.com/reference/api-introduction
+  - type: Authentication
+    url: authentication/leanplum-authentication.yml
+  - type: ErrorCatalog
+    url: errors/leanplum-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/leanplum-rate-limits.yml
+  - type: Conventions
+    url: conventions/leanplum-conventions.yml
+  - type: DataModel
+    url: data-model/leanplum-data-model.yml
+  - type: Webhooks
+    url: asyncapi/leanplum-postbacks-webhooks.yml
+  - type: Postman
+    url: https://www.getpostman.com/collections/378a83c1424d632661d0
+- aid: leanplum:leanplum-user-behavior-api
+  name: Leanplum User Behavior API
+  description: The User Behavior API from Leanplum — 9 operation(s) for user behavior.
+  humanURL: https://docs.leanplum.com/reference/api-methods
+  baseURL: https://api.leanplum.com/api
+  tags:
+  - User Behavior
+  properties:
+  - type: OpenAPI
+    url: openapi/leanplum-user-behavior-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/overview
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: GettingStarted
+    url: https://docs.leanplum.com/reference/api-introduction
+  - type: Authentication
+    url: authentication/leanplum-authentication.yml
+  - type: ErrorCatalog
+    url: errors/leanplum-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/leanplum-rate-limits.yml
+  - type: Conventions
+    url: conventions/leanplum-conventions.yml
+  - type: DataModel
+    url: data-model/leanplum-data-model.yml
+  - type: Webhooks
+    url: asyncapi/leanplum-postbacks-webhooks.yml
+  - type: Postman
+    url: https://www.getpostman.com/collections/378a83c1424d632661d0
+- aid: leanplum:leanplum-user-information-api
+  name: Leanplum User Information API
+  description: The User Information API from Leanplum — 7 operation(s) for user information.
+  humanURL: https://docs.leanplum.com/reference/api-methods
+  baseURL: https://api.leanplum.com/api
+  tags:
+  - User Information
+  properties:
+  - type: OpenAPI
+    url: openapi/leanplum-user-information-api-openapi.yml
+  - type: Documentation
+    url: https://docs.leanplum.com/reference/overview
+  - type: APIReference
+    url: https://docs.leanplum.com/reference/api-methods
+  - type: GettingStarted
+    url: https://docs.leanplum.com/reference/api-introduction
+  - type: Authentication
+    url: authentication/leanplum-authentication.yml
+  - type: ErrorCatalog
+    url: errors/leanplum-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/leanplum-rate-limits.yml
+  - type: Conventions
+    url: conventions/leanplum-conventions.yml
+  - type: DataModel
+    url: data-model/leanplum-data-model.yml
+  - type: Webhooks
+    url: asyncapi/leanplum-postbacks-webhooks.yml
+  - type: Postman
+    url: https://www.getpostman.com/collections/378a83c1424d632661d0
 common:
 - type: Authentication
   url: authentication/leanplum-authentication.yml
