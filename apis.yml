@@ -11,6 +11,18 @@ description: Leanplum is a mobile marketing and multichannel customer engagement
   API surface to smooth that transition). All API requests are made to
   https://api.leanplum.com/api and authenticated with an appId plus an operation-specific
   clientKey (production, development, data export, or content read-only).
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: unknown
