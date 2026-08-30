@@ -1,0 +1,205 @@
+openapi: 3.2.0
+info:
+  version: '1.0'
+  title: Import Data API
+  description: An API to perform actions from a server or remote device.
+servers:
+- url: https://api.leanplum.com
+- url: http://api.leanplum.com
+security:
+- appIdQuery: []
+- clientKeyQuery: []
+tags:
+- name: Import Data
+paths:
+  /api?action=multi:
+    post:
+      tags:
+      - Import Data
+      summary: multi (CSV)
+      description: 'Imports a (potentially large) CSV file with API actions to be executed. The file will be imported asynchronously as a job. Use `getMultiResults` to get the job status. This method requires your development API `clientKey`. See [CSV uploads](/v1/docs/import-user-data-with-a-csv-file-upload) for more on using `multi` to upload user attributes, events, and device attributes.
+
+
+        The file should contain a header row with the API argument names that are found in the API documentation, such as `userId`, `deviceId`, and `action` (if `defaultAction` is not specified). To indicate nested JSON arguments, use a dot within the column name, such as `userAttributes.Gender`.
+
+
+        ```csv
+
+        userId,userAttributes.Gender,userAttributes.Age
+
+        user1,Male,25
+
+        user2,Female,37
+
+        ```
+
+
+        > The file is broken into separate API requests that contain batches of 50 actions. Each unique user lookup in a batch is a billable API call. See [billing and costs](./reference#billing) for more.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: JSON request body.
+              required:
+              - appId
+              - apiVersion
+              - createJob
+              - gcsBucket
+              - file
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Development key for your Leanplum App.
+                  default: YOUR_DEV_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                createJob:
+                  description: 'Whether to create an asynchronous job to import the data. This is required to be set to `true`.
+
+                    '
+                  type: boolean
+                  default: true
+                gcsBucket:
+                  description: The name of the Google Cloud Storage bucket that contains the CSV file to be imported.
+                  type: string
+                file:
+                  description: The Google Cloud Storage object name of the CSV file. The object must be made public to be read by Leanplum's servers, so the filename should be set to something obscure.
+                  type: string
+                defaultAction:
+                  description: 'The default API action to apply across all rows in the CSV file. For example, if the file contains all user attributes to be imported, `defaultAction` should be set to `setUserAttributes`.
+
+                    '
+                  type: string
+        required: true
+      responses:
+        default:
+          description: 'A successful response will return a `jobId` and status of `200`. **Note**: an HTTP status of 200 does not guarantee the call was processed successfully. Pay close attention to `response[].warning` and `response[].error`; if returned with a message, the call may have been skipped or ignored.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].jobId:
+                    type: string
+                    description: The ID of the import job. Pass this `jobId` into [getMultiResults](#get_api-action-getmultiresults) to fetch the job status and results.
+      deprecated: false
+  /api?action=getMultiResults:
+    get:
+      tags:
+      - Import Data
+      summary: getMultiResults
+      description: 'Gets the status of a multi import job. This method requires your development API `clientKey`.
+
+
+        Example:
+
+        `http://api.leanplum.com/api?action=getMultiResults&appId=APP_ID&clientKey=DEVELOPMENT_KEY&jobId=JOB_ID`
+
+        '
+      parameters:
+      - name: appId
+        in: query
+        required: true
+        description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+        schema:
+          type: string
+          default: YOUR_APP_ID
+      - name: clientKey
+        in: query
+        required: true
+        description: The Development key for your Leanplum App.
+        schema:
+          type: string
+          default: YOUR_DEV_KEY
+      - name: apiVersion
+        in: query
+        required: true
+        description: The version of the Leanplum API to use. The current version is 1.0.6.
+        schema:
+          type: string
+          enum:
+          - 1.0.6
+          default: 1.0.6
+      - name: jobId
+        in: query
+        description: 'The ID of the job to query. The job ID is returned by `multi`.
+
+          '
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Returns the status and a list of file URLs that contain the individual API responses as documented in the API documentation for the relevant API methods. Each response is represented as a line of JSON.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].state:
+                    type: string
+                    description: 'The job state. Either `PENDING`, `RUNNING`, `FINISHED`, or `FAILED`.
+
+                      '
+                    enum:
+                    - PENDING
+                    - RUNNING
+                    - FINISHED
+                    - FAILED
+                    default: FINISHED
+                  response[].data:
+                    type: object
+                    description: For finished jobs, contains the job result.
+                    properties:
+                      successesCount:
+                        type: integer
+                        default: 10
+                        description: The number of API actions that succeeded within the job.
+                      failuresCount:
+                        type: integer
+                        default: 0
+                        description: The number of API actions that failed within the job.
+                      files:
+                        type: array
+                        description: A list of file URLs that contain the individual API responses as documented in the API documentation for the relevant API methods. Each response is represented as a line of JSON.
+                        items:
+                          type: string
+                          default: fileURL
+      deprecated: false
+components:
+  securitySchemes:
+    appIdQuery:
+      type: apiKey
+      in: query
+      name: appId
+      description: The application ID. To find yours, select your app in the navigation column, and click Edit Apps. Under Keys, click Show.
+    clientKeyQuery:
+      type: apiKey
+      in: query
+      name: clientKey
+      description: The client access key. Must be either your production, development, read-only, or data export key, depending on which API method you want to use.
+x-api-id: leanplum-api
+x-send-defaults: true
+x-explorer-enabled: false
+x-samples-enabled: false
+x-readme:
+  proxy-enabled: true

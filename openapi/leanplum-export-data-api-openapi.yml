@@ -1,0 +1,833 @@
+openapi: 3.2.0
+info:
+  version: '1.0'
+  title: Export Data API
+  description: An API to perform actions from a server or remote device.
+servers:
+- url: https://api.leanplum.com
+- url: http://api.leanplum.com
+security:
+- appIdQuery: []
+- clientKeyQuery: []
+tags:
+- name: Export Data
+paths:
+  /api?action=addPostback:
+    post:
+      tags:
+      - Export Data
+      summary: addPostback
+      description: "Adds a postback rule to be triggered by certain Leanplum message or A/B test events. The maximum number of postbacks allowed is three per app. This method requires your data export API `clientKey`. \n\nSee `type` and `channels` below for all possible events that can trigger postbacks. To see what values can be returned by the resulting POST request, see `postbackUrl` with an example template below. \n\n> **Postback retry policy:** If your app is unresponsive, Leanplum's request will timeout in 30 seconds. If the error code is 5xx, we will retry up to 9 more times with exponential backoff, starting from 1 hour, up to 10 hours. If all 10 times fail, the data is lost.\n"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - type
+              - postbackUrl
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Data Export key for your Leanplum App.
+                  default: YOUR_DATA_EXPORT_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                type:
+                  type: string
+                  description: "The type of postback to add. There are currently two types.\n * `messageEvents` - Postback triggered by message events. See `channels` below for a list of all the message events that trigger postbacks.\n * `abTestEvents` - Postback triggered by the AB test impression/enter event.\n"
+                  enum:
+                  - messageEvents
+                  default: messageEvents
+                channels:
+                  type: array
+                  description: "The messaging channels that will trigger postbacks — possible values include `Push Notification`, `Email`, and `In-app Message`. For example, this ...`&channels=[Push Notification, In-app Message]`... would activate postbacks for push and in-app message events only.  If no channels are set, all three channels will trigger postbacks by default.\n\nSee below for a list of all the events that will trigger postbacks (by channel).\n  * Push Notification — Sent, Open, Held Back\n  * Email — Sent, Deferred, Delivered, Bounce, Open, Click, Marked as spam, Dropped, Unsubscribe, Held Back\n  * In-app Message (events by template):\n    * All templates — View, held back.\n    * Center Popup, Confirm, Interstitial — Accept\n    * Rich interstitial — Select Button 1, Select Button 2\n    * Satisfaction Survey — Submit\n    * Banner — Select\nNote that you cannot specify which specific events trigger postbacks, however, you can ignore certain events on your end if you prefer.\n"
+                  items: {}
+                postbackUrl:
+                  type: string
+                  description: "The URL template to post after the trigger event occurs. This should go to the endpoint you are trying to send the postback data to. The template uses the same curly brace format as templated values on the dashboard. You can include any of the values below in your URL template, depending on what info you are interested in. \n\nPossible values for all postback events\n  * `User ID` — The user ID that triggered the postback.\n  * `Device ID` — The device ID that triggered the postback.\n  * `Trigger time` — The time in milliseconds at which the postback was triggered. The time can be a time in the past if the triggering event occurred in the past.\n\nPossible message event values\n  * `Message ID` — The message ID that triggered the postback.\n  * `Message event` — The message event that triggered the postback (e.g. Send, Open).\n  * `Message channel` — The channel of the message (push, email, or in-app message).\n  * `Template name` — The template name of the in-app message. Returns an empty string for non-in-app messages.\n  * `Parameters` — All the parameters associated with the event when it is triggered. For example, an email’s Click event will include the URL clicked and the index of the URL. `parameters` are in JSON format, and all parameter values are URL encoded.\n\nPossible A/B test event values\n  * `AB test ID` — The ID of the A/B test the user entered into.\n  * `Variant ID` — The ID of the variant group the user was sorted into.\n\nSee below for an example URL template with all possible values.\n"
+        description: The request body.
+        required: true
+      responses:
+        default:
+          description: A successful response will return the ID of the new postback.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].postbackId:
+                    type: integer
+                    description: The ID of the newly created postback.
+      deprecated: false
+  /api?action=listPostbacks:
+    get:
+      tags:
+      - Export Data
+      summary: listPostbacks
+      description: List current postback rules. This method requires your data export API `clientKey`.
+      parameters:
+      - name: appId
+        in: query
+        required: true
+        description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+        schema:
+          type: string
+          default: YOUR_APP_ID
+      - name: clientKey
+        in: query
+        required: true
+        description: The Data Export key for your Leanplum App.
+        schema:
+          type: string
+          default: YOUR_DATA_EXPORT_KEY
+      - name: apiVersion
+        in: query
+        required: true
+        description: The version of the Leanplum API to use. The current version is 1.0.6.
+        schema:
+          type: string
+          enum:
+          - 1.0.6
+          default: 1.0.6
+      responses:
+        default:
+          description: A successful response will return a list of postbacks.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: test.
+                properties:
+                  response:
+                    type: array
+                    items: {}
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].postbacks:
+                    type: array
+                    description: The list of active postbacks for the given app.
+                    items: {}
+                  response[].postbacks[]:
+                    type: object
+                    properties:
+                      postbackId:
+                        type: integer
+                        description: The ID of the postback.
+                      type:
+                        type: string
+                        description: The type of the postback.
+                      postbackUrl:
+                        type: string
+                        description: The URL template of the postback.
+      deprecated: false
+  /api?action=deletePostback:
+    post:
+      tags:
+      - Export Data
+      summary: deletePostback
+      description: Deletes a particular postback. This method requires your data export API `clientKey`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: JSON request body.
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - postbackId
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Data Export key for your Leanplum App.
+                  default: YOUR_DATA_EXPORT_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                postbackId:
+                  type: number
+                  format: integer
+                  description: The ID of the postback to delete.
+        required: true
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+  /api?action=exportData:
+    get:
+      tags:
+      - Export Data
+      summary: exportData
+      description: "Exports raw data to downloadable files. Data is split into roughly 256 MB files, and is not necessarily ordered. Exports can be made in JSON or CSV format. For JSON format, each file contains 1 line per session, with each session JSON-encoded. For CSV format, data is split into separate files for sessions, states, events, event parameters, and user attributes. \n\n> Note that for daily exports, you may see some variation in sessions data results. This is because sessions data can come in up to 8 days after a user's last interaction with your app. \n\nExport files are automatically deleted 24 hours after export occurs. Data becomes available to export every 2 hours, and only for complete sessions. You cannot export data that has become available more than 60 days ago. You may only export data 24 times per day. Exports with invalid arguments do not count towards this limit.\n\nUse [getExportResults](#get_api-action-getexportresults) with the returned `jobId` to get the results.\n"
+      parameters:
+      - name: appId
+        in: query
+        required: true
+        description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+        schema:
+          type: string
+          default: YOUR_APP_ID
+      - name: clientKey
+        in: query
+        required: true
+        description: The Data Export key for your Leanplum App.
+        schema:
+          type: string
+          default: YOUR_DATA_EXPORT_KEY
+      - name: apiVersion
+        in: query
+        required: true
+        description: The version of the Leanplum API to use. The current version is 1.0.6.
+        schema:
+          type: string
+          enum:
+          - 1.0.6
+          default: 1.0.6
+      - name: startDate
+        in: query
+        description: 'First date in range to include in PDT/PST (format: YYYYmmdd). Example: `20140223`.
+
+          '
+        required: true
+        schema:
+          type: string
+      - name: exportFormat
+        in: query
+        description: 'The format to export data. Can be either `json` or `csv`. Default: `json`.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        description: 'Last date in range to include in PDT/PST (format: YYYYmmdd). Defaults to startDate if not provided. Example: `20140223`.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: startTime
+        in: query
+        description: 'First time (when data became available) to include (seconds since midnight UTC on January 1, 1970). If not provided, accepts all times before endTime, or all times if endTime is also not provided. The main use is to set this to the last time you exported data to only get the new data since your last export.
+
+          '
+        required: false
+        schema:
+          type: number
+      - name: endTime
+        in: query
+        description: Last time (when data became available) to include (seconds since midnight UTC on January 1, 1970). If not provided, accepts all times after startTime, or all times if startTime is also not provided.
+        required: false
+        schema:
+          type: number
+      - name: callbackUrl
+        in: query
+        description: 'URL to POST a response to when the export completes. The response is the response format of `getExportResults`.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: s3BucketName
+        in: query
+        description: The name of an AWS S3 bucket to copy exported files to.
+        required: false
+        schema:
+          type: string
+      - name: s3AccessId
+        in: query
+        description: 'The AWS Access ID used to authenticate to S3. Required if `s3BucketName` is set.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: s3AccessKey
+        in: query
+        description: 'The AWS Secret Access Key used to authenticate to S3. Required if `s3BucketName` is set.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: s3ObjectPrefix
+        in: query
+        description: 'An optional prefix of files to write to S3. Example: `dirname/` to write files to a directory within the S3 bucket.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: compressData
+        in: query
+        description: An option to compress the data. Only works when uploading to S3. If set to true, the files will be compressed using gzip before being uploaded.
+        required: false
+        schema:
+          type: boolean
+      responses:
+        default:
+          description: 'A successful response will return the ID of the export job.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].jobId:
+                    type: string
+                    description: 'The job ID of the pending export job, if data matching the supplied arguments is available. Use [getExportResults](#get_api-action-getexportresults) with this `jobId` to get the results.
+
+                      '
+      deprecated: false
+  /api?action=exportReport:
+    get:
+      tags:
+      - Export Data
+      summary: exportReport
+      description: 'Exports statistics for an A/B test, message, bookmarked report, or user activity in your app (as in the Analytics tab of the dashboard) over specified period of time. Report data becomes available to export every 2 hours, and only for complete sessions. You may only export report data 100 times per day per app. Exports with invalid arguments do not count towards the limit.
+
+
+        This method requires your data export API `clientKey`.
+
+
+        Use [getExportResults](#get_api-action-getexportresults) with the returned `jobId` to get the results.
+
+        '
+      parameters:
+      - name: appId
+        in: query
+        required: true
+        description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+        schema:
+          type: string
+          default: YOUR_APP_ID
+      - name: clientKey
+        in: query
+        required: true
+        description: The Data Export key for your Leanplum App.
+        schema:
+          type: string
+          default: YOUR_DATA_EXPORT_KEY
+      - name: apiVersion
+        in: query
+        required: true
+        description: The version of the Leanplum API to use. The current version is 1.0.6.
+        schema:
+          type: string
+          enum:
+          - 1.0.6
+          default: 1.0.6
+      - name: startDate
+        in: query
+        description: 'First date in range to include in PDT/PST (format: YYYYmmdd). Example: `20150708`.
+
+          '
+        required: true
+        schema:
+          type: string
+      - name: dataType
+        in: query
+        description: "The type of the id provided. It can be either:\n   * `UserActivity` for general statistics about your app\n   * `AbTestResults` for stats about an A/B test\n   * `MessageResults` for stats about a message, or\n   * `BookmarkedReport` for stats about a bookmarked report.\n\nIf you choose `AbTestResults`, `MessageResults`, or `BookmarkedReport`, you must also supply the corresponding `abTestId`, `messageId`, or `bookmarkName`.\n"
+        required: true
+        schema:
+          type: string
+          enum:
+          - UserActivity
+          - AbTestResults
+          - MessageResults
+          - BookmarkedReport
+      - name: endDate
+        in: query
+        description: 'Last date in range to include in PDT/PST (format: YYYYmmdd). Defaults to startDate if not provided. Example: `20150708`.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: abTestId
+        in: query
+        description: 'Supply if any only if `dataType` is set to `AbTestResults`.
+
+          '
+        required: false
+        schema:
+          type: number
+      - name: messageId
+        in: query
+        description: 'Supply if and only if the `dataType` is set to `MessageResults`.
+
+          '
+        required: false
+        schema:
+          type: number
+      - name: bookmarkName
+        in: query
+        description: 'Supply if and only if the `dataType` is set to `BookmarkedReport`. This is the name of the report, as it appears in your Analytics tab.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: eventNames
+        in: query
+        description: 'A JSON-encoded array containing names of the events to be included in the report. Example: `["Add to cart", "Purchase"]`
+
+          '
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        default:
+          description: 'A successful response will return the ID of the export job.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].jobId:
+                    type: string
+                    description: 'The job ID of the pending export job, if data matching the supplied arguments is available. Use [getExportResults](#get_api-action-getexportresults) with this `jobId` to get the results.
+
+                      '
+      deprecated: false
+  /api?action=exportUser:
+    get:
+      tags:
+      - Export Data
+      summary: exportUser
+      description: Retrieves attributes for the current user. This method requires your data export API `clientKey`.
+      parameters:
+      - name: appId
+        in: query
+        required: true
+        description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+        schema:
+          type: string
+          default: YOUR_APP_ID
+      - name: clientKey
+        in: query
+        required: true
+        description: The Data Export key for your Leanplum App.
+        schema:
+          type: string
+          default: YOUR_DATA_EXPORT_KEY
+      - name: apiVersion
+        in: query
+        required: true
+        description: The version of the Leanplum API to use. The current version is 1.0.6.
+        schema:
+          type: string
+          enum:
+          - 1.0.6
+          default: 1.0.6
+      - name: userId
+        in: query
+        required: true
+        description: 'The current user ID. You can set this to whatever your company uses for user IDs. Leave it blank to use the device ID. For more info, see [selecting a user](#selecting-a-user).
+
+          '
+        schema:
+          type: string
+          default: hfarnsworth
+      - name: deviceId
+        in: query
+        required: false
+        description: 'A unique ID for the device targeted by the request. You must provide a `deviceId` and/or a `userId`. See [selecting a user](#selecting-a-user).
+
+          '
+        schema:
+          type: string
+      responses:
+        default:
+          description: A successful request will return a map of the user's attributes, events and states.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].userId:
+                    type: string
+                    default: hfarnsworth@planetexpress.com
+                    description: The ID of the user that was exported. Not included if the user was not found.
+                  response[].userAttributes:
+                    description: 'A map of user attribute keys to values. Example: `{"gender":"F","age":21}`.
+
+                      '
+                    type: object
+                  response[].events:
+                    type: object
+                    properties:
+                      eventName:
+                        type: object
+                        description: A map of lifetime event data for the event given by eventName.
+                        properties:
+                          count:
+                            type: integer
+                            description: Lifetime occurrences for the event.
+                          value:
+                            type: number
+                            format: float
+                            description: Lifetime value for eventName.
+                          firstTime:
+                            type: integer
+                            description: Time that the event first occurred, in seconds since midnight UTC on January 1, 1970.
+                          lastTime:
+                            type: integer
+                            description: Time that the event last occurred, in seconds since midnight UTC on January 1, 1970.
+                  response[].states:
+                    type: object
+                    properties:
+                      stateName:
+                        type: object
+                        description: A map of lifetime state data for the state given by stateName.
+                        properties:
+                          count:
+                            type: integer
+                            description: Lifetime occurrences for eventName.
+                          firstTime:
+                            type: integer
+                            description: Time that the state first occurred, in seconds since midnight UTC on January 1, 1970.
+                          lastTime:
+                            type: integer
+                            description: Time that the state last occurred, in seconds since midnight UTC on January 1, 1970.
+                  response[].created:
+                    type: number
+                    format: float
+                    description: The time at which the user was created, in seconds since midnight UTC on January 1, 1970.
+                  response[].lastActive:
+                    type: number
+                    format: float
+                    description: The time at which the user was last active, in seconds since midnight UTC on January 1, 1970.
+                  response[].totalSessions:
+                    type: number
+                    format: integer
+                    description: The total number of sessions that a user has had in their lifetime.
+                  response[].timeSpentInApp:
+                    description: The total number of seconds spent in the app in the user's lifetime.
+                    type: number
+                    format: float
+                  response[].locale:
+                    description: 'The current locale the user is in. E.g. `en_US`.
+
+                      '
+                    type: string
+                  response[].country:
+                    description: 'The country the user is in, specified by [ISO 2-letter code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). E.g. `US` for United States. Set to `(detect)` to detect the country based on the IP address of the user.
+
+                      '
+                    type: string
+                  response[].region:
+                    description: 'The region (state) the user is in. E.g. `ca` for California. Set to `(detect)` to detect the region based on the IP address of the user.
+
+                      '
+                    type: string
+                  response[].city:
+                    description: 'The city the user is in. E.g. `San Francisco`. Set to `(detect)` to detect the city based on the IP address of the user.
+
+                      '
+                    type: string
+                  response[].location:
+                    description: 'The location (latitude/longitude) of the user. E.g. `37.775,-122.4183`. Set to `(detect)` to detect the location based on the IP address of the user.
+
+                      '
+                    type: string
+                  response[].locationAccuracyType:
+                    description: 'The type of location that is provided (IP, CELL, or GPS). Default: `IP`.
+
+                      '
+                    type: string
+                  response[].timezone:
+                    description: 'The timezone abbreviation for the user. See [list of timezone abbreviations](http://en.wikipedia.org/wiki/List_of_time_zone_abbreviations).
+
+                      '
+                    type: string
+                  response[].timezoneOffsetSeconds:
+                    description: The timezone offset from GMT in seconds.
+                    type: number
+                    format: integer
+                  response[].unsubscribeChannels:
+                    type: array
+                    description: 'A list of messaging channels (e.g. `Email`) the user is unsubscribed from.
+
+                      '
+                    items:
+                      type: string
+                      default: Email
+                  response[].unsubscribeCategories:
+                    type: array
+                    description: A list of email categories the user is unsubscribed from.
+                    items: {}
+                  response[].unsubscribeCategories[].id:
+                    type: integer
+                    description: 'The email category ID. Can be passed to [setUserAttributes](#post_api-action-setuserattributes) as the `unsubscribeCategoriesToAdd` parameter to unsubscribe a user or `unsubscribeCategoriesToRemove` parameter to re-subscribe a user from that category.
+
+                      '
+                  response[].unsubscribeCategories[].name:
+                    type: string
+                    description: The name of the email category.
+                  response[].devices:
+                    type: array
+                    description: A list of device objects associated with this user.
+                    items: {}
+                  response[].devices[]:
+                    type: object
+                    properties:
+                      deviceId:
+                        description: The unique ID for the device.
+                        type: string
+                      appVersion:
+                        description: 'The version of the app used on this device. E.g. `2.0.1`.
+
+                          '
+                        type: string
+                      systemName:
+                        description: 'The name of the OS the current device is running. E.g. `iOS`.
+
+                          '
+                        type: string
+                      systemVersion:
+                        description: 'The version number of the OS the current device is running. E.g. `6.0`.
+
+                          '
+                        type: string
+                      browserName:
+                        description: 'The name of the browser the current device is running. E.g. `Chrome`.
+
+                          '
+                        type: string
+                      browserVersion:
+                        description: 'The version number of the browser the current device is running. E.g. `17.0`.
+
+                          '
+                        type: string
+                      deviceName:
+                        description: A human-readable name representing the device.
+                        type: string
+                      deviceModel:
+                        description: 'The model name of the device. E.g. `iPad`.
+
+                          '
+                        type: string
+                      iosPushToken:
+                        description: The token used for Apple iOS push notifications on this device.
+                        type: string
+                      gcmRegistrationId:
+                        description: The registration ID used for Google Cloud Messaging push notifications on this device.
+                        type: string
+                      webPushSubscription:
+                        description: The JSON-encoded subscription used for web push notifications on this device.
+                        type: string
+      deprecated: false
+  /api?action=exportUsers:
+    get:
+      tags:
+      - Export Data
+      summary: exportUsers
+      description: 'Exports multiple user IDs. The export may be executed up to 40 times successfully per day, and this limit resets at 12:00 am PST each calendar day. This method requires your data export API `clientKey`.
+
+
+        Use [getExportResults](#get_api-action-getexportresults) with the returned `jobId` to get the results.
+
+        '
+      parameters:
+      - name: appId
+        in: query
+        required: true
+        description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+        schema:
+          type: string
+          default: YOUR_APP_ID
+      - name: clientKey
+        in: query
+        required: true
+        description: The Data Export key for your Leanplum App.
+        schema:
+          type: string
+          default: YOUR_DATA_EXPORT_KEY
+      - name: apiVersion
+        in: query
+        required: true
+        description: The version of the Leanplum API to use. The current version is 1.0.6.
+        schema:
+          type: string
+          enum:
+          - 1.0.6
+          default: 1.0.6
+      - name: audienceName
+        in: query
+        description: 'Export users in a particular audience. Use the audience name as seen on your audience dashboard. If skipped, Leanplum will export all users, unless other filters are applied.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: abTestId
+        in: query
+        description: Limit export to only users that are in the given A/B test. The output will include the variant ID and name for each user.
+        required: false
+        schema:
+          type: number
+          format: integer
+      - name: userAttribute
+        in: query
+        description: Export users with a specific attribute set. The export results will include the userId and attribute value for each user. For example, userAttribute `email` would export all email users along with their email addresses.
+        required: false
+        schema:
+          type: string
+      responses:
+        default:
+          description: 'A successful response will return the ID of the export job.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].jobId:
+                    type: string
+                    description: 'The job ID of the pending export job, if data matching the supplied arguments is available. Use [getExportResults](#get_api-action-getexportresults) with this `jobId` to get the results.
+
+                      '
+      deprecated: false
+  /api?action=getExportResults:
+    get:
+      tags:
+      - Export Data
+      summary: getExportResults
+      description: 'Retrieves the result of an export job generated by: `exportData`, `exportReport`, and `exportUsers`. This method requires your data export API `clientKey`.
+
+        '
+      parameters:
+      - name: appId
+        in: query
+        required: true
+        description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+        schema:
+          type: string
+          default: YOUR_APP_ID
+      - name: clientKey
+        in: query
+        required: true
+        description: The Data Export key for your Leanplum App.
+        schema:
+          type: string
+          default: YOUR_DATA_EXPORT_KEY
+      - name: apiVersion
+        in: query
+        required: true
+        description: The version of the Leanplum API to use. The current version is 1.0.6.
+        schema:
+          type: string
+          enum:
+          - 1.0.6
+          default: 1.0.6
+      - name: jobId
+        in: query
+        description: The export job ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Returns the status and either a list of file URLs that contain the exported data (for `exportData` and `exportUsers`), or JSON in the response body (`exportReport`).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      type: object
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].state:
+                    type: string
+                    description: 'Export job state. May be `PENDING`, `RUNNING`, `FAILED`, or `FINISHED`. Once finished, you will get additional data. See more info: [exportData](#section-exportdata-response), [exportUsers](#section-exportusers-response).
+
+                      '
+                    enum:
+                    - PENDING
+                    - RUNNING
+                    - FAILED
+                    - FINISHED
+                    default: FINISHED
+      deprecated: false
+components:
+  securitySchemes:
+    appIdQuery:
+      type: apiKey
+      in: query
+      name: appId
+      description: The application ID. To find yours, select your app in the navigation column, and click Edit Apps. Under Keys, click Show.
+    clientKeyQuery:
+      type: apiKey
+      in: query
+      name: clientKey
+      description: The client access key. Must be either your production, development, read-only, or data export key, depending on which API method you want to use.
+x-api-id: leanplum-api
+x-send-defaults: true
+x-explorer-enabled: false
+x-samples-enabled: false
+x-readme:
+  proxy-enabled: true

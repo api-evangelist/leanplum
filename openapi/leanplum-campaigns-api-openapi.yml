@@ -1,0 +1,125 @@
+openapi: 3.2.0
+info:
+  version: '1.0'
+  title: Campaigns API
+  description: An API to perform actions from a server or remote device.
+servers:
+- url: https://api.leanplum.com
+- url: http://api.leanplum.com
+security:
+- appIdQuery: []
+- clientKeyQuery: []
+tags:
+- name: Campaigns
+paths:
+  /api?action=startCampaign:
+    post:
+      tags:
+      - Campaigns
+      summary: startCampaign
+      description: 'Activates a campaign for one device or user. You must provide a `deviceId` and/or a `userId`. If `deviceId` is provided, the campaign top-level actions will be sent to the corresponding device only; if only `userId` is provided, the campaign top-level actions will be sent to all devices of the user with specified `userId`. If the user/device does not exist, sending the actions will be skipped. You can modify this behavior with the `createDisposition` option (see below).
+
+
+        This method requires your development API `clientKey`.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: JSON request body.
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - userId
+              - campaignId
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Development key for your Leanplum App.
+                  default: YOUR_DEV_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                userId:
+                  description: 'The current user ID. You can set this to whatever your company uses for user IDs. Leave it blank to use the device ID. For more info, see [selecting a user](#selecting-a-user).
+
+                    '
+                  default: hfarnsworth
+                  type: string
+                deviceId:
+                  description: 'A unique ID for the device targeted by the request. You must provide a `deviceId` and/or a `userId`. See [selecting a user](#selecting-a-user).
+
+                    '
+                  type: string
+                campaignId:
+                  description: 'The ID of the campaign is found in the URL when viewing a campaign (e.g. `www.leanplum.com/dashboard2/[APP_ID]/composer/[CAMPAIGN_ID]/audience}`). Note that there might be multiple IDs in the URL, the campaign ID is right after `composer/`.
+
+                    '
+                  type: number
+                  format: integer
+                values:
+                  description: 'A JSON object of key-value pairs to override template variables used in the campaign actions. See below for example.
+
+                    '
+                  type: string
+                  format: object
+                devMode:
+                  type: boolean
+                  description: 'Whether the user is in Development Mode, i.e. the user associated with the request is a developer and not a user. This is important for reporting purposes. Default: `false`.
+
+                    '
+                  default: false
+                createDisposition:
+                  description: "The policy that determines whether users are created by the API. Possible values:\n  * `CreateIfNeeded` creates a user with the given IDs if one does not already exist.\n  * `CreateNever` requires that the user already exists, otherwise the API action is skipped and a warning will be returned.\n\nThe default value for this method is `CreateNever`.\n"
+                  default: CreateNever
+                  type: string
+                  enum:
+                  - CreateIfNeeded
+                  - CreateNever
+        required: true
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+components:
+  securitySchemes:
+    appIdQuery:
+      type: apiKey
+      in: query
+      name: appId
+      description: The application ID. To find yours, select your app in the navigation column, and click Edit Apps. Under Keys, click Show.
+    clientKeyQuery:
+      type: apiKey
+      in: query
+      name: clientKey
+      description: The client access key. Must be either your production, development, read-only, or data export key, depending on which API method you want to use.
+x-api-id: leanplum-api
+x-send-defaults: true
+x-explorer-enabled: false
+x-samples-enabled: false
+x-readme:
+  proxy-enabled: true

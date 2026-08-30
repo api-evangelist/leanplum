@@ -1,0 +1,386 @@
+openapi: 3.2.0
+info:
+  version: '1.0'
+  title: Files and Variables API
+  description: An API to perform actions from a server or remote device.
+servers:
+- url: https://api.leanplum.com
+- url: http://api.leanplum.com
+security:
+- appIdQuery: []
+- clientKeyQuery: []
+tags:
+- name: Files and Variables
+paths:
+  /api?action=getVars:
+    get:
+      tags:
+      - Files and Variables
+      summary: getVars
+      description: 'Gets the variable values for the current user or device. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below). To see default variable values, use the `includeDefaults` parameter.
+
+
+        This method requires your production API `clientKey`.
+
+        '
+      parameters:
+      - name: appId
+        in: query
+        required: true
+        description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+        schema:
+          type: string
+          default: YOUR_APP_ID
+      - name: clientKey
+        in: query
+        required: true
+        description: The Production key for your Leanplum App.
+        schema:
+          type: string
+          default: YOUR_PROD_KEY
+      - name: apiVersion
+        in: query
+        required: true
+        description: The version of the Leanplum API to use. The current version is 1.0.6.
+        schema:
+          type: string
+          enum:
+          - 1.0.6
+          default: 1.0.6
+      - name: createDisposition
+        in: query
+        required: false
+        description: "The policy that determines whether users are created by the API. Possible values:\n  * `CreateIfNeeded` creates a user with the given IDs if one does not already exist.\n  * `CreateNever` requires that the user already exists, otherwise the API action is skipped and a warning will be returned.\n\nThe default value for this method is `CreateNever`.\n"
+        schema:
+          type: string
+          enum:
+          - CreateIfNeeded
+          - CreateNever
+          default: CreateNever
+      - name: userId
+        in: query
+        description: 'The current user ID. Required unless using device ID. You can set this to whatever you use at your company for user IDs. Leave it blank to use the device ID.
+
+          '
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: query
+        description: 'The device ID for which to retrieve the variables.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: devMode
+        in: query
+        description: 'Whether the user is in Development Mode, i.e. the user associated with the request is a developer and not a user. This is important for reporting purposes. Default: `false`.
+
+          '
+        schema:
+          type: boolean
+          default: false
+      - name: includeDefaults
+        in: query
+        description: 'Whether to include default (''defaults in code'') values in output. Default: `true`.
+
+          '
+        required: false
+        schema:
+          type: boolean
+          default: true
+      responses:
+        default:
+          description: A successful request will return a response array with an object that has a success value set to true, and no error or warning object. It will also include variables, messages and other details relevant to that user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    description: Response object for the API action.
+                    items: {}
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].vars:
+                    type: object
+                    description: Key/value pairs for variables.
+                    properties:
+                      varName:
+                        type: string
+                        description: The value of the variable `varName`.
+                  response[].variants:
+                    type: array
+                    description: List of variants that the user() belongs to.
+                    items: {}
+                  response[].variants[].id:
+                    type: number
+                    description: ID of the variant.
+      deprecated: false
+  /api?action=setVars:
+    post:
+      tags:
+      - Files and Variables
+      summary: setVars
+      description: Sets the list of variables to be used in the Leanplum content management system. This method requires your development API `clientKey`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - vars
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Development key for your Leanplum App.
+                  default: YOUR_DEV_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                vars:
+                  type: string
+                  format: object
+                  description: 'A JSON-encoded representation of the variables. Variable values can be strings, numbers, booleans, arrays, or objects.
+
+
+                    Example: `{ "message": "hello world!" }`
+
+                    '
+                deviceId:
+                  type: string
+                  description: If the deviceId is specified, file variables will be tagged with the current version of the app running on that device.
+        description: JSON request body with variables and values.
+        required: true
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+  /api?action=deleteVars:
+    post:
+      tags:
+      - Files and Variables
+      summary: deleteVars
+      description: Deletes the list of variables from the Leanplum content management system. This method requires your development API `clientKey`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - vars
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Development key for your Leanplum App.
+                  default: YOUR_DEV_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                vars:
+                  type: array
+                  description: A list of variables to be removed.
+                  items:
+                    type: string
+                    description: The variable name.
+                    default: variableName
+        required: true
+      responses:
+        default:
+          description: Returns the status and a list of variables that were deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].variablesRemoved:
+                    type: array
+                    description: A list of variables that were removed.
+                    items:
+                      type: string
+      deprecated: false
+  /api?action=downloadFile:
+    get:
+      tags:
+      - Files and Variables
+      summary: downloadFile
+      description: Redirects to a file uploaded to the Leanplum dashboard (the File tab). Must be the only API method in a batch. This method requires your production API `clientKey`.
+      parameters:
+      - name: appId
+        in: query
+        required: true
+        description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+        schema:
+          type: string
+          default: YOUR_APP_ID
+      - name: clientKey
+        in: query
+        required: true
+        description: The Production key for your Leanplum App.
+        schema:
+          type: string
+          default: YOUR_PROD_KEY
+      - name: apiVersion
+        in: query
+        required: true
+        description: The version of the Leanplum API to use. The current version is 1.0.6.
+        schema:
+          type: string
+          enum:
+          - 1.0.6
+          default: 1.0.6
+      - name: filename
+        in: query
+        description: The name of the file to download.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: A successful request will redirect to the file and begin a download.
+      deprecated: false
+  /api?action=uploadFile:
+    post:
+      tags:
+      - Files and Variables
+      summary: uploadFile
+      description: Uploads up to 16 files or 50 MB at a time to use in the File picker and File tab of the Leanlum dashboard. This method requires your development API `clientKey`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - data
+              - file{k}
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Development key for your Leanplum App.
+                  default: YOUR_DEV_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                data:
+                  description: A JSON array-encoded string representing each file's metadata. Used when uploading multiple files at once.
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - filename
+                    - size
+                    properties:
+                      filename:
+                        type: string
+                        description: The filename of the file being uploaded relative to the application.
+                      size:
+                        type: integer
+                        description: The size of the file in bytes.
+                      hash:
+                        type: string
+                        description: To be used when supplying the data parameter. The MD5 hash representing the file. Used to detect changes to files in the SDK in Development Mode.
+                file{k}:
+                  type: string
+                  format: binary
+                  description: Supply if `data` is also supplied. The file data to be uploaded for file "k", where "k" is based on the order of the metadata in `data[]` (0-based). The first metadata item in `data[]` will be matched with `file0`, the second with `file1`, etc. There should be one file uploaded per entry in data.
+                filename:
+                  type: string
+                  description: Supply if and only if `data` is not supplied. The filename of the file being uploaded relative to the application.
+                file:
+                  description: Supply if and only if `data` is not supplied. The file data to be uploaded.
+                  type: string
+                  format: binary
+                size:
+                  description: Supply if and only if `data` is not supplied. The size of the file in bytes.
+                  type: number
+                  format: integer
+                hash:
+                  description: Supply if and only if `data` is not supplied. The MD5 hash representing the file. Used to detect changes to files in the SDK in Development Mode.
+                  type: string
+        required: true
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+components:
+  securitySchemes:
+    appIdQuery:
+      type: apiKey
+      in: query
+      name: appId
+      description: The application ID. To find yours, select your app in the navigation column, and click Edit Apps. Under Keys, click Show.
+    clientKeyQuery:
+      type: apiKey
+      in: query
+      name: clientKey
+      description: The client access key. Must be either your production, development, read-only, or data export key, depending on which API method you want to use.
+x-api-id: leanplum-api
+x-send-defaults: true
+x-explorer-enabled: false
+x-samples-enabled: false
+x-readme:
+  proxy-enabled: true

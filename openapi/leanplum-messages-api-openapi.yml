@@ -1,0 +1,682 @@
+openapi: 3.2.0
+info:
+  version: '1.0'
+  title: Messages API
+  description: An API to perform actions from a server or remote device.
+servers:
+- url: https://api.leanplum.com
+- url: http://api.leanplum.com
+security:
+- appIdQuery: []
+- clientKeyQuery: []
+tags:
+- name: Messages
+paths:
+  /api?action=getMessage:
+    get:
+      tags:
+      - Messages
+      summary: getMessage
+      description: Gets information about a message. This method requires your content read-only API `clientKey`.
+      parameters:
+      - name: appId
+        in: query
+        required: true
+        description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+        schema:
+          type: string
+          default: YOUR_APP_ID
+      - name: clientKey
+        in: query
+        required: true
+        description: The Content Read-only key for your Leanplum App.
+        schema:
+          type: string
+          default: YOUR_CONTENT_KEY
+      - name: apiVersion
+        in: query
+        required: true
+        description: The version of the Leanplum API to use. The current version is 1.0.6.
+        schema:
+          type: string
+          enum:
+          - 1.0.6
+          default: 1.0.6
+      - name: id
+        in: query
+        description: The numeric message ID.
+        required: true
+        schema:
+          type: number
+          format: integer
+      - name: includeDrafts
+        in: query
+        description: 'Include drafts and unpublished changes. Default: `false`.
+
+          '
+        required: false
+        schema:
+          type: boolean
+      responses:
+        default:
+          description: A successful response will return details about a message.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items: {}
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].message:
+                    type: object
+                    description: A message object.
+                    properties:
+                      id:
+                        type: integer
+                        description: The message ID.
+                      campaignID:
+                        type: integer
+                        description: The id for the campaign the message is a part of (if applicable).
+                      campaignName:
+                        type: string
+                        description: The name for the campaign the message is a part of (if applicable).
+                      abTestIds:
+                        type: integer
+                        description: The id for the A/B tests this message is a part of (if any).
+                      name:
+                        type: string
+                        description: The name of the message.
+                      active:
+                        type: boolean
+                        description: Whether the message is running in production.
+                      state:
+                        type: string
+                        description: The current status of the message, e.g. active, inactive, finished.
+                      created:
+                        type: number
+                        format: float
+                        description: Unix timestamp of when the message was created.
+                      updated:
+                        type: number
+                        format: float
+                        description: Unix timestamp of when the message was last updated in Leanplum.
+                      scheduledTime:
+                        type: number
+                        description: Unix timestamp for the scheduled date and time, if message is scheduled.
+                      finished:
+                        type: number
+                        format: float
+                        description: Unix timestamp of when the message was finished (optional).
+                      messageType:
+                        type: string
+                        description: The type of the message. (e.g. Push Notification, Interstitial, etc.)
+                      messageLimits:
+                        type: string
+                        description: The delivery limits for this message (if any).
+                      localTriggers:
+                        type: string
+                        description: The trigger event(s) for a locally triggered message, such as an in-app message.
+                      serverTriggers:
+                        type: string
+                        description: The trigger event(s) for a server-triggered message, such as an email or push notification.
+                      targetingSticky:
+                        type: boolean
+                        description: Whether this message's target is sticky (magnet button).
+      deprecated: false
+  /api?action=getMessages:
+    get:
+      tags:
+      - Messages
+      summary: getMessages
+      description: Gets information about all the messages for a given app. This method requires your content read-only API `clientKey`.
+      parameters:
+      - name: appId
+        in: query
+        required: true
+        description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+        schema:
+          type: string
+          default: YOUR_APP_ID
+      - name: clientKey
+        in: query
+        required: true
+        description: The Content Read-only key for your Leanplum App.
+        schema:
+          type: string
+          default: YOUR_CONTENT_KEY
+      - name: apiVersion
+        in: query
+        required: true
+        description: The version of the Leanplum API to use. The current version is 1.0.6.
+        schema:
+          type: string
+          enum:
+          - 1.0.6
+          default: 1.0.6
+      - name: includeDrafts
+        in: query
+        description: 'Include drafts and unpublished changes. Default: `false`.
+
+          '
+        required: false
+        schema:
+          type: boolean
+      - name: recent
+        in: query
+        description: 'Only return information about active or recently finished messages. Default: `true`.
+
+          '
+        required: false
+        schema:
+          type: boolean
+      responses:
+        default:
+          description: A successful response will return a list of messages.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items: {}
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].messages:
+                    type: array
+                    description: A list of message objects.
+                    items: {}
+                  response[].messages[]:
+                    type: object
+                    description: A message object.
+                    properties:
+                      id:
+                        type: integer
+                        description: The message ID.
+                      campaignID:
+                        type: integer
+                        description: The id for the campaign the message is a part of (if applicable).
+                      campaignName:
+                        type: string
+                        description: The name for the campaign the message is a part of (if applicable).
+                      abTestIds:
+                        type: integer
+                        description: The id for the A/B tests this message is a part of (if any).
+                      name:
+                        type: string
+                        description: The name of the message.
+                      active:
+                        type: boolean
+                        description: Whether the message is running in production.
+                      state:
+                        type: string
+                        description: The current status of the message, e.g. active, inactive, finished.
+                      created:
+                        type: number
+                        format: float
+                        description: Unix timestamp of when the message was created.
+                      updated:
+                        type: number
+                        format: float
+                        description: Unix timestamp of when the message was last updated in Leanplum.
+                      scheduledTime:
+                        type: number
+                        description: Unix timestamp for the scheduled date and time, if message is scheduled.
+                      finished:
+                        type: number
+                        format: float
+                        description: Unix timestamp of when the message was finished (optional).
+                      messageType:
+                        type: string
+                        description: The type of the message. (e.g. Push Notification, Interstitial, etc.)
+                      messageLimits:
+                        type: string
+                        description: The delivery limits for this message (if any).
+                      localTriggers:
+                        type: string
+                        description: The trigger event(s) for a locally triggered message, such as an in-app message.
+                      serverTriggers:
+                        type: string
+                        description: The trigger event(s) for a server-triggered message, such as an email or push notification.
+                      targetingSticky:
+                        type: boolean
+                        description: Whether this message's target is sticky (magnet button).
+      deprecated: false
+  /api?action=getUnsubscribeCategories:
+    get:
+      tags:
+      - Messages
+      summary: getUnsubscribeCategories
+      description: Gets information about all the email subscription categories for a given app. This method requires your content read-only API `clientKey`.
+      parameters:
+      - name: appId
+        in: query
+        required: true
+        description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+        schema:
+          type: string
+          default: YOUR_APP_ID
+      - name: clientKey
+        in: query
+        required: true
+        description: The Content Read-only key for your Leanplum App.
+        schema:
+          type: string
+          default: YOUR_CONTENT_KEY
+      - name: apiVersion
+        in: query
+        required: true
+        description: The version of the Leanplum API to use. The current version is 1.0.6.
+        schema:
+          type: string
+          enum:
+          - 1.0.6
+          default: 1.0.6
+      responses:
+        default:
+          description: A successful response will return a list of email subscription categories.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items: {}
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].categories:
+                    type: array
+                    description: A list of email subscription categories.
+                    items: {}
+                  response[].categories[]:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: 'The email category ID. Can be passed to [setUserAttributes](#post_api-action-setuserattributes) as the `unsubscribeCategoriesToAdd` parameter to unsubscribe a user or `unsubscribeCategoriesToRemove` parameter to re-subscribe a user from that category.
+
+                          '
+                      name:
+                        type: string
+                        description: The name of the email category.
+                      description:
+                        type: string
+                        description: The description of the email category.
+      deprecated: false
+  /api?action=sendMessage:
+    post:
+      tags:
+      - Messages
+      summary: sendMessage
+      description: 'Sends a message (typically a push notification) to one device or user. You must provide a `deviceId` and/or a `userId`. If `deviceId` is provided, the message will be sent to the corresponding device only; if only `userId` is provided, the message will be sent to all devices of the user with specified `userId`. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).
+
+
+        Messages are queued, so they will be sent after the request completes.
+
+
+        This method requires your production API `clientKey`.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: JSON request body.
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - userId
+              - messageId
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Production key for your Leanplum App.
+                  default: YOUR_PROD_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                userId:
+                  description: 'The current user ID. You can set this to whatever your company uses for user IDs. Leave it blank to use the device ID. For more info, see [selecting a user](#selecting-a-user).
+
+                    '
+                  default: hfarnsworth
+                  type: string
+                deviceId:
+                  description: 'A unique ID for the device targeted by the request. You must provide a `deviceId` and/or a `userId`. See [selecting a user](#selecting-a-user).
+
+                    '
+                  type: string
+                messageId:
+                  description: 'The ID of the message, found in the URL when viewing a message (e.g. `www.leanplum.com/dashboard#/{APP_ID}/messaging/{MESSAGE_ID}`.
+
+                    '
+                  type: number
+                  format: integer
+                values:
+                  description: 'A JSON object of key-value pairs to override template variables used in the message. See below for example.
+
+                    '
+                  type: string
+                  format: object
+                force:
+                  description: 'Whether to send the message regardless of whether the user meets the targeting criteria. Default: `false`.
+
+                    '
+                  type: boolean
+                  default: false
+                devMode:
+                  type: boolean
+                  description: 'Whether the user is in Development Mode, i.e. the user associated with the request is a developer and not a user. This is important for reporting purposes. Default: `false`.
+
+                    '
+                  default: false
+                createDisposition:
+                  description: "The policy that determines whether users are created by the API. Possible values:\n  * `CreateIfNeeded` creates a user with the given IDs if one does not already exist.\n  * `CreateNever` requires that the user already exists, otherwise the API action is skipped and a warning will be returned.\n\nThe default value for this method is `CreateNever`.\n"
+                  default: CreateNever
+                  type: string
+                  enum:
+                  - CreateIfNeeded
+                  - CreateNever
+        required: true
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+  /api?action=addAndroidNotificationChannel:
+    post:
+      tags:
+      - Messages
+      summary: addAndroidNotificationChannel
+      description: 'Creates new notification channels and updates existing ones. Updateable parameters include channel name, description, and default. This method requires your development API `clientKey`.
+
+
+        > Leanplum will not interfere with any channel defined directly in your app code or by other mobile marketing providers. For instance, if your app has both a “Promotions” channel and a “Transactional” channel, but your marketer should only have access to Promotions, then you should only send that channel to Leanplum.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - id
+              - name
+              - importance
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Development key for your Leanplum App.
+                  default: YOUR_DEV_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                id:
+                  type: string
+                  description: The channel ID. Also used when updating existing channels.
+                name:
+                  type: string
+                  description: The human-readable name that will appear on the Leanplum dashboard (e.g. Promotions, Transactional, etc.). Should be distinguishable from all other channel names.
+                importance:
+                  type: number
+                  format: integer
+                  description: 'Sets the importance of all notifications in the channel, which determines how much the channel can interrupt the user. The default is 3: notifications will show everywhere, make noise, but does not visually intrude. For more, see the [Android documentation](https://developer.android.com/guide/topics/ui/notifiers/notifications.html#Priority).
+
+                    '
+                  default: 3
+                description:
+                  type: string
+                  description: The user-visible description of this channel.
+                groupId:
+                  type: string
+                  description: See Android docs <a href="https://developer.android.com/reference/android/app/NotificationChannel.html#setGroup(java.lang.String)">here</a>.
+                enableLights:
+                  type: boolean
+                  description: Whether to enable lights.
+                lightColor:
+                  type: number
+                  format: integer
+                  description: See Android docs for [available colors](https://developer.android.com/reference/android/graphics/Color.html).
+                enableVibration:
+                  type: boolean
+                  description: Whether to enable vibration.
+                vibrationPattern:
+                  type: array
+                  items:
+                    type: number
+                    format: long
+                  description: See Android docs <a href="https://developer.android.com/reference/android/app/NotificationChannel.html#setVibrationPattern(long[])">here</a>.
+                lockscreenVisibility:
+                  type: number
+                  format: integer
+                  description: See Android documentation [here](https://developer.android.com/reference/android/app/Notification.html#VISIBILITY_PRIVATE).
+                bypassDnd:
+                  type: boolean
+                  description: See Android docs <a href="https://developer.android.com/reference/android/app/NotificationChannel.html#setBypassDnd(boolean)">here</a>.
+                showBadge:
+                  type: boolean
+                  description: Whether to show badge.
+                sound:
+                  type: string
+                  description: URI of sound file, which must be stored locally on the device. See Andoroid Docs <a href="https://developer.android.com/reference/android/app/NotificationChannel.html#setSound(android.net.Uri, android.media.AudioAttributes)">here</a>.
+                default:
+                  type: boolean
+                  description: This is a Leanplum parameter, indicating whether this channel should be the default channel referenced in the dashboard. Leanplum automatically defines the first channel you create as the “default” channel, preventing the dashboard user from having to manually choose a channel for every campaign.
+        description: JSON request body with variables and values.
+        required: true
+      responses:
+        default:
+          description: 'The response will indicate whether or not the channel was created successfully.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].channelCreated:
+                    type: boolean
+                    description: Whether or not channel creation was successful.
+                  response[].channelId:
+                    type: string
+                    description: The channel ID. Same as the `id` passed in the call.
+                    default: '12345'
+                  response[].channelUpdated:
+                    type: boolean
+                    description: True if channel was updated successfully.
+                    default: false
+                  response[].name:
+                    type: string
+                    description: The human-readable name that will appear on the Leanplum dashboard (e.g. Promotions, Transactional, etc.). Should be distinguishable from all other channel names.
+                  response[].importance:
+                    type: integer
+                    description: The importance of all notifications in this channel.
+      deprecated: false
+  /api?action=getAndroidNotificationChannels:
+    get:
+      tags:
+      - Messages
+      summary: getAndroidNotificationChannels
+      description: 'Gets all Android notification channels defined in Leanplum and their associated settings. No additional arguments are required. This method requires your production API `clientKey`.
+
+
+        This method requires your production API `clientKey`.
+
+        '
+      parameters:
+      - name: appId
+        in: query
+        required: true
+        description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+        schema:
+          type: string
+          default: YOUR_APP_ID
+      - name: clientKey
+        in: query
+        required: true
+        description: The Production key for your Leanplum App.
+        schema:
+          type: string
+          default: YOUR_PROD_KEY
+      - name: apiVersion
+        in: query
+        required: true
+        description: The version of the Leanplum API to use. The current version is 1.0.6.
+        schema:
+          type: string
+          enum:
+          - 1.0.6
+          default: 1.0.6
+      responses:
+        default:
+          description: Returns the Android notification channels you have defined in Leanplum and their associated settings. Note — an HTTP status of 200 does not guarantee the request was processed successfully. Pay close attention to `response[].warning` and `response[].error`; if returned with a message, the request may have been skipped or ignored.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[]:
+                    type: array
+                    description: The response array.
+                    items:
+                      type: object
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].notificationChannels:
+                    type: array
+                    description: Contains the name, importance, id, and other settings of all Android notification channels defined in Leanplum.
+                    items:
+                      type: object
+                      properties:
+                        importance:
+                          type: integer
+                          default: 2
+                        name:
+                          type: string
+                          default: Promotional
+                        id:
+                          type: string
+                          description: The channel id.
+                          default: abcde
+      deprecated: false
+  /api?action=deleteAndroidNotificationChannel:
+    post:
+      tags:
+      - Messages
+      summary: deleteAndroidNotificationChannel
+      description: 'Permanently removes an Android notification channel from Leanplum. This method requires your development API `clientKey`.
+
+
+        **Note** — You cannot delete the channel that is defined as default (unless it is the only channel). To delete the default channel, mark another channel as default first.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - channelId
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Development key for your Leanplum App.
+                  default: YOUR_DEV_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                channelId:
+                  description: The ID of the channel you want to delete permanently. Note - this is the same as the `id` parameter in the `addAndroidNotificationChannel` method.
+                  type: string
+        description: JSON request body with variables and values.
+        required: true
+      responses:
+        default:
+          description: Response indicates whether channel deletion was successful and returns the channel id of the deleted channel.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].channelDeleted:
+                    type: boolean
+                    description: True if channel was deleted successfully.
+                  response[].channelId:
+                    type: string
+                    description: The channel id. (Same as `id` parameter in addAndroidNotificationChannel method.)
+                    default: '12345'
+      deprecated: false
+components:
+  securitySchemes:
+    appIdQuery:
+      type: apiKey
+      in: query
+      name: appId
+      description: The application ID. To find yours, select your app in the navigation column, and click Edit Apps. Under Keys, click Show.
+    clientKeyQuery:
+      type: apiKey
+      in: query
+      name: clientKey
+      description: The client access key. Must be either your production, development, read-only, or data export key, depending on which API method you want to use.
+x-api-id: leanplum-api
+x-send-defaults: true
+x-explorer-enabled: false
+x-samples-enabled: false
+x-readme:
+  proxy-enabled: true

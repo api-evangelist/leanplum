@@ -1,0 +1,676 @@
+openapi: 3.2.0
+info:
+  version: '1.0'
+  title: User Behavior API
+  description: An API to perform actions from a server or remote device.
+servers:
+- url: https://api.leanplum.com
+- url: http://api.leanplum.com
+security:
+- appIdQuery: []
+- clientKeyQuery: []
+tags:
+- name: User Behavior
+paths:
+  /api?action=advance:
+    post:
+      tags:
+      - User Behavior
+      summary: advance
+      description: 'Advances a user to the next state. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below). The state is the section of the app the user is currently in. States are like events with duration.
+
+
+        This method requires your production API `clientKey`.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: JSON request body.
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - userId
+              - state
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Production key for your Leanplum App.
+                  default: YOUR_PROD_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                userId:
+                  description: 'The current user ID. You can set this to whatever your company uses for user IDs. Leave it blank to use the device ID. For more info, see [selecting a user](#selecting-a-user).
+
+                    '
+                  default: hfarnsworth
+                  type: string
+                state:
+                  description: The name of the state. Set to an empty string to leave the current state but not enter a new one.
+                  type: string
+                deviceId:
+                  description: 'A unique ID for the device targeted by the request. You must provide a `deviceId` and/or a `userId`. See [selecting a user](#selecting-a-user).
+
+                    '
+                  type: string
+                createDisposition:
+                  description: "The policy that determines whether users are created by the API. Possible values:\n  * `CreateIfNeeded` creates a user with the given IDs if one does not already exist.\n  * `CreateNever` requires that the user already exists, otherwise the API action is skipped and a warning will be returned.\n\nThe default value for this method is `CreateNever`.\n"
+                  default: CreateNever
+                  type: string
+                  enum:
+                  - CreateIfNeeded
+                  - CreateNever
+                devMode:
+                  type: boolean
+                  description: 'Whether the user is in Development Mode, i.e. the user associated with the request is a developer and not a user. This is important for reporting purposes. Default: `false`.
+
+                    '
+                  default: false
+                info:
+                  description: Any info attached to the state.
+                  type: string
+                params:
+                  description: 'A flat object of parameters as key-value pairs. Each key must be a string, and up to 50 parameters may be set. Example: `{''gender'':''F'',''age'':21}`.
+
+                    '
+                  type: string
+                  format: object
+        required: true
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+  /api?action=pauseState:
+    post:
+      tags:
+      - User Behavior
+      summary: pauseState
+      description: 'Pauses the current state, but not the session, for a user. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).
+
+
+        This method requires your production API `clientKey`.
+
+        '
+      requestBody:
+        $ref: '#/components/requestBodies/Body'
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+  /api?action=resumeState:
+    post:
+      tags:
+      - User Behavior
+      summary: resumeState
+      description: 'Resumes the current state for a user. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).
+
+
+        This method requires your production API `clientKey`.
+
+        '
+      requestBody:
+        $ref: '#/components/requestBodies/Body'
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+  /api?action=pauseSession:
+    post:
+      tags:
+      - User Behavior
+      summary: pauseSession
+      description: 'Pauses the current session and state for a user. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).
+
+
+        This method requires your production API `clientKey`.
+
+        '
+      requestBody:
+        $ref: '#/components/requestBodies/Body'
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+  /api?action=resumeSession:
+    post:
+      tags:
+      - User Behavior
+      summary: resumeSession
+      description: 'Resumes the current session and state for a user. Use either after `pauseSession`, or `start` if the app started in the background. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).
+
+
+        This method requires your production API `clientKey`.
+
+        '
+      requestBody:
+        $ref: '#/components/requestBodies/Body'
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+  /api?action=heartbeat:
+    post:
+      tags:
+      - User Behavior
+      summary: heartbeat
+      description: 'Sends a pulse to indicate that the current session is still in progress, so as not to automatically end it. Sessions are automatically timed out after 2 hours of inactivity — or 30 minutes if the session was paused first. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).
+
+
+        This method requires your production API `clientKey`.
+
+        '
+      requestBody:
+        $ref: '#/components/requestBodies/Body'
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+  /api?action=start:
+    post:
+      tags:
+      - User Behavior
+      summary: start
+      description: 'Starts a new session and returns the variables that have changed for the user. If the user/device does not exist, a new user will be created (see the `createDisposition` option below). This method requires your production API `clientKey`.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - userId
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Production key for your Leanplum App.
+                  default: YOUR_PROD_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                userId:
+                  description: 'The current user ID. You can set this to whatever your company uses for user IDs. Leave it blank to use the device ID. For more info, see [selecting a user](#selecting-a-user).
+
+                    '
+                  default: hfarnsworth
+                  type: string
+                deviceId:
+                  description: 'A unique ID for the device targeted by the request. You must provide a `deviceId` and/or a `userId`. See [selecting a user](#selecting-a-user).
+
+                    '
+                  type: string
+                devMode:
+                  type: boolean
+                  description: 'Whether the user is in Development Mode, i.e. the user associated with the request is a developer and not a user. This is important for reporting purposes. Default: `false`.
+
+                    '
+                  default: false
+                createDisposition:
+                  description: "The policy that determines whether users are created by the API. Possible values:\n  * `CreateIfNeeded` creates a user with the given IDs if one does not already exist.\n  * `CreateNever` requires that the user already exists, otherwise the API action is skipped and a warning will be returned.\n\nThe default value for this method is `CreateIfNeeded`.\n"
+                  default: CreateIfNeeded
+                  enum:
+                  - CreateIfNeeded
+                  - CreateNever
+                  type: string
+                appVersion:
+                  description: 'The version of the app used on this device. E.g. `2.0.1`.
+
+                    '
+                  type: string
+                systemName:
+                  description: 'The name of the OS the current device is running. E.g. `iOS`.
+
+                    '
+                  type: string
+                systemVersion:
+                  description: 'The version number of the OS the current device is running. E.g. `6.0`.
+
+                    '
+                  type: string
+                browserName:
+                  description: 'The name of the browser the current device is running. E.g. `Chrome`.
+
+                    '
+                  type: string
+                browserVersion:
+                  description: 'The version number of the browser the current device is running. E.g. `17.0`.
+
+                    '
+                  type: string
+                deviceName:
+                  description: A human-readable name representing the device.
+                  type: string
+                deviceModel:
+                  description: 'The model name of the device. E.g. `iPad`.
+
+                    '
+                  type: string
+                iosPushToken:
+                  description: The token used for Apple iOS push notifications on this device.
+                  type: string
+                gcmRegistrationId:
+                  description: The registration ID used for Google Cloud Messaging push notifications on this device.
+                  type: string
+                webPushSubscription:
+                  description: The JSON-encoded subscription used for web push notifications on this device.
+                  type: string
+                userAttributes:
+                  type: string
+                  format: object
+                  description: 'A map of user attributes as key-value pairs. Each key must be a string. Attributes are saved across sessions. Only supplied attributes will be updated (i.e., if you omit an existing attribute, it will be preserved). Example: `{"gender":"F","age":21}`.
+
+                    '
+                locale:
+                  description: 'The current locale the user is in. E.g. `en_US`.
+
+                    '
+                  type: string
+                country:
+                  description: 'The country the user is in, specified by [ISO 2-letter code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). E.g. `US` for United States. Set to `(detect)` to detect the country based on the IP address of the user.
+
+                    '
+                  type: string
+                region:
+                  description: 'The region (state) the user is in. E.g. `ca` for California. Set to `(detect)` to detect the region based on the IP address of the user.
+
+                    '
+                  type: string
+                city:
+                  description: 'The city the user is in. E.g. `San Francisco`. Set to `(detect)` to detect the city based on the IP address of the user.
+
+                    '
+                  type: string
+                location:
+                  description: 'The location (latitude/longitude) of the user. E.g. `37.775,-122.4183`. Set to `(detect)` to detect the location based on the IP address of the user.
+
+                    '
+                  type: string
+                locationAccuracyType:
+                  description: 'The type of location that is provided (IP, CELL, or GPS). Default: `IP`.
+
+                    '
+                  type: string
+                timezone:
+                  description: 'The timezone abbreviation for the user. See [list of timezone abbreviations](http://en.wikipedia.org/wiki/List_of_time_zone_abbreviations).
+
+                    '
+                  type: string
+                timezoneOffsetSeconds:
+                  description: The timezone offset from GMT in seconds.
+                  type: number
+                  format: integer
+                background:
+                  description: 'Whether the app started in the background. In this case, the session won''t be counted until `resumeSession` is executed. Default: `false`.
+
+                    '
+                  type: boolean
+                includeDefaults:
+                  description: 'Whether to include default ("defaults in code") values in output. Default: `true`.
+
+                    '
+                  type: boolean
+        description: JSON request body.
+        required: true
+      responses:
+        default:
+          description: A successful request will return a response array with an object that has a success value set to true, and no error or warning object. It will also include variables, messages and other details relevant to that user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    description: Response object for the API action.
+                    items: {}
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].messages:
+                    type: object
+                    description: In-app messages targeted at this user.
+                  response[].vars:
+                    type: object
+                    description: Key/value pairs for variables.
+                    properties:
+                      varName:
+                        type: string
+                        description: The value of the variable `varName`.
+                  response[].interfaceRules:
+                    type: array
+                    description: Custom visual events and UI settings from UI Editor.
+                    items:
+                      type: object
+                  response[].variants:
+                    type: array
+                    description: List of variants that the user belongs to.
+                    items: {}
+                  response[].variants[].id:
+                    type: number
+                    description: ID of the variant.
+                  response[].regions:
+                    type: object
+                  response[].interfaceEvents:
+                    type: array
+                    description: Interface events information.
+                    items:
+                      type: object
+                  response[].token:
+                    type: string
+      deprecated: false
+  /api?action=stop:
+    post:
+      tags:
+      - User Behavior
+      summary: stop
+      description: 'Ends the current session. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below). This method requires your production API `clientKey`.
+
+        '
+      requestBody:
+        $ref: '#/components/requestBodies/Body'
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+  /api?action=track:
+    post:
+      tags:
+      - User Behavior
+      summary: track
+      description: 'Tracks one occurrence of an event for a user. If the user/device does not exist, a new user will be created (see the `createDisposition` option below). This method requires your production API `clientKey`. See [tracking events via API](https://docs.leanplum.com/reference/api-guides#tracking-analytics-data-via-api) for examples.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - userId
+              - event
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Production key for your Leanplum App.
+                  default: YOUR_PROD_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                userId:
+                  description: 'The current user ID. You can set this to whatever your company uses for user IDs. Leave it blank to use the device ID. For more info, see [selecting a user](#selecting-a-user).
+
+                    '
+                  default: hfarnsworth
+                  type: string
+                deviceId:
+                  description: 'A unique ID for the device targeted by the request. You must provide a `deviceId` and/or a `userId`. See [selecting a user](#selecting-a-user).
+
+                    '
+                  type: string
+                devMode:
+                  type: boolean
+                  description: 'Whether the user is in Development Mode, i.e. the user associated with the request is a developer and not a user. This is important for reporting purposes. Default: `false`.
+
+                    '
+                  default: false
+                createDisposition:
+                  description: "The policy that determines whether users are created by the API. Possible values:\n  * `CreateIfNeeded` creates a user with the given IDs if one does not already exist.\n  * `CreateNever` requires that the user already exists, otherwise the API action is skipped and a warning will be returned.\n\nThe default value for this method is `CreateIfNeeded`.\n"
+                  default: CreateIfNeeded
+                  enum:
+                  - CreateIfNeeded
+                  - CreateNever
+                  type: string
+                event:
+                  description: The name of the event. Use "Purchase" to identify a monetization event, with the event value being the revenue. You can change the default monetization event name in Analytics by going to the metric chooser and clicking the Monetization metric category.
+                  type: string
+                value:
+                  description: The event value. For example, for a purchase event, this would be the purchase price.
+                  type: number
+                  format: float
+                currencyCode:
+                  description: 'The ISO 4217 currency code associated with `value`. Leanplum will automatically convert `value` into your preferred currency, while retaining the original price and currency code as event parameters `localCurrency` and `localPrice`. Currency conversion rates are updated every hour.
+
+                    '
+                  type: string
+                info:
+                  description: Any info attached to the event.
+                  type: string
+                time:
+                  type: number
+                  description: Option to provide the UNIX timestamp for when the event occurred, which may be different from the current time.
+                  format: float
+                params:
+                  description: 'A flat object of parameters as key-value pairs. Each key must be a string, and up to 50 parameters may be set. Example: `{"gender":"F","age":21}`.
+
+                    '
+                  type: string
+                  format: object
+                messageId:
+                  description: The message ID this event is associated with. Set this to track a user's interaction with a message. To track a message Send or a View, set the event argument to an empty string. For other interactions, set the event argument to the type of action (example values include Open, Cancel, Accept). The Leanplum SDK does this automatically, so this should be used for advanced use cases only.
+                  type: number
+                  format: integer
+                disposition:
+                  description: "Determines how tracked events affect sessions and user activity. If present, disposition must have one of the following values:\n  * `active` (default): Used for events reflect user activity. Active events should mark the user as active, and should be tracked within a session. (Replaces the deprecated option `allowOffline: false`.)\n  * `passive`: Used for events that do not correspond to user activity. These events do not need to occur within a session, and do not mark a user as active. For example, sending a user a message would be tracked passively, since it affects a user, but does not represent user activity. (Replaces the deprecated option `allowOffline: true`.)\n  * `requireActive`: Used for events that must only be tracked within a session. These events are rejected, and return a warning response with `ignored: true` if the user does not have an active session. Clients should detect the warning by the `ignored` field, as warning messages may change.\n"
+                  type: string
+                  enum:
+                  - active
+                  - passive
+                  - requireActive
+        required: true
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+components:
+  requestBodies:
+    Body:
+      content:
+        application/json:
+          schema:
+            type: object
+            description: JSON request body.
+            required:
+            - appId
+            - clientKey
+            - apiVersion
+            - userId
+            properties:
+              appId:
+                description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                default: YOUR_APP_ID
+                type: string
+              clientKey:
+                description: The Production key for your Leanplum App.
+                default: YOUR_PROD_KEY
+                type: string
+              apiVersion:
+                description: The version of the Leanplum API to use. The current version is 1.0.6.
+                default: 1.0.6
+                type: string
+                enum:
+                - 1.0.6
+              userId:
+                description: 'The current user ID. You can set this to whatever your company uses for user IDs. Leave it blank to use the device ID. For more info, see [selecting a user](#selecting-a-user).
+
+                  '
+                default: hfarnsworth
+                type: string
+              deviceId:
+                description: 'A unique ID for the device targeted by the request. You must provide a `deviceId` and/or a `userId`. See [selecting a user](#selecting-a-user).
+
+                  '
+                type: string
+              devMode:
+                type: boolean
+                description: 'Whether the user is in Development Mode, i.e. the user associated with the request is a developer and not a user. This is important for reporting purposes. Default: `false`.
+
+                  '
+                default: false
+              createDisposition:
+                description: "The policy that determines whether users are created by the API. Possible values:\n  * `CreateIfNeeded` creates a user with the given IDs if one does not already exist.\n  * `CreateNever` requires that the user already exists, otherwise the API action is skipped and a warning will be returned.\n\nThe default value for this method is `CreateNever`.\n"
+                default: CreateNever
+                type: string
+                enum:
+                - CreateIfNeeded
+                - CreateNever
+      required: true
+  securitySchemes:
+    appIdQuery:
+      type: apiKey
+      in: query
+      name: appId
+      description: The application ID. To find yours, select your app in the navigation column, and click Edit Apps. Under Keys, click Show.
+    clientKeyQuery:
+      type: apiKey
+      in: query
+      name: clientKey
+      description: The client access key. Must be either your production, development, read-only, or data export key, depending on which API method you want to use.
+x-api-id: leanplum-api
+x-send-defaults: true
+x-explorer-enabled: false
+x-samples-enabled: false
+x-readme:
+  proxy-enabled: true

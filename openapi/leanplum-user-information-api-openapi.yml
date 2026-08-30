@@ -1,0 +1,797 @@
+openapi: 3.2.0
+info:
+  version: '1.0'
+  title: User Information API
+  description: An API to perform actions from a server or remote device.
+servers:
+- url: https://api.leanplum.com
+- url: http://api.leanplum.com
+security:
+- appIdQuery: []
+- clientKeyQuery: []
+tags:
+- name: User Information
+paths:
+  /api?action=setUserAttributes:
+    post:
+      tags:
+      - User Information
+      summary: setUserAttributes
+      description: 'Sets user attributes for the user given by userId and/or deviceId. If the user has an open session, the attributes for the current session will also be updated. Attributes will then propagate on data going forward. User properties not supplied in this method will not be affected. If the user/device does not exist, a new user will be created (see the `createDisposition` option below).
+
+
+        This method requires your production API `clientKey`.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: JSON request body.
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - userId
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Production key for your Leanplum App.
+                  default: YOUR_PROD_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                userId:
+                  description: 'The current user ID. You can set this to whatever your company uses for user IDs. Leave it blank to use the device ID. For more info, see [selecting a user](#selecting-a-user).
+
+                    '
+                  default: hfarnsworth
+                  type: string
+                deviceId:
+                  description: 'A unique ID for the device targeted by the request. You must provide a `deviceId` and/or a `userId`. See [selecting a user](#selecting-a-user).
+
+                    '
+                  type: string
+                createDisposition:
+                  description: "The policy that determines whether users are created by the API. Possible values:\n  * `CreateIfNeeded` creates a user with the given IDs if one does not already exist.\n  * `CreateNever` requires that the user already exists, otherwise the API action is skipped and a warning will be returned.\n\nThe default value for this method is `CreateIfNeeded`.\n"
+                  default: CreateIfNeeded
+                  enum:
+                  - CreateIfNeeded
+                  - CreateNever
+                  type: string
+                userAttributes:
+                  type: string
+                  format: object
+                  description: 'A map of user attributes as key-value pairs. Each key must be a string. Attributes are saved across sessions. Only supplied attributes will be updated (i.e., if you omit an existing attribute, it will be preserved). Example: `{"gender":"F","age":21}`.
+
+                    '
+                userAttributeValuesToAdd:
+                  type: string
+                  format: object
+                  description: 'A map of values to add to existing user attribute sets. For example, supply `{"Interests":"Sports"}` to add Sports to the existing set of Interests.
+
+                    '
+                userAttributeValuesToRemove:
+                  type: string
+                  format: object
+                  description: 'A map of values to remove from existing user attribute sets. For example, supply `{"Interests":"Sports"}` to remove Sports from the existing set of interests.
+
+                    '
+                userAttributeValuesToIncrement:
+                  type: string
+                  format: object
+                  description: 'A map of values to increment onto existing user attributes. The existing attribute value and the increment must both be integers or the operation will be skipped. If the existing attribute is not set, its value will be inferred as 0.
+
+
+                    For example, supply `{"unreadMessages":1}` to add 1 to the number of unread messages.
+
+                    '
+                unsubscribeCategoriesToAdd:
+                  type: array
+                  description: A list of email categories to unsubscribe a user from. See [Managing emails subscriptions via API](https://docs.leanplum.com/docs/manage-email-subscriptions#section-manage-subscriptions-with-the-leanplum-api) for more info.
+                  items:
+                    type: string
+                    description: The email subscription category ID.
+                unsubscribeCategoriesToRemove:
+                  type: array
+                  description: A list of email categories to re-subscribe a user to.
+                  items:
+                    type: string
+                    description: The email subscription category ID.
+                unsubscribeChannelsToAdd:
+                  type: string
+                  description: 'A messaging channel (e.g. `Email`, `Push Notification`, `Webhook`, `Newsfeed Message` App inbox) to unsubscribe the user from. Use this to unsubscribe a user from all marketing email categories.
+
+                    '
+                unsubscribeChannelsToRemove:
+                  type: string
+                  description: 'A messaging channel (e.g. `Email`, `Push Notification`, `Webhook`, `Newsfeed Message` App inbox) to re-subscribe the user to. Use this to re-subscribe a user to all marketing email categories (except any categories they have unsubscribed from).
+
+                    '
+                newUserId:
+                  type: string
+                  description: 'If supplied, updates the user of the current session with newUserId. This can have certain effects:
+
+                    * **Login**: If the current user has no user ID and the user given by newUserId already exists, the current and existing user profiles will be merged, and the current profile will be deleted.
+
+                    * **Register**: If there is no current user ID and the user given by newUserId does not exist, the current user will be simply assigned newUserId as its user ID.
+
+                    * **Switch user**: If the current user has a user ID, the current session will be ended and a new session will be started with the user given by newUserId. A user with newUserId will be created if one does not already exist.
+
+                    '
+                events:
+                  type: string
+                  format: object
+                  description: "A map of event data to update for the current user. The keys are the event names, each should have a nested object with at least one of the following attributes:\n\n  * **count**: New lifetime count of this event for the current user.\n  * **countIncrement**: Amount to increment the lifetime count of this event.\n  * **value**: New lifetime value of this event for the current user.\n  * **valueIncrement**: Amount to increment the lifetime value of this event.\n  * **firstTime**: Time that this event first occurred, in seconds since midnight UTC on January 1, 1970.\n  * **lastTime**: Time that this event last occurred, in seconds since midnight UTC on January 1, 1970.\n\nExample: Here's how to set the lifetime count for an event called \"myEvent\":\n\n`{ \"myEvent\": { count: 1 } }`\n"
+                states:
+                  type: string
+                  format: object
+                  description: "A map of state data to update for the current user. The keys are the state names, and each should have a nested object with at least one of the following attributes:\n\n  * **count**: New lifetime count of this state for the current user.\n  * **countIncrement**: Amount to increment the lifetime count of this state.\n  * **firstTime**: Time that this state first occurred, in seconds since midnight UTC on January 1, 1970.\n  * **lastTime**: Time that this state last occurred, in seconds since midnight UTC on January 1, 1970.\n\nExample: Here's how to set the lifetime count for a state called \"splashPage\":\n\n`{ \"splashPage\": { count: 23 } }`\n"
+                created:
+                  type: number
+                  format: float
+                  description: The time at which the user was created, in seconds since midnight UTC on January 1, 1970.
+                lastActive:
+                  type: number
+                  format: float
+                  description: The time at which the user was last active, in seconds since midnight UTC on January 1, 1970.
+                totalSessions:
+                  type: number
+                  format: integer
+                  description: The total number of sessions that a user has had in their lifetime.
+                timeSpentInApp:
+                  description: The total number of seconds spent in the app in the user's lifetime.
+                  type: number
+                  format: float
+                locale:
+                  description: 'The current locale the user is in. E.g. `en_US`.
+
+                    '
+                  type: string
+                country:
+                  description: 'The country the user is in, specified by [ISO 2-letter code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). E.g. `US` for United States. Set to `(detect)` to detect the country based on the IP address of the user.
+
+                    '
+                  type: string
+                region:
+                  description: 'The region (state) the user is in. E.g. `ca` for California. Set to `(detect)` to detect the region based on the IP address of the user.
+
+                    '
+                  type: string
+                city:
+                  description: 'The city the user is in. E.g. `San Francisco`. Set to `(detect)` to detect the city based on the IP address of the user.
+
+                    '
+                  type: string
+                location:
+                  description: 'The location (latitude/longitude) of the user. E.g. `37.775,-122.4183`. Set to `(detect)` to detect the location based on the IP address of the user.
+
+                    '
+                  type: string
+                locationAccuracyType:
+                  description: 'The type of location that is provided (IP, CELL, or GPS). Default: `IP`.
+
+                    '
+                  type: string
+                timezone:
+                  description: 'The timezone abbreviation for the user. See [list of timezone abbreviations](http://en.wikipedia.org/wiki/List_of_time_zone_abbreviations).
+
+                    '
+                  type: string
+                timezoneOffsetSeconds:
+                  description: The timezone offset from GMT in seconds.
+                  type: number
+                  format: integer
+                devices:
+                  type: array
+                  description: A list of device objects associated with this user.
+                  items:
+                    type: object
+                    properties:
+                      deviceId:
+                        description: The unique ID for the device.
+                        type: string
+                      appVersion:
+                        description: 'The version of the app used on this device. E.g. `2.0.1`.
+
+                          '
+                        type: string
+                      systemName:
+                        description: 'The name of the OS the current device is running. E.g. `iOS`.
+
+                          '
+                        type: string
+                      systemVersion:
+                        description: 'The version number of the OS the current device is running. E.g. `6.0`.
+
+                          '
+                        type: string
+                      browserName:
+                        description: 'The name of the browser the current device is running. E.g. `Chrome`.
+
+                          '
+                        type: string
+                      browserVersion:
+                        description: 'The version number of the browser the current device is running. E.g. `17.0`.
+
+                          '
+                        type: string
+                      deviceName:
+                        description: A human-readable name representing the device.
+                        type: string
+                      deviceModel:
+                        description: 'The model name of the device. E.g. `iPad`.
+
+                          '
+                        type: string
+                      iosPushToken:
+                        description: The token used for Apple iOS push notifications on this device.
+                        type: string
+                      gcmRegistrationId:
+                        description: The registration ID used for Google Cloud Messaging push notifications on this device.
+                        type: string
+                      webPushSubscription:
+                        description: The JSON-encoded subscription used for web push notifications on this device.
+                        type: string
+                devMode:
+                  type: boolean
+                  description: 'Whether the user is in Development Mode, i.e. the user associated with the request is a developer and not a user. This is important for reporting purposes. Default: `false`.
+
+                    '
+                  default: false
+        required: true
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+  /api?action=setDeviceAttributes:
+    post:
+      tags:
+      - User Information
+      summary: setDeviceAttributes
+      description: 'Sets device-level attributes, such as a deviceId or an iOS push token, for the current device. If the device is shared between multiple users, pass a `userId` with the `deviceId` to update the device for each user. (Passing just the `deviceId` will only update it once). If the device already exists, the attributes will be updated. If the device and user do not exist, a new user will be created along with this device (see the `createDisposition` option below). See [selecting a user](#selecting-a-user) for more.
+
+
+        See [Importing iOS push tokens](https://docs.leanplum.com/docs/importing-historical-push-tokens) for an example using setDeviceAttributes. This method requires your production API `clientKey`.
+
+
+        > At least one of the following must be set to create/update a device: `appVersion`, `systemName`, `systemVersion`, `browserName`, `browserVersion`, `deviceName`, `deviceModel`, `iosPushToken`, `gcmRegistrationId`, or `webPushSubscription`.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: JSON request body.
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - deviceId
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Production key for your Leanplum App.
+                  default: YOUR_PROD_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                deviceId:
+                  description: The unique ID for the device.
+                  type: string
+                userId:
+                  description: 'The current user ID. You can set this to whatever your company uses for user IDs. Leave it blank to use the device ID. For more info, see [selecting a user](#selecting-a-user).
+
+                    '
+                  default: hfarnsworth
+                  type: string
+                createDisposition:
+                  description: "The policy that determines whether users are created by the API. Possible values:\n  * `CreateIfNeeded` creates a user with the given IDs if one does not already exist.\n  * `CreateNever` requires that the user already exists, otherwise the API action is skipped and a warning will be returned.\n\nThe default value for this method is `CreateIfNeeded`.\n"
+                  default: CreateIfNeeded
+                  enum:
+                  - CreateIfNeeded
+                  - CreateNever
+                  type: string
+                devMode:
+                  type: boolean
+                  description: 'Whether the user is in Development Mode, i.e. the user associated with the request is a developer and not a user. This is important for reporting purposes. Default: `false`.
+
+                    '
+                  default: false
+                appVersion:
+                  description: 'The version of the app used on this device. E.g. `2.0.1`.
+
+                    '
+                  type: string
+                systemName:
+                  description: 'The name of the OS the current device is running. E.g. `iOS`.
+
+                    '
+                  type: string
+                systemVersion:
+                  description: 'The version number of the OS the current device is running. E.g. `6.0`.
+
+                    '
+                  type: string
+                browserName:
+                  description: 'The name of the browser the current device is running. E.g. `Chrome`.
+
+                    '
+                  type: string
+                browserVersion:
+                  description: 'The version number of the browser the current device is running. E.g. `17.0`.
+
+                    '
+                  type: string
+                deviceName:
+                  description: A human-readable name representing the device.
+                  type: string
+                deviceModel:
+                  description: 'The model name of the device. E.g. `iPad`.
+
+                    '
+                  type: string
+                iosPushToken:
+                  description: The token used for Apple iOS push notifications on this device.
+                  type: string
+                gcmRegistrationId:
+                  description: The registration ID used for Google Cloud Messaging push notifications on this device.
+                  type: string
+                webPushSubscription:
+                  description: The JSON-encoded subscription used for web push notifications on this device.
+                  type: string
+        required: true
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+  /api?action=setTrafficSourceInfo:
+    post:
+      tags:
+      - User Information
+      summary: setTrafficSourceInfo
+      description: 'Sets traffic source information for the current session of a user. If the user/device does not exist, a new user will be created (see the `createDisposition` option below). This method requires your production API `clientKey`.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - userId
+              - trafficSource
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Production key for your Leanplum App.
+                  default: YOUR_PROD_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                userId:
+                  description: 'The current user ID. You can set this to whatever your company uses for user IDs. Leave it blank to use the device ID. For more info, see [selecting a user](#selecting-a-user).
+
+                    '
+                  default: hfarnsworth
+                  type: string
+                deviceId:
+                  description: 'A unique ID for the device targeted by the request. You must provide a `deviceId` and/or a `userId`. See [selecting a user](#selecting-a-user).
+
+                    '
+                  type: string
+                createDisposition:
+                  description: "The policy that determines whether users are created by the API. Possible values:\n  * `CreateIfNeeded` creates a user with the given IDs if one does not already exist.\n  * `CreateNever` requires that the user already exists, otherwise the API action is skipped and a warning will be returned.\n\nThe default value for this method is `CreateIfNeeded`.\n"
+                  default: CreateIfNeeded
+                  enum:
+                  - CreateIfNeeded
+                  - CreateNever
+                  type: string
+                trafficSource:
+                  type: object
+                  description: An object of traffic source parameters.
+                  required:
+                  - publisherId
+                  - publisherName
+                  - publisherSubPublisher
+                  - publisherSubSite
+                  - publisherSubCampaign
+                  - publisherSubAdGroup
+                  - publisherSubAd
+                  properties:
+                    publisherId:
+                      type: string
+                      description: 'ID of the publisher used to refer the user. Example: `1001`.
+
+                        '
+                    publisherName:
+                      type: string
+                      description: 'Name of the publisher used to refer the user. Example: `Big Fish Games`.
+
+                        '
+                    publisherSubPublisher:
+                      type: string
+                      description: 'Name of the developer used to refer the user. Example: `GameDeveloper1`.
+
+                        '
+                    publisherSubSite:
+                      type: string
+                      description: 'Name of the app or website used to refer the user. Example: `MyLittleApp`.
+
+                        '
+                    publisherSubCampaign:
+                      type: string
+                      description: 'Name of the campaign used to refer the user. Example: `US CPI`.
+
+                        '
+                    publisherSubAdGroup:
+                      type: string
+                      description: 'Name of the ad group used to refer the user. Example: `banners`.
+
+                        '
+                    publisherSubAd:
+                      type: string
+                      description: 'Name of the ad used to refer the user. Example: `blue1`.
+
+                        '
+                time:
+                  description: The time at which the session started, in seconds since midnight UTC on January 1, 1970. This should be no more than 2 minutes after the session started. If not provided, uses the current time.
+                  type: number
+                  format: float
+                devMode:
+                  type: boolean
+                  description: 'Whether the user is in Development Mode, i.e. the user associated with the request is a developer and not a user. This is important for reporting purposes. Default: `false`.
+
+                    '
+                  default: false
+        description: JSON request body with traffic source information.
+        required: true
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+  /api?action=registerDevice:
+    post:
+      tags:
+      - User Information
+      summary: registerDevice
+      description: Registers the current device for development. This method requires your development API `clientKey`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: JSON request body.
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - deviceId
+              - email
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Development key for your Leanplum App.
+                  default: YOUR_DEV_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                deviceId:
+                  type: string
+                  description: A unique ID for the device to be registered by the request.
+                email:
+                  description: The email address corresponding to the Leanplum user account to which the device belongs.
+                  type: string
+        required: true
+      responses:
+        default:
+          description: Returns the status of the request and device registration.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].registered:
+                    type: boolean
+                    description: 'Whether the device was just registered. If the device has already been registered, this will be `false`.
+
+                      '
+      deprecated: false
+  /api?action=deleteUser:
+    post:
+      tags:
+      - User Information
+      summary: deleteUser
+      description: 'Permanently removes all of a user’s attribute information from our database. To erase a user’s data entirely — including attribute, analytics, and sessions data — set the `fullErasure` flag to true. You can bulk delete users with [multi](reference#post_api-action-multi) (import mode) or contact our support team for assistance. `deleteUser` calls are exempt from API billing.
+
+
+        This method requires your development API `clientKey`.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - userId
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Development key for your Leanplum App.
+                  default: YOUR_DEV_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                userId:
+                  description: The user ID to delete. Required unless using `deviceId`.
+                  type: string
+                deviceId:
+                  description: Required if no `userId`. The deviceId to delete. Only use this if there is no userId set. Note that `deviceId` will only delete data from devices where a user has never logged-in. If a logged-in user has been on the device, you must call the `deleteUser` API with the `userId`.
+                  type: string
+                fullErasure:
+                  description: Deletes all session and analytics data for the selected user. This may take up to 15 days to process fully. Defaults to false — should be set to `true` for GDPR-related deletion requests.
+                  type: boolean
+        description: JSON request body with variables and values.
+        required: true
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+  /api?action=block:
+    post:
+      tags:
+      - User Information
+      summary: block
+      description: 'Stops all data collection for a user going forward. `block` also erases any data previously associated with that user, including all of their attribute and analytics data. The block will take effect as soon as the “success” response is returned. It may take up to 15 days to delete the user’s data completely.
+
+
+        Note that the `block` call deletes a user''s past data, but does not delete the user entirely. This allows you to use the `unblock` call to resume data collection.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: JSON request body.
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - userId
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Production key for your Leanplum App.
+                  default: YOUR_PROD_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                userId:
+                  type: string
+                  description: The `userId` to block data collection for. **Required unless you use** `deviceId`. See below for details.
+                deviceId:
+                  type: string
+                  description: 'The `deviceId` to block data collection for. **Required if no** `userId`.
+
+                    A deviceId `block` will only block data from devices where a user has not logged-in on the device. If a user has logged-in on the device before, you must call the `block` API with the `userId`.'
+                devMode:
+                  type: boolean
+                  description: 'Whether the user is in Development Mode, i.e. the user associated with the request is a developer and not a user. This is important for reporting purposes. Default: `false`.
+
+                    '
+                  default: false
+        required: true
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+  /api?action=unblock:
+    post:
+      tags:
+      - User Information
+      summary: unblock
+      description: 'Resumes data collection for a specific user, and ends a previous `block` on data collection. This will **not** restore any of data that was deleted by the previous `block` call.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: JSON request body.
+              required:
+              - appId
+              - clientKey
+              - apiVersion
+              - userId
+              properties:
+                appId:
+                  description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+                  default: YOUR_APP_ID
+                  type: string
+                clientKey:
+                  description: The Development key for your Leanplum App.
+                  default: YOUR_DEV_KEY
+                  type: string
+                apiVersion:
+                  description: The version of the Leanplum API to use. The current version is 1.0.6.
+                  default: 1.0.6
+                  type: string
+                  enum:
+                  - 1.0.6
+                userId:
+                  type: string
+                  description: The `userId` to unblock data collection for. **Required unless you use** `deviceId`. See below for details.
+                deviceId:
+                  type: string
+                  description: 'The `deviceId` to unblock data collection for. **Required if no** `userId`.
+
+                    A deviceId `block` or `unblock` call will only work for devices where a user has not logged-in on the device. If a user has logged-in on the device before, you must use `userId` with the `block` or `unblock` API calls.'
+                devMode:
+                  type: boolean
+                  description: 'Whether the user is in Development Mode, i.e. the user associated with the request is a developer and not a user. This is important for reporting purposes. Default: `false`.
+
+                    '
+                  default: false
+        required: true
+      responses:
+        default:
+          description: The default response for most API actions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].warning.message:
+                    type: string
+                    description: The warning message for the API action, if any.
+                  response[].error.message:
+                    type: string
+                    description: The error message for the API action, if any.
+      deprecated: false
+components:
+  securitySchemes:
+    appIdQuery:
+      type: apiKey
+      in: query
+      name: appId
+      description: The application ID. To find yours, select your app in the navigation column, and click Edit Apps. Under Keys, click Show.
+    clientKeyQuery:
+      type: apiKey
+      in: query
+      name: clientKey
+      description: The client access key. Must be either your production, development, read-only, or data export key, depending on which API method you want to use.
+x-api-id: leanplum-api
+x-send-defaults: true
+x-explorer-enabled: false
+x-samples-enabled: false
+x-readme:
+  proxy-enabled: true
