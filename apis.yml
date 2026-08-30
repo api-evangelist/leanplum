@@ -413,6 +413,8 @@ apis:
   humanURL: https://docs.leanplum.com/reference/api-methods
   baseURL: https://api.leanplum.com/api
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
@@ -498,6 +500,11 @@ apis:
   - type: Postman
     url: https://www.getpostman.com/collections/378a83c1424d632661d0
 common:
+- type: ParentCompany
+  url: https://apis.io/providers/clevertap/
+  name: CleverTap
+  x-relationship: acquired
+  x-evidence: "Leanplum was acquired by CleverTap in 2022 and now operates as 'Leanplum by CleverTap'; the brand and its documented REST API remain active while customers are migrated onto the CleverTap platform (CleverTap has wrapped its own methods behi"
 - type: Authentication
   url: authentication/leanplum-authentication.yml
 - type: AgenticAccess
