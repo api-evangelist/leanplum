@@ -33,6 +33,7 @@ accessModel:
   confidence: medium
   source:
   - plans
+  - {url: 'https://www.leanplum.com', status: 301, note: 'declared website redirects to https://clevertap.com:443/ — a different registrable domain (leanplum.com -> clevertap.com), possible rename or acquisition (probed 2026-09-03, roadmap#169)'}
   generated: '2026-07-22'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/leanplum.png
