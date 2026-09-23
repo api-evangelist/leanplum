@@ -127,6 +127,8 @@ paths:
                         type: boolean
                         description: Whether this message's target is sticky (magnet button).
       deprecated: false
+      operationId: getApi?action=getMessage
+      x-operation-id-source: derived
   /api?action=getMessages:
     get:
       tags:
@@ -247,6 +249,8 @@ paths:
                         type: boolean
                         description: Whether this message's target is sticky (magnet button).
       deprecated: false
+      operationId: getApi?action=getMessages
+      x-operation-id-source: derived
   /api?action=getUnsubscribeCategories:
     get:
       tags:
@@ -310,6 +314,8 @@ paths:
                         type: string
                         description: The description of the email category.
       deprecated: false
+      operationId: getApi?action=getUnsubscribeCategories
+      x-operation-id-source: derived
   /api?action=sendMessage:
     post:
       tags:
@@ -321,9 +327,7 @@ paths:
         Messages are queued, so they will be sent after the request completes.
 
 
-        This method requires your production API `clientKey`.
-
-        '
+        This method requires your production API `clientKey`.'
       requestBody:
         content:
           application/json:
@@ -412,6 +416,8 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=sendMessage
+      x-operation-id-source: derived
   /api?action=addAndroidNotificationChannel:
     post:
       tags:
@@ -420,9 +426,7 @@ paths:
       description: 'Creates new notification channels and updates existing ones. Updateable parameters include channel name, description, and default. This method requires your development API `clientKey`.
 
 
-        > Leanplum will not interfere with any channel defined directly in your app code or by other mobile marketing providers. For instance, if your app has both a “Promotions” channel and a “Transactional” channel, but your marketer should only have access to Promotions, then you should only send that channel to Leanplum.
-
-        '
+        > Leanplum will not interfere with any channel defined directly in your app code or by other mobile marketing providers. For instance, if your app has both a “Promotions” channel and a “Transactional” channel, but your marketer should only have access to Promotions, then you should only send that channel to Leanplum.'
       requestBody:
         content:
           application/json:
@@ -534,6 +538,8 @@ paths:
                     type: integer
                     description: The importance of all notifications in this channel.
       deprecated: false
+      operationId: postApi?action=addAndroidNotificationChannel
+      x-operation-id-source: derived
   /api?action=getAndroidNotificationChannels:
     get:
       tags:
@@ -542,9 +548,7 @@ paths:
       description: 'Gets all Android notification channels defined in Leanplum and their associated settings. No additional arguments are required. This method requires your production API `clientKey`.
 
 
-        This method requires your production API `clientKey`.
-
-        '
+        This method requires your production API `clientKey`.'
       parameters:
       - name: appId
         in: query
@@ -602,6 +606,8 @@ paths:
                           description: The channel id.
                           default: abcde
       deprecated: false
+      operationId: getApi?action=getAndroidNotificationChannels
+      x-operation-id-source: derived
   /api?action=deleteAndroidNotificationChannel:
     post:
       tags:
@@ -610,9 +616,7 @@ paths:
       description: 'Permanently removes an Android notification channel from Leanplum. This method requires your development API `clientKey`.
 
 
-        **Note** — You cannot delete the channel that is defined as default (unless it is the only channel). To delete the default channel, mark another channel as default first.
-
-        '
+        **Note** — You cannot delete the channel that is defined as default (unless it is the only channel). To delete the default channel, mark another channel as default first.'
       requestBody:
         content:
           application/json:
@@ -662,6 +666,8 @@ paths:
                     description: The channel id. (Same as `id` parameter in addAndroidNotificationChannel method.)
                     default: '12345'
       deprecated: false
+      operationId: postApi?action=deleteAndroidNotificationChannel
+      x-operation-id-source: derived
 components:
   securitySchemes:
     appIdQuery:

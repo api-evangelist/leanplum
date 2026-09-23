@@ -17,7 +17,7 @@ paths:
       tags:
       - Import Data
       summary: multi (CSV)
-      description: 'Imports a (potentially large) CSV file with API actions to be executed. The file will be imported asynchronously as a job. Use `getMultiResults` to get the job status. This method requires your development API `clientKey`. See [CSV uploads](/v1/docs/import-user-data-with-a-csv-file-upload) for more on using `multi` to upload user attributes, events, and device attributes.
+      description: 'Imports a (potentially large) CSV file with API actions to be executed. The file will be imported asynchronously as a job. Use `getMultiResults` to get the job status. This method requires your development API `clientKey`. See CSV uploads for more on using `multi` to upload user attributes, events, and device attributes.
 
 
         The file should contain a header row with the API argument names that are found in the API documentation, such as `userId`, `deviceId`, and `action` (if `defaultAction` is not specified). To indicate nested JSON arguments, use a dot within the column name, such as `userAttributes.Gender`.
@@ -34,9 +34,7 @@ paths:
         ```
 
 
-        > The file is broken into separate API requests that contain batches of 50 actions. Each unique user lookup in a batch is a billable API call. See [billing and costs](./reference#billing) for more.
-
-        '
+        > The file is broken into separate API requests that contain batches of 50 actions. Each unique user lookup in a batch is a billable API call. See billing and costs for more.'
       requestBody:
         content:
           application/json:
@@ -99,6 +97,8 @@ paths:
                     type: string
                     description: The ID of the import job. Pass this `jobId` into [getMultiResults](#get_api-action-getmultiresults) to fetch the job status and results.
       deprecated: false
+      operationId: postApi?action=multi
+      x-operation-id-source: derived
   /api?action=getMultiResults:
     get:
       tags:
@@ -109,9 +109,7 @@ paths:
 
         Example:
 
-        `http://api.leanplum.com/api?action=getMultiResults&appId=APP_ID&clientKey=DEVELOPMENT_KEY&jobId=JOB_ID`
-
-        '
+        `http://api.leanplum.com/api?action=getMultiResults&appId=APP_ID&clientKey=DEVELOPMENT_KEY&jobId=JOB_ID`'
       parameters:
       - name: appId
         in: query
@@ -185,6 +183,8 @@ paths:
                           type: string
                           default: fileURL
       deprecated: false
+      operationId: getApi?action=getMultiResults
+      x-operation-id-source: derived
 components:
   securitySchemes:
     appIdQuery:

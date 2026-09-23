@@ -17,7 +17,13 @@ paths:
       tags:
       - Export Data
       summary: addPostback
-      description: "Adds a postback rule to be triggered by certain Leanplum message or A/B test events. The maximum number of postbacks allowed is three per app. This method requires your data export API `clientKey`. \n\nSee `type` and `channels` below for all possible events that can trigger postbacks. To see what values can be returned by the resulting POST request, see `postbackUrl` with an example template below. \n\n> **Postback retry policy:** If your app is unresponsive, Leanplum's request will timeout in 30 seconds. If the error code is 5xx, we will retry up to 9 more times with exponential backoff, starting from 1 hour, up to 10 hours. If all 10 times fail, the data is lost.\n"
+      description: 'Adds a postback rule to be triggered by certain Leanplum message or A/B test events. The maximum number of postbacks allowed is three per app. This method requires your data export API `clientKey`.
+
+
+        See `type` and `channels` below for all possible events that can trigger postbacks. To see what values can be returned by the resulting POST request, see `postbackUrl` with an example template below.
+
+
+        > **Postback retry policy:** If your app is unresponsive, Leanplum''s request will timeout in 30 seconds. If the error code is 5xx, we will retry up to 9 more times with exponential backoff, starting from 1 hour, up to 10 hours. If all 10 times fail, the data is lost.'
       requestBody:
         content:
           application/json:
@@ -74,6 +80,8 @@ paths:
                     type: integer
                     description: The ID of the newly created postback.
       deprecated: false
+      operationId: postApi?action=addPostback
+      x-operation-id-source: derived
   /api?action=listPostbacks:
     get:
       tags:
@@ -136,6 +144,8 @@ paths:
                         type: string
                         description: The URL template of the postback.
       deprecated: false
+      operationId: getApi?action=listPostbacks
+      x-operation-id-source: derived
   /api?action=deletePostback:
     post:
       tags:
@@ -191,12 +201,23 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=deletePostback
+      x-operation-id-source: derived
   /api?action=exportData:
     get:
       tags:
       - Export Data
       summary: exportData
-      description: "Exports raw data to downloadable files. Data is split into roughly 256 MB files, and is not necessarily ordered. Exports can be made in JSON or CSV format. For JSON format, each file contains 1 line per session, with each session JSON-encoded. For CSV format, data is split into separate files for sessions, states, events, event parameters, and user attributes. \n\n> Note that for daily exports, you may see some variation in sessions data results. This is because sessions data can come in up to 8 days after a user's last interaction with your app. \n\nExport files are automatically deleted 24 hours after export occurs. Data becomes available to export every 2 hours, and only for complete sessions. You cannot export data that has become available more than 60 days ago. You may only export data 24 times per day. Exports with invalid arguments do not count towards this limit.\n\nUse [getExportResults](#get_api-action-getexportresults) with the returned `jobId` to get the results.\n"
+      description: 'Exports raw data to downloadable files. Data is split into roughly 256 MB files, and is not necessarily ordered. Exports can be made in JSON or CSV format. For JSON format, each file contains 1 line per session, with each session JSON-encoded. For CSV format, data is split into separate files for sessions, states, events, event parameters, and user attributes.
+
+
+        > Note that for daily exports, you may see some variation in sessions data results. This is because sessions data can come in up to 8 days after a user''s last interaction with your app.
+
+
+        Export files are automatically deleted 24 hours after export occurs. Data becomes available to export every 2 hours, and only for complete sessions. You cannot export data that has become available more than 60 days ago. You may only export data 24 times per day. Exports with invalid arguments do not count towards this limit.
+
+
+        Use getExportResults with the returned `jobId` to get the results.'
       parameters:
       - name: appId
         in: query
@@ -322,6 +343,8 @@ paths:
 
                       '
       deprecated: false
+      operationId: getApi?action=exportData
+      x-operation-id-source: derived
   /api?action=exportReport:
     get:
       tags:
@@ -333,9 +356,7 @@ paths:
         This method requires your data export API `clientKey`.
 
 
-        Use [getExportResults](#get_api-action-getexportresults) with the returned `jobId` to get the results.
-
-        '
+        Use getExportResults with the returned `jobId` to get the results.'
       parameters:
       - name: appId
         in: query
@@ -442,6 +463,8 @@ paths:
 
                       '
       deprecated: false
+      operationId: getApi?action=exportReport
+      x-operation-id-source: derived
   /api?action=exportUser:
     get:
       tags:
@@ -673,6 +696,8 @@ paths:
                         description: The JSON-encoded subscription used for web push notifications on this device.
                         type: string
       deprecated: false
+      operationId: getApi?action=exportUser
+      x-operation-id-source: derived
   /api?action=exportUsers:
     get:
       tags:
@@ -681,9 +706,7 @@ paths:
       description: 'Exports multiple user IDs. The export may be executed up to 40 times successfully per day, and this limit resets at 12:00 am PST each calendar day. This method requires your data export API `clientKey`.
 
 
-        Use [getExportResults](#get_api-action-getexportresults) with the returned `jobId` to get the results.
-
-        '
+        Use getExportResults with the returned `jobId` to get the results.'
       parameters:
       - name: appId
         in: query
@@ -748,14 +771,14 @@ paths:
 
                       '
       deprecated: false
+      operationId: getApi?action=exportUsers
+      x-operation-id-source: derived
   /api?action=getExportResults:
     get:
       tags:
       - Export Data
       summary: getExportResults
-      description: 'Retrieves the result of an export job generated by: `exportData`, `exportReport`, and `exportUsers`. This method requires your data export API `clientKey`.
-
-        '
+      description: 'Retrieves the result of an export job generated by: `exportData`, `exportReport`, and `exportUsers`. This method requires your data export API `clientKey`.'
       parameters:
       - name: appId
         in: query
@@ -813,6 +836,8 @@ paths:
                     - FINISHED
                     default: FINISHED
       deprecated: false
+      operationId: getApi?action=getExportResults
+      x-operation-id-source: derived
 components:
   securitySchemes:
     appIdQuery:

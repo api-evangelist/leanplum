@@ -1,139 +1,374 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Leanplum A/B Tests API
-  version: 1.0.6
-  description: 'The Leanplum (Leanplum by CleverTap) REST API. All requests are made to https://api.leanplum.com/api and are dispatched by an `action` parameter that names the method to run (for example action=track or action=sendMessage). Every request carries `appId`, a permission-scoped `clientKey`, and `apiVersion`; most requests also carry a `userId` and/or `deviceId`. Requests may be sent as GET (arguments as query parameters) or POST (arguments in a JSON or multipart body). Multiple actions can be batched with the `multi` method.
-
-
-    Operating status note: Leanplum was acquired by CleverTap in 2022 and now operates as "Leanplum by CleverTap." The documented API surface below remains active during customer migration to CleverTap; CleverTap has wrapped its own methods behind these Leanplum API methods to ease that transition. Endpoint method names are grounded in the public Leanplum API reference; request/response schemas are modeled and should be verified against the live docs.'
-  contact:
-    name: API Evangelist
-    email: kin@apievangelist.com
-  license:
-    name: Proprietary
-    url: https://www.leanplum.com
-  x-provenance:
-    origin: api-evangelist-modeled
-    note: >-
-      Method names are grounded in Leanplum's public API reference, but the
-      request/response schemas in this document were MODELED by API Evangelist, not
-      published by Leanplum. Leanplum's own OpenAPI 3.0.0 document (x-api-id
-      "leanplum-api", 42 operations) was harvested on 2026-08-13 and is saved
-      verbatim at openapi/leanplum-api-openapi.json — prefer it. This file is
-      retained for its per-tag split only and must not be credited as
-      provider-published.
-    harvested_original: openapi/leanplum-api-openapi.json
-    stamped: '2026-08-13'
+  version: '1.0'
+  title: A/B Tests API
+  description: An API to perform actions from a server or remote device.
 servers:
 - url: https://api.leanplum.com
-  description: Leanplum production API
+- url: http://api.leanplum.com
+security:
+- appIdQuery: []
+- clientKeyQuery: []
 tags:
 - name: A/B Tests
 paths:
-  /api?action=getAbTests:
-    get:
-      tags:
-      - A/B Tests
-      operationId: getAbTests
-      summary: List A/B tests
-      description: Returns the A/B test experiments in the app. Requires the content read-only clientKey.
-      parameters:
-      - $ref: '#/components/parameters/appId'
-      - $ref: '#/components/parameters/clientKey'
-      - $ref: '#/components/parameters/apiVersion'
-      responses:
-        '200':
-          description: List of A/B tests.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
   /api?action=getAbTest:
     get:
       tags:
       - A/B Tests
-      operationId: getAbTest
-      summary: Get a single A/B test
+      summary: getAbTest
+      description: Gets information about an A/B test. This method requires your content read-only API `clientKey`.
       parameters:
-      - $ref: '#/components/parameters/appId'
-      - $ref: '#/components/parameters/clientKey'
-      - $ref: '#/components/parameters/apiVersion'
-      - name: id
+      - name: appId
         in: query
         required: true
+        description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
         schema:
           type: string
-        description: A/B test id.
+          default: YOUR_APP_ID
+      - name: clientKey
+        in: query
+        required: true
+        description: The Content Read-only key for your Leanplum App.
+        schema:
+          type: string
+          default: YOUR_CONTENT_KEY
+      - name: apiVersion
+        in: query
+        required: true
+        description: The version of the Leanplum API to use. The current version is 1.0.6.
+        schema:
+          type: string
+          enum:
+          - 1.0.6
+          default: 1.0.6
+      - name: id
+        in: query
+        description: The numeric A/B test ID.
+        required: true
+        schema:
+          type: number
+          format: integer
+      - name: includeDrafts
+        in: query
+        description: 'Include drafts and unpublished changes. Default: `false`.
+
+          '
+        required: false
+        schema:
+          type: boolean
       responses:
-        '200':
-          description: A/B test details.
+        default:
+          description: A successful response will return details about an A/B test.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items: {}
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].abTest:
+                    type: object
+                    description: An A/B test object.
+                    properties:
+                      id:
+                        type: integer
+                        description: The A/B test ID.
+                      name:
+                        type: string
+                        description: The name of the A/B test.
+                      active:
+                        type: boolean
+                        description: Whether the A/B test is running in production.
+                      created:
+                        type: number
+                        format: float
+                        description: Unix timestamp of when the A/B test was created.
+                      updated:
+                        type: number
+                        format: float
+                        description: Unix timestamp of when the A/B test was last updated.
+                      finished:
+                        type: number
+                        format: float
+                        description: Unix timestamp of when the A/B test was finished (optional).
+                      chosenVariant:
+                        type: number
+                        format: float
+                        description: The id number of the variant you selected as the winner of the A/B test (optional).
+                      targetingSticky:
+                        type: boolean
+                        description: Whether the targeting for the test was sticky (magnet button on).
+                      state:
+                        type: string
+                        description: The current status of the A/B test, e.g. active, inactive, finished.
+                      variants:
+                        type: array
+                        description: A list of variant objects for the A/B test.
+                        items: {}
+                      variants[].id:
+                        type: integer
+                        description: The ID of the variant.
+                      variants[].name:
+                        type: string
+                        description: The name of the variant.
+                      variants[].percent:
+                        type: number
+                        format: float
+                        description: The percentage of new users to allocate to this variant.
+                      variants[].variables:
+                        type: array
+                        description: A list of any variables in the test.
+                        items: {}
+                      variants[].variables[].name:
+                        type: string
+                        description: The name of the variable being tested.
+                      variants[].variables[].value:
+                        type: string
+                        description: The variable value assigned to this variant.
+                  response[].abTest.details:
+                    type: object
+                    description: Contains info about the users who created/last updated the test.
+                  response[].abTest.details.publishedBy:
+                    type: string
+                    description: The username or email address of the Leanplum user who published the test.
+                  response[].abTest.details.createdBy:
+                    type: string
+                    description: The username or email address of the Leanplum user who created the test.
+      deprecated: false
+      operationId: getApi?action=getAbTest
+      x-operation-id-source: derived
+  /api?action=getAbTests:
+    get:
+      tags:
+      - A/B Tests
+      summary: getAbTests
+      description: Gets information about A/B tests. This method requires your content read-only API `clientKey`.
+      parameters:
+      - name: appId
+        in: query
+        required: true
+        description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+        schema:
+          type: string
+          default: YOUR_APP_ID
+      - name: clientKey
+        in: query
+        required: true
+        description: The Content Read-only key for your Leanplum App.
+        schema:
+          type: string
+          default: YOUR_CONTENT_KEY
+      - name: apiVersion
+        in: query
+        required: true
+        description: The version of the Leanplum API to use. The current version is 1.0.6.
+        schema:
+          type: string
+          enum:
+          - 1.0.6
+          default: 1.0.6
+      - name: includeDrafts
+        in: query
+        required: false
+        description: 'Include drafts and unpublished changes. Default: `false`.
+
+          '
+        schema:
+          type: boolean
+      - name: recent
+        in: query
+        required: false
+        description: 'Only return information about active or recently finished A/B tests. Default: `true`.
+
+          '
+        schema:
+          type: boolean
+      responses:
+        default:
+          description: A successful response will return a list of A/B tests.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items: {}
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].abTests:
+                    type: array
+                    description: A list of A/B test objects.
+                    items: {}
+                  response[].abTests[]:
+                    type: object
+                    description: An A/B test object.
+                    properties:
+                      id:
+                        type: integer
+                        description: The A/B test ID.
+                      name:
+                        type: string
+                        description: The name of the A/B test.
+                      active:
+                        type: boolean
+                        description: Whether the A/B test is running in production.
+                      created:
+                        type: number
+                        format: float
+                        description: Unix timestamp of when the A/B test was created.
+                      updated:
+                        type: number
+                        format: float
+                        description: Unix timestamp of when the A/B test was last updated.
+                      finished:
+                        type: number
+                        format: float
+                        description: Unix timestamp of when the A/B test was finished (optional).
+                      chosenVariant:
+                        type: number
+                        format: float
+                        description: The id number of the variant you selected as the winner of the A/B test (optional).
+                      targetingSticky:
+                        type: boolean
+                        description: Whether the targeting for the test was sticky (magnet button on).
+                      state:
+                        type: string
+                        description: The current status of the A/B test, e.g. active, inactive, finished.
+                      variants:
+                        type: array
+                        description: A list of variant objects for the A/B test.
+                        items: {}
+                      variants[].id:
+                        type: integer
+                        description: The ID of the variant.
+                      variants[].name:
+                        type: string
+                        description: The name of the variant.
+                      variants[].percent:
+                        type: number
+                        format: float
+                        description: The percentage of new users to allocate to this variant.
+                      variants[].variables:
+                        type: array
+                        description: A list of any variables in the test.
+                        items: {}
+                      variants[].variables[].name:
+                        type: string
+                        description: The name of the variable being tested.
+                      variants[].variables[].value:
+                        type: string
+                        description: The variable value assigned to this variant.
+      deprecated: false
+      operationId: getApi?action=getAbTests
+      x-operation-id-source: derived
   /api?action=getVariant:
     get:
       tags:
       - A/B Tests
-      operationId: getVariant
-      summary: Get the variant assigned to a user
+      summary: getVariant
+      description: Gets information about an A/B test variant. This method requires your content read-only API `clientKey`.
       parameters:
-      - $ref: '#/components/parameters/appId'
-      - $ref: '#/components/parameters/clientKey'
-      - $ref: '#/components/parameters/apiVersion'
-      - $ref: '#/components/parameters/userId'
+      - name: appId
+        in: query
+        required: true
+        description: The application ID. To find yours, select your app in the navigation column, and click Manage Apps. Then click Keys & Settings.
+        schema:
+          type: string
+          default: YOUR_APP_ID
+      - name: clientKey
+        in: query
+        required: true
+        description: The Content Read-only key for your Leanplum App.
+        schema:
+          type: string
+          default: YOUR_CONTENT_KEY
+      - name: apiVersion
+        in: query
+        required: true
+        description: The version of the Leanplum API to use. The current version is 1.0.6.
+        schema:
+          type: string
+          enum:
+          - 1.0.6
+          default: 1.0.6
+      - name: id
+        in: query
+        description: The numeric variant ID.
+        required: true
+        schema:
+          type: number
+          format: integer
+      - name: includeDrafts
+        in: query
+        description: 'Include drafts and unpublished changes. Default: `false`.
+
+          '
+        required: false
+        schema:
+          type: boolean
       responses:
-        '200':
-          description: Variant assignment.
+        default:
+          description: A successful response will return details about a variant.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
-components:
-  schemas:
-    ApiResponse:
-      type: object
-      description: Standard Leanplum response envelope with one response object per action.
-      properties:
-        response:
-          type: array
-          items:
-            type: object
-            properties:
-              success:
-                type: boolean
-              error:
                 type: object
                 properties:
-                  message:
-                    type: string
-            additionalProperties: true
-  parameters:
-    clientKey:
-      name: clientKey
+                  response:
+                    type: array
+                    items: {}
+                  response[].success:
+                    description: Whether the request was *received*. Verify that the response has neither `warning` or `error` objects to confirm the action was taken. See [here](#responses) for more.
+                    type: boolean
+                  response[].variant:
+                    type: object
+                    description: A variant object.
+                    properties:
+                      id:
+                        type: integer
+                        description: The ID of the variant.
+                      name:
+                        type: string
+                        description: The name of the variant.
+                      percent:
+                        type: number
+                        format: float
+                        description: The percentage of new users to allocate.
+                      variables:
+                        type: array
+                        description: A list of any variables in the test.
+                        items: {}
+                      variables[].name:
+                        type: string
+                        description: The name of the variable in the test.
+                      variables[].value:
+                        type: string
+                        description: The variable value assigned to this variant.
+      deprecated: false
+      operationId: getApi?action=getVariant
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    appIdQuery:
+      type: apiKey
       in: query
-      required: true
-      schema:
-        type: string
-      description: The permission-scoped API key for the operation - production, development, data export, or content read-only. Send in the request body for POST requests to keep it secure.
-    apiVersion:
-      name: apiVersion
-      in: query
-      required: true
-      schema:
-        type: string
-        default: 1.0.6
-      description: API version, for example 1.0.6.
-    appId:
       name: appId
+      description: The application ID. To find yours, select your app in the navigation column, and click Edit Apps. Under Keys, click Show.
+    clientKeyQuery:
+      type: apiKey
       in: query
-      required: true
-      schema:
-        type: string
-      description: Your Leanplum application id.
-    userId:
-      name: userId
-      in: query
-      schema:
-        type: string
-      description: Identifier of the user the request applies to.
+      name: clientKey
+      description: The client access key. Must be either your production, development, read-only, or data export key, depending on which API method you want to use.
+x-api-id: leanplum-api
+x-send-defaults: true
+x-explorer-enabled: false
+x-samples-enabled: false
+x-readme:
+  proxy-enabled: true

@@ -1,26 +1,44 @@
 {
   "provider": "leanplum",
   "sources": [
-    "leanplum-a-b-tests-api-openapi.yml",
-    "leanplum-content-variables-api-openapi.yml",
-    "leanplum-data-export-api-openapi.yml",
-    "leanplum-events-tracking-api-openapi.yml",
-    "leanplum-messaging-api-openapi.yml",
-    "leanplum-postbacks-batch-api-openapi.yml",
-    "leanplum-user-device-attributes-api-openapi.yml"
+    "_original/leanplum-api-openapi.json"
   ],
   "outputs": [
     "leanplum-a-b-tests-api-openapi.yml",
-    "leanplum-content-variables-api-openapi.yml",
-    "leanplum-data-export-api-openapi.yml",
-    "leanplum-events-tracking-api-openapi.yml",
-    "leanplum-messaging-api-openapi.yml",
-    "leanplum-postbacks-batch-api-openapi.yml",
-    "leanplum-user-device-attributes-api-openapi.yml"
+    "leanplum-campaigns-api-openapi.yml",
+    "leanplum-export-data-api-openapi.yml",
+    "leanplum-files-and-variables-api-openapi.yml",
+    "leanplum-import-data-api-openapi.yml",
+    "leanplum-messages-api-openapi.yml",
+    "leanplum-user-behavior-api-openapi.yml",
+    "leanplum-user-information-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "leanplum-api-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "leanplum-api-openapi.json: declared missing tag: A/B Tests",
+    "leanplum-api-openapi.json: declared missing tag: Campaigns",
+    "leanplum-api-openapi.json: declared missing tag: Export Data",
+    "leanplum-api-openapi.json: declared missing tag: Files and Variables",
+    "leanplum-api-openapi.json: declared missing tag: Import Data",
+    "leanplum-api-openapi.json: declared missing tag: Messages",
+    "leanplum-api-openapi.json: declared missing tag: User Behavior",
+    "leanplum-api-openapi.json: declared missing tag: User Information",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/leanplum-openapi.yml: archived document superseded by a larger archived document",
+    "leanplum-a-b-tests-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "leanplum-campaigns-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "leanplum-export-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "leanplum-files-and-variables-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "leanplum-import-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "leanplum-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "leanplum-user-behavior-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "leanplum-user-information-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

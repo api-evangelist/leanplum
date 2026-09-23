@@ -20,9 +20,7 @@ paths:
       description: 'Gets the variable values for the current user or device. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below). To see default variable values, use the `includeDefaults` parameter.
 
 
-        This method requires your production API `clientKey`.
-
-        '
+        This method requires your production API `clientKey`.'
       parameters:
       - name: appId
         in: query
@@ -120,6 +118,8 @@ paths:
                     type: number
                     description: ID of the variant.
       deprecated: false
+      operationId: getApi?action=getVars
+      x-operation-id-source: derived
   /api?action=setVars:
     post:
       tags:
@@ -183,6 +183,8 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=setVars
+      x-operation-id-source: derived
   /api?action=deleteVars:
     post:
       tags:
@@ -239,6 +241,8 @@ paths:
                     items:
                       type: string
       deprecated: false
+      operationId: postApi?action=deleteVars
+      x-operation-id-source: derived
   /api?action=downloadFile:
     get:
       tags:
@@ -279,6 +283,8 @@ paths:
         default:
           description: A successful request will redirect to the file and begin a download.
       deprecated: false
+      operationId: getApi?action=downloadFile
+      x-operation-id-source: derived
   /api?action=uploadFile:
     post:
       tags:
@@ -366,6 +372,8 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=uploadFile
+      x-operation-id-source: derived
 components:
   securitySchemes:
     appIdQuery:

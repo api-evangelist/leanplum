@@ -20,9 +20,7 @@ paths:
       description: 'Sets user attributes for the user given by userId and/or deviceId. If the user has an open session, the attributes for the current session will also be updated. Attributes will then propagate on data going forward. User properties not supplied in this method will not be affected. If the user/device does not exist, a new user will be created (see the `createDisposition` option below).
 
 
-        This method requires your production API `clientKey`.
-
-        '
+        This method requires your production API `clientKey`.'
       requestBody:
         content:
           application/json:
@@ -266,20 +264,20 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=setUserAttributes
+      x-operation-id-source: derived
   /api?action=setDeviceAttributes:
     post:
       tags:
       - User Information
       summary: setDeviceAttributes
-      description: 'Sets device-level attributes, such as a deviceId or an iOS push token, for the current device. If the device is shared between multiple users, pass a `userId` with the `deviceId` to update the device for each user. (Passing just the `deviceId` will only update it once). If the device already exists, the attributes will be updated. If the device and user do not exist, a new user will be created along with this device (see the `createDisposition` option below). See [selecting a user](#selecting-a-user) for more.
+      description: 'Sets device-level attributes, such as a deviceId or an iOS push token, for the current device. If the device is shared between multiple users, pass a `userId` with the `deviceId` to update the device for each user. (Passing just the `deviceId` will only update it once). If the device already exists, the attributes will be updated. If the device and user do not exist, a new user will be created along with this device (see the `createDisposition` option below). See selecting a user for more.
 
 
-        See [Importing iOS push tokens](https://docs.leanplum.com/docs/importing-historical-push-tokens) for an example using setDeviceAttributes. This method requires your production API `clientKey`.
+        See Importing iOS push tokens for an example using setDeviceAttributes. This method requires your production API `clientKey`.
 
 
-        > At least one of the following must be set to create/update a device: `appVersion`, `systemName`, `systemVersion`, `browserName`, `browserVersion`, `deviceName`, `deviceModel`, `iosPushToken`, `gcmRegistrationId`, or `webPushSubscription`.
-
-        '
+        > At least one of the following must be set to create/update a device: `appVersion`, `systemName`, `systemVersion`, `browserName`, `browserVersion`, `deviceName`, `deviceModel`, `iosPushToken`, `gcmRegistrationId`, or `webPushSubscription`.'
       requestBody:
         content:
           application/json:
@@ -389,14 +387,14 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=setDeviceAttributes
+      x-operation-id-source: derived
   /api?action=setTrafficSourceInfo:
     post:
       tags:
       - User Information
       summary: setTrafficSourceInfo
-      description: 'Sets traffic source information for the current session of a user. If the user/device does not exist, a new user will be created (see the `createDisposition` option below). This method requires your production API `clientKey`.
-
-        '
+      description: Sets traffic source information for the current session of a user. If the user/device does not exist, a new user will be created (see the `createDisposition` option below). This method requires your production API `clientKey`.
       requestBody:
         content:
           application/json:
@@ -518,6 +516,8 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=setTrafficSourceInfo
+      x-operation-id-source: derived
   /api?action=registerDevice:
     post:
       tags:
@@ -575,17 +575,17 @@ paths:
 
                       '
       deprecated: false
+      operationId: postApi?action=registerDevice
+      x-operation-id-source: derived
   /api?action=deleteUser:
     post:
       tags:
       - User Information
       summary: deleteUser
-      description: 'Permanently removes all of a user’s attribute information from our database. To erase a user’s data entirely — including attribute, analytics, and sessions data — set the `fullErasure` flag to true. You can bulk delete users with [multi](reference#post_api-action-multi) (import mode) or contact our support team for assistance. `deleteUser` calls are exempt from API billing.
+      description: 'Permanently removes all of a user’s attribute information from our database. To erase a user’s data entirely — including attribute, analytics, and sessions data — set the `fullErasure` flag to true. You can bulk delete users with multi (import mode) or contact our support team for assistance. `deleteUser` calls are exempt from API billing.
 
 
-        This method requires your development API `clientKey`.
-
-        '
+        This method requires your development API `clientKey`.'
       requestBody:
         content:
           application/json:
@@ -640,6 +640,8 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=deleteUser
+      x-operation-id-source: derived
   /api?action=block:
     post:
       tags:
@@ -648,9 +650,7 @@ paths:
       description: 'Stops all data collection for a user going forward. `block` also erases any data previously associated with that user, including all of their attribute and analytics data. The block will take effect as soon as the “success” response is returned. It may take up to 15 days to delete the user’s data completely.
 
 
-        Note that the `block` call deletes a user''s past data, but does not delete the user entirely. This allows you to use the `unblock` call to resume data collection.
-
-        '
+        Note that the `block` call deletes a user''s past data, but does not delete the user entirely. This allows you to use the `unblock` call to resume data collection.'
       requestBody:
         content:
           application/json:
@@ -710,14 +710,14 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=block
+      x-operation-id-source: derived
   /api?action=unblock:
     post:
       tags:
       - User Information
       summary: unblock
-      description: 'Resumes data collection for a specific user, and ends a previous `block` on data collection. This will **not** restore any of data that was deleted by the previous `block` call.
-
-        '
+      description: Resumes data collection for a specific user, and ends a previous `block` on data collection. This will **not** restore any of data that was deleted by the previous `block` call.
       requestBody:
         content:
           application/json:
@@ -777,6 +777,8 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=unblock
+      x-operation-id-source: derived
 components:
   securitySchemes:
     appIdQuery:

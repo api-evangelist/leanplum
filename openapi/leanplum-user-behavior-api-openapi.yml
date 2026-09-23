@@ -20,9 +20,7 @@ paths:
       description: 'Advances a user to the next state. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below). The state is the section of the app the user is currently in. States are like events with duration.
 
 
-        This method requires your production API `clientKey`.
-
-        '
+        This method requires your production API `clientKey`.'
       requestBody:
         content:
           application/json:
@@ -105,6 +103,8 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=advance
+      x-operation-id-source: derived
   /api?action=pauseState:
     post:
       tags:
@@ -113,9 +113,7 @@ paths:
       description: 'Pauses the current state, but not the session, for a user. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).
 
 
-        This method requires your production API `clientKey`.
-
-        '
+        This method requires your production API `clientKey`.'
       requestBody:
         $ref: '#/components/requestBodies/Body'
       responses:
@@ -136,6 +134,8 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=pauseState
+      x-operation-id-source: derived
   /api?action=resumeState:
     post:
       tags:
@@ -144,9 +144,7 @@ paths:
       description: 'Resumes the current state for a user. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).
 
 
-        This method requires your production API `clientKey`.
-
-        '
+        This method requires your production API `clientKey`.'
       requestBody:
         $ref: '#/components/requestBodies/Body'
       responses:
@@ -167,6 +165,8 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=resumeState
+      x-operation-id-source: derived
   /api?action=pauseSession:
     post:
       tags:
@@ -175,9 +175,7 @@ paths:
       description: 'Pauses the current session and state for a user. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).
 
 
-        This method requires your production API `clientKey`.
-
-        '
+        This method requires your production API `clientKey`.'
       requestBody:
         $ref: '#/components/requestBodies/Body'
       responses:
@@ -198,6 +196,8 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=pauseSession
+      x-operation-id-source: derived
   /api?action=resumeSession:
     post:
       tags:
@@ -206,9 +206,7 @@ paths:
       description: 'Resumes the current session and state for a user. Use either after `pauseSession`, or `start` if the app started in the background. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).
 
 
-        This method requires your production API `clientKey`.
-
-        '
+        This method requires your production API `clientKey`.'
       requestBody:
         $ref: '#/components/requestBodies/Body'
       responses:
@@ -229,6 +227,8 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=resumeSession
+      x-operation-id-source: derived
   /api?action=heartbeat:
     post:
       tags:
@@ -237,9 +237,7 @@ paths:
       description: 'Sends a pulse to indicate that the current session is still in progress, so as not to automatically end it. Sessions are automatically timed out after 2 hours of inactivity — or 30 minutes if the session was paused first. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below).
 
 
-        This method requires your production API `clientKey`.
-
-        '
+        This method requires your production API `clientKey`.'
       requestBody:
         $ref: '#/components/requestBodies/Body'
       responses:
@@ -260,14 +258,14 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=heartbeat
+      x-operation-id-source: derived
   /api?action=start:
     post:
       tags:
       - User Behavior
       summary: start
-      description: 'Starts a new session and returns the variables that have changed for the user. If the user/device does not exist, a new user will be created (see the `createDisposition` option below). This method requires your production API `clientKey`.
-
-        '
+      description: Starts a new session and returns the variables that have changed for the user. If the user/device does not exist, a new user will be created (see the `createDisposition` option below). This method requires your production API `clientKey`.
       requestBody:
         content:
           application/json:
@@ -463,14 +461,14 @@ paths:
                   response[].token:
                     type: string
       deprecated: false
+      operationId: postApi?action=start
+      x-operation-id-source: derived
   /api?action=stop:
     post:
       tags:
       - User Behavior
       summary: stop
-      description: 'Ends the current session. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below). This method requires your production API `clientKey`.
-
-        '
+      description: Ends the current session. If the user/device does not exist, the API request is skipped and a warning will be returned. You can modify this behavior with the `createDisposition` option (see below). This method requires your production API `clientKey`.
       requestBody:
         $ref: '#/components/requestBodies/Body'
       responses:
@@ -491,14 +489,14 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=stop
+      x-operation-id-source: derived
   /api?action=track:
     post:
       tags:
       - User Behavior
       summary: track
-      description: 'Tracks one occurrence of an event for a user. If the user/device does not exist, a new user will be created (see the `createDisposition` option below). This method requires your production API `clientKey`. See [tracking events via API](https://docs.leanplum.com/reference/api-guides#tracking-analytics-data-via-api) for examples.
-
-        '
+      description: Tracks one occurrence of an event for a user. If the user/device does not exist, a new user will be created (see the `createDisposition` option below). This method requires your production API `clientKey`. See tracking events via API for examples.
       requestBody:
         content:
           application/json:
@@ -604,6 +602,8 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=track
+      x-operation-id-source: derived
 components:
   requestBodies:
     Body:

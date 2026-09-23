@@ -20,9 +20,7 @@ paths:
       description: 'Activates a campaign for one device or user. You must provide a `deviceId` and/or a `userId`. If `deviceId` is provided, the campaign top-level actions will be sent to the corresponding device only; if only `userId` is provided, the campaign top-level actions will be sent to all devices of the user with specified `userId`. If the user/device does not exist, sending the actions will be skipped. You can modify this behavior with the `createDisposition` option (see below).
 
 
-        This method requires your development API `clientKey`.
-
-        '
+        This method requires your development API `clientKey`.'
       requestBody:
         content:
           application/json:
@@ -105,6 +103,8 @@ paths:
                     type: string
                     description: The error message for the API action, if any.
       deprecated: false
+      operationId: postApi?action=startCampaign
+      x-operation-id-source: derived
 components:
   securitySchemes:
     appIdQuery:
