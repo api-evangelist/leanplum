@@ -37,6 +37,9 @@ accessModel:
   generated: '2026-07-22'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/leanplum.png
+x-docs-platform: readme
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-10-03
 tags:
 - Mobile Marketing
 - Customer Engagement
@@ -296,6 +299,9 @@ apis:
   - type: Postman
     url: https://www.getpostman.com/collections/378a83c1424d632661d0
 common:
+- type: CapabilityMap
+  url: capabilities/leanplum-capability-edges.yml
+  name: Leanplum Business Capability Map
 - type: ParentCompany
   url: https://apis.io/providers/clevertap/
   name: CleverTap
