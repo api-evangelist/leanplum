@@ -1,4 +1,4 @@
-# Leanplum (leanplum)
+# Leanplum
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,91 +64,159 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Leanplum is a mobile marketing and multichannel customer engagement platform offering push notifications, in-app and email messaging, behavioral event tracking and analytics, A/B testing, and remotely configurable content variables. Leanplum was acquired by **CleverTap in 2022** and now operates as "Leanplum by CleverTap"; the brand and its documented REST API remain active while customers are migrated onto the CleverTap platform (CleverTap has wrapped its own methods behind the Leanplum API surface to smooth that transition). All API requests are made to `https://api.leanplum.com/api` and are dispatched by an `action` parameter, authenticated with an `appId` plus a permission-scoped `clientKey` (production, development, data export, or content read-only) and an `apiVersion`.
+Leanplum is a mobile marketing and multichannel customer engagement platform offering push notifications, in-app and email messaging, behavioral event tracking and analytics, A/B testing, and remotely configurable content variables. Leanplum was acquired by CleverTap in 2022 and now operates as "Leanplum by CleverTap"; the brand and its documented REST API remain active while customers are migrated onto the CleverTap platform (CleverTap has wrapped its own methods behind the Leanplum API surface to smooth that transition). All API requests are made to https://api.leanplum.com/api and authenticated with an appId plus an operation-specific clientKey (production, development, data export, or content read-only).
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/leanplum/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/leanplum/refs/heads/main/apis.yml)
+**Areas:** Mobile Marketing · Customer Engagement · Push Notifications · Messaging · A/B Testing · Analytics · CleverTap
 
-## Tags
+## Leanplum on APIs.io
 
-- Mobile Marketing
-- Customer Engagement
-- Push Notifications
-- Messaging
-- A/B Testing
-- Analytics
-- CleverTap
+Everything profiled for Leanplum is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/leanplum/](https://apis.io/providers/leanplum/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (8)
 
-- **Created:** 2026-07-03
-- **Modified:** 2026-07-03
+- [Leanplum A/B Tests API](https://apis.io/apis/leanplum/leanplum-a-b-tests-api/) — The A/B Tests API from Leanplum — 3 operation(s) for a/b tests.
+- [Leanplum Campaigns API](https://apis.io/apis/leanplum/leanplum-campaigns-api/) — The Campaigns API from Leanplum — 1 operation(s) for campaigns.
+- [Leanplum Export Data API](https://apis.io/apis/leanplum/leanplum-export-data-api/) — The Export Data API from Leanplum — 8 operation(s) for export data.
+- [Leanplum Files and Variables API](https://apis.io/apis/leanplum/leanplum-files-and-variables-api/) — The Files and Variables API from Leanplum — 5 operation(s) for files and variables.
+- [Leanplum Import Data API](https://apis.io/apis/leanplum/leanplum-import-data-api/) — The Import Data API from Leanplum — 2 operation(s) for import data.
+- [Leanplum Messages API](https://apis.io/apis/leanplum/leanplum-messages-api/) — The Messages API from Leanplum — 7 operation(s) for messages.
+- [Leanplum User Behavior API](https://apis.io/apis/leanplum/leanplum-user-behavior-api/) — The User Behavior API from Leanplum — 9 operation(s) for user behavior.
+- [Leanplum User Information API](https://apis.io/apis/leanplum/leanplum-user-information-api/) — The User Information API from Leanplum — 7 operation(s) for user information.
 
-## APIs
+### Published properties
 
-### Leanplum Events & Tracking API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Server-side behavioral tracking. Start and manage user sessions (`start`, `pauseSession`, `resumeSession`, `heartbeat`, `stop`) and record events and application states with `track` and `advance`. Requires the production clientKey.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://docs.leanplum.com/reference/tracking-analytics-data-via-api](https://docs.leanplum.com/reference/tracking-analytics-data-via-api)
-- **Base URL:** `https://api.leanplum.com/api`
+Event-driven and webhook contracts.
 
-### Leanplum User & Device Attributes API
+- [Leanplum Postbacks Webhooks](https://apis.io/asyncapis/leanplum/leanplum-postbacks-webhooks/)
 
-Set and manage the user and device profile attributes that drive segmentation and audience targeting - `setUserAttributes`, `setDeviceAttributes`, `setTrafficSourceInfo` - and remove users with `deleteUser`.
+#### MCP servers (1)
 
-- **Human URL:** [https://docs.leanplum.com/reference/post_api-action-setuserattributes](https://docs.leanplum.com/reference/post_api-action-setuserattributes)
-- **Base URL:** `https://api.leanplum.com/api`
+Model Context Protocol servers that expose the API to agents.
 
-### Leanplum Messaging API
+- [leanplum-mcp.yml](https://apis.io/servers/leanplum/leanplum-mcp-yml/)
 
-Trigger and inspect outbound messages. `sendMessage` delivers a push notification, news-feed, in-app, or other message to a user; `getMessages` and `getMessage` retrieve message campaign definitions and metadata.
+#### Agentic access (1)
 
-- **Human URL:** [https://docs.leanplum.com/reference/post_api-action-sendmessage](https://docs.leanplum.com/reference/post_api-action-sendmessage)
-- **Base URL:** `https://api.leanplum.com/api`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Leanplum A/B Tests API
+- [Leanplum Agentic Access](https://apis.io/agentic-access/leanplum/leanplum-agentic-access/)
 
-Read A/B test experiments and their variants - `getAbTests`, `getAbTest`, and `getVariant`. Uses the content read-only clientKey.
+#### Collections (9)
 
-- **Human URL:** [https://docs.leanplum.com/reference/api-methods](https://docs.leanplum.com/reference/api-methods)
-- **Base URL:** `https://api.leanplum.com/api`
+Postman and Open Collection request collections.
 
-### Leanplum Content & Variables API
+- [Leanplum API](https://apis.io/collections/leanplum/open-leanplum/)
+- [Leanplum A/B Tests API](https://apis.io/collections/leanplum/open-leanplum-a-b-tests-api/)
+- [API](https://apis.io/collections/leanplum/open-leanplum-api/)
+- [Leanplum A/B Tests Content & Variables API](https://apis.io/collections/leanplum/open-leanplum-content-variables-api/)
+- [Leanplum A/B Tests Data Export API](https://apis.io/collections/leanplum/open-leanplum-data-export-api/)
+- [Leanplum A/B Tests Events & Tracking API](https://apis.io/collections/leanplum/open-leanplum-events-tracking-api/)
+- [Leanplum A/B Tests Messaging API](https://apis.io/collections/leanplum/open-leanplum-messaging-api/)
+- [Leanplum A/B Tests Postbacks & Batch API](https://apis.io/collections/leanplum/open-leanplum-postbacks-batch-api/)
+- [Leanplum A/B Tests User & Device Attributes API](https://apis.io/collections/leanplum/open-leanplum-user-device-attributes-api/)
 
-Manage remotely configurable content. `getVars` returns the variables presented to a user or device, `setVars` defines the variable set in the content management system, and `downloadFile` retrieves a managed file asset.
+#### Overlays (1)
 
-- **Human URL:** [https://docs.leanplum.com/reference/get_api-action-getvars](https://docs.leanplum.com/reference/get_api-action-getvars)
-- **Base URL:** `https://api.leanplum.com/api`
+OpenAPI overlays, including conversational phrasing for each operation.
 
-### Leanplum Data Export API
+- [Leanplum Api Overlay](https://apis.io/overlays/leanplum/leanplum-api-overlay/)
 
-Bulk export of raw analytics and reporting data - `exportData`, `exportUsers`, `exportUser`, `exportReport` - plus `getMultiResults` to check the status of an asynchronous job. Requires the data export clientKey.
+#### Security (3)
 
-- **Human URL:** [https://docs.leanplum.com/reference/get_api-action-exportdata](https://docs.leanplum.com/reference/get_api-action-exportdata)
-- **Base URL:** `https://api.leanplum.com/api`
+Authentication, trust centre, and vulnerability disclosure.
 
-### Leanplum Postbacks & Batch API
+- [Leanplum Authentication](https://apis.io/security/leanplum/leanplum-authentication/)
+- [Leanplum Domain Security](https://apis.io/security/leanplum/leanplum-domain-security/)
+- [Leanplum Trust Center](https://apis.io/security/leanplum/leanplum-trust-center/)
 
-Operational plumbing - `addPostback` registers an HTTP postback (webhook) callback, and `multi` batches up to 50 users and/or 500 actions into a single request (over-limit batches return 403).
+#### Plans and pricing (1)
 
-- **Human URL:** [https://docs.leanplum.com/reference/batching-requests](https://docs.leanplum.com/reference/batching-requests)
-- **Base URL:** `https://api.leanplum.com/api`
+Published plans, tiers and prices.
 
-## Common Properties
+- [Leanplum Plans Pricing](https://apis.io/plans/leanplum/leanplum-plans-pricing/)
 
-- [GitHub Organization](https://github.com/Leanplum)
-- [LinkedIn](https://www.linkedin.com/company/leanplum)
+#### Rate limits (1)
+
+Published request limits.
+
+- [Leanplum Rate Limits](https://apis.io/rate-limits/leanplum/leanplum-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Leanplum Finops](https://apis.io/finops/leanplum/leanplum-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.leanplum.com)
 - [Documentation](https://docs.leanplum.com)
-- [Plans](plans/leanplum-plans-pricing.yml)
-- [Rate Limits](rate-limits/leanplum-rate-limits.yml)
-- [Fin Ops](finops/leanplum-finops.yml)
+- [Getting started](https://docs.leanplum.com/reference/api-introduction)
+- [API reference](https://docs.leanplum.com/reference/api-methods)
+- [Pricing](https://clevertap.com/pricing/)
+- [Support](https://docs.leanplum.com/docs/leanplum-help-center)
+- [Blog](https://clevertap.com/blog/)
+- [Terms of service](https://clevertap.com/terms-service/)
+- [Privacy policy](https://clevertap.com/privacy-policy/)
+- [GitHub](https://github.com/Leanplum)
 
-## Operating Status
+## API Evangelist rating
 
-**Active (legacy / migrating).** Leanplum was acquired by CleverTap in 2022 and operates as "Leanplum by CleverTap." Documentation and the REST API at `api.leanplum.com` remain live and SDKs are still being updated, but CleverTap is migrating Leanplum customers onto the CleverTap platform via a manual, Customer Success-driven process, and the public `status.leanplum.com` page is inactive. New customers are generally directed to CleverTap; existing Leanplum integrations continue to function.
+**Kin Score 59.0** — strong · rubric 0.25.0 · scored 2026-10-23
 
-## Maintainers
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 48.5 |
+| Contract governance | 18.2 |
+| Operational transparency | 57.9 |
+| Developer ergonomics | 61.3 |
+| Access clarity | 75.0 |
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Agent readiness 31.9** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 29.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/leanplum/](https://apis.io/providers/leanplum/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Leanplum: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/leanplum/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
